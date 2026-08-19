@@ -1,0 +1,57 @@
+{
+  "model": "models/Qwen3.5-9B",
+  "load_seconds": 311.3,
+  "text_only": true,
+  "vram": {
+    "total_gb": 48.0,
+    "free_gb": 30.99,
+    "used_gb": 17.01,
+    "torch_allocated_gb": 16.68
+  },
+  "tokens_per_s": 13.6,
+  "profile": {
+    "name": "A_conservative",
+    "temperature": 0.68,
+    "top_p": 0.8,
+    "top_k": 20,
+    "presence_penalty": 1.5,
+    "repetition_penalty": 1.0
+  },
+  "checks": [
+    {
+      "name": "1. model loads text-only",
+      "ok": true,
+      "detail": "vram_used=17.01GB"
+    },
+    {
+      "name": "2. non-thinking (no <think>)",
+      "ok": true,
+      "detail": "0/4 contained think markers"
+    },
+    {
+      "name": "3. strict JSON conversations",
+      "ok": false,
+      "detail": "1/4 parsed with non-empty messages"
+    },
+    {
+      "name": "4a. strict role alternation",
+      "ok": true,
+      "detail": "1/1"
+    },
+    {
+      "name": "4b. no metadata/AI leakage",
+      "ok": true,
+      "detail": "1/1"
+    },
+    {
+      "name": "5. throughput measured",
+      "ok": true,
+      "detail": "13.6 tok/s"
+    },
+    {
+      "name": "6. critic returns structured JSON",
+      "ok": true,
+      "detail": "{\"scores\": {\"natural\": 4, \"register\": 4, \"coherence\": 4, \"reference_correct\": 4, \"state_correct\": 5, \"emotion_fit\": 4, \""
+    }
+  ]
+}

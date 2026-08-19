@@ -1,0 +1,34 @@
+# Stage 2: assistant-response SFT (smalltalk-26m); loss on assistant tokens only
+run_name: sft-26m
+stage: sft
+model_config: configs/model/smalltalk-26m.yaml
+tokenizer: artifacts/tokenizer-6144
+train_data: data/processed/train.jsonl
+val_data: data/processed/val.jsonl
+output_dir: artifacts/runs
+init_from: artifacts/runs/stage1-26m/best
+
+seq_len: 1024
+batch_size: 24
+grad_accum_steps: 1
+max_steps: 4000
+
+learning_rate: 2.0e-4
+min_lr_ratio: 0.1
+warmup_ratio: 0.05
+lr_schedule: cosine
+weight_decay: 0.1
+grad_clip: 1.0
+
+mask_non_assistant: true
+
+eval_every: 200
+eval_batches: 20
+save_every: 1000
+log_every: 25
+keep_last: 2
+
+device: auto
+dtype: auto
+seed: 1337
+wandb: false

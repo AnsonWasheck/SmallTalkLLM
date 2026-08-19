@@ -1,0 +1,4 @@
+smalltalk-ai is an open research project. The code is released under the MIT
+License. Third-party datasets, pretrained checkpoints, generated corpora, and
+model weights may have separate licenses and are not implicitly covered by the
+code license. See DATA_CARD.md and MODEL_CARD.md before redistributing them.

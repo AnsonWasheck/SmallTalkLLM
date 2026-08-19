@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+title: "smalltalk-ai"
+message: "If this repository helps your work, please cite the repository and the specific release tag."
+type: software
+authors:
+  - name: "smalltalk-ai contributors"
+date-released: 2026-08-19
+version: 0.1.0
+repository-code: "https://github.com/YOUR-ORG/smalltalk-ai"
+license: MIT

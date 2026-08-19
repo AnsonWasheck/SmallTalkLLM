@@ -1,0 +1,15 @@
+# smalltalk-26m
+name: smalltalk-26m
+vocab_size: 6144
+hidden_size: 512
+num_attention_heads: 8
+num_key_value_heads: 2
+head_dim: 64
+intermediate_size: 1408
+num_layers: 8
+max_position_embeddings: 1024
+rms_norm_eps: 1.0e-5
+rope_theta: 10000.0
+tie_word_embeddings: true
+expected_params: 25698816
+param_tolerance: 0.01

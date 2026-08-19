@@ -1,0 +1,24 @@
+name: Research experiment
+description: Propose a controlled experiment or report a result.
+title: "[experiment] "
+labels: [research]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Research question
+    validations:
+      required: true
+  - type: textarea
+    id: controls
+    attributes:
+      label: Controls and frozen assumptions
+      description: Include architecture, tokenizer, data manifest, seed, and evaluation version.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Result or proposed measurement
+    validations:
+      required: true

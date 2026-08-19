@@ -1,0 +1,52 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+# Local environments and caches
+.venv/
+.venv-*/
+venv/
+env/
+wandb/
+.cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Training outputs and downloaded checkpoints
+artifacts/
+models/
+checkpoints/
+*.safetensors
+*.safetensors.index.json
+*.pt
+*.pth
+*.bin
+*.gguf
+*.onnx
+
+# Local/private data. Keep only small, redistributable examples in data/seed.
+data/raw/
+data/processed/
+data/generated/
+data/qwen_teacher_v1/
+!data/seed/
+!data/seed/**
+
+# Local reports and generated evaluation transcripts
+reports/evals/
+reports/*.jsonl
+reports/*.csv
+
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
