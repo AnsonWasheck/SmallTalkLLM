@@ -13,8 +13,8 @@ This repository is **research alpha**. The architecture, tokenizer, benchmark, t
 ## Quick start
 
 ```bash
-git clone https://github.com/YOUR-ORG/smalltalk-ai.git
-cd smalltalk-ai
+git clone https://github.com/AnsonWasheck/SmallTalkLLM.git
+cd SmallTalkLLM
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[dev]'

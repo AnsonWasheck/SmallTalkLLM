@@ -2,20 +2,20 @@
 
 ## One-time setup
 
-Create an empty GitHub repository named `smalltalk-ai` without adding a README,
+Create an empty GitHub repository named `SmallTalkLLM` without adding a README,
 license, or gitignore (they already exist locally), then set the remote:
 
 ```bash
-git remote add origin https://github.com/YOUR-ORG/smalltalk-ai.git
+git remote add origin https://github.com/AnsonWasheck/SmallTalkLLM.git
 git push -u origin main
 git push -u origin develop
 git push origin v0.1.0
 ```
 
-Replace `YOUR-ORG` with the actual user or organization. If you prefer SSH:
+If you prefer SSH:
 
 ```bash
-git remote set-url origin git@github.com:YOUR-ORG/smalltalk-ai.git
+git remote set-url origin git@github.com:AnsonWasheck/SmallTalkLLM.git
 ```
 
 ## GitHub settings to enable
