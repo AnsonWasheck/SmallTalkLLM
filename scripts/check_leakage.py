@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check a corpus file for overlap with the frozen SmallTalkBench-HARD benchmark.
+"""Check a corpus file for overlap with every frozen SmallTalkBench benchmark.
 
 python scripts/check_leakage.py data/processed/train.jsonl
 """

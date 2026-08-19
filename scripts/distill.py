@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage 3: teacher distillation via rejection sampling / best-of-N selection.
+"""Stage 3: rejection-selected SFT via teacher best-of-N selection.
 
 Three sub-commands:
 
@@ -13,6 +13,10 @@ Three sub-commands:
                   --out artifacts/judge/candidates.jsonl
 
 Then train:  python scripts/sft.py --config configs/train/distill_4m.yaml
+
+This is deliberately not called logit distillation: it optimizes a chosen target
+string. Online CE+KL transfer from a same-tokenizer teacher lives in
+``scripts/distill_student.py``.
 No teacher is required at inference time -- the deployed artifact is the micro model.
 """
 

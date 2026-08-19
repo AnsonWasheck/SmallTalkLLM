@@ -11,6 +11,7 @@ from smalltalk.data.schema import write_jsonl
 from smalltalk.data.synthetic import OfflineConfig, generate_offline_corpus
 from smalltalk.model import build_model
 from smalltalk.train.utils import build_optimizer, lr_at_step, resolve_device
+from smalltalk.train.distillation import causal_ce_and_kl
 
 
 def test_tiny_overfit_drives_loss_down(tiny_cfg):
@@ -60,6 +61,24 @@ def test_zero_mask_is_safe(tiny_cfg):
     x = torch.randint(0, tiny_cfg.vocab_size, (1, 8))
     _, loss = m(x, labels=x, loss_mask=torch.zeros(1, 8, dtype=torch.long))
     assert torch.isfinite(loss) and float(loss) == 0.0
+
+
+def test_token_level_distillation_masks_and_backpropagates(tiny_cfg):
+    torch.manual_seed(0)
+    student = build_model(tiny_cfg)
+    teacher = build_model(tiny_cfg).eval()
+    x = torch.randint(0, tiny_cfg.vocab_size, (2, 12))
+    mask = torch.zeros_like(x)
+    mask[:, 6:] = 1
+    student_logits, _ = student(x)
+    with torch.no_grad():
+        teacher_logits, _ = teacher(x)
+    loss, metrics = causal_ce_and_kl(student_logits, teacher_logits, x, mask,
+                                     alpha=0.5, temperature=2.0)
+    loss.backward()
+    assert torch.isfinite(loss)
+    assert metrics["tokens"] == int(mask[:, 1:].sum())
+    assert student.embed_tokens.weight.grad is not None
 
 
 def test_lr_schedule_shape():

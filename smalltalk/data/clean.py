@@ -420,25 +420,30 @@ def split_by_family(
     Conversations lacking a family tag fall back to their `source`, so real
     corpora (DailyDialog etc.) are split as one family each.
     """
-    rng = random.Random(seed)
     by_family: dict[str, list] = {}
     for c in conversations:
         fam = str(c.meta.get(family_key) or c.source or "unknown")
         by_family.setdefault(fam, []).append(c)
 
-    families = sorted(by_family)
-    rng.shuffle(families)
-    n = len(families)
-    n_val = max(1, int(round(n * val_families))) if n > 2 else 0
-    n_test = max(1, int(round(n * test_families))) if n > 3 else 0
-    val_f = set(families[:n_val])
-    test_f = set(families[n_val:n_val + n_test])
+    # Stable hash partitioning is append-safe: adding a new family never moves
+    # an old one between train/validation/test.  This is critical for experiment
+    # comparability as generated corpora grow.
+    if not 0 <= val_families < 1 or not 0 <= test_families < 1 or val_families + test_families >= 1:
+        raise ValueError("family split ratios must be non-negative and sum to < 1")
+    val_f, test_f = set(), set()
+    for fam in by_family:
+        bucket = int(_hash(f"{seed}:{fam}")[:16], 16) / float(16**16)
+        if bucket < test_families:
+            test_f.add(fam)
+        elif bucket < test_families + val_families:
+            val_f.add(fam)
 
     train, val, test = [], [], []
     for fam, items in by_family.items():
         (val if fam in val_f else test if fam in test_f else train).extend(items)
+    # Stable ordering prevents a new append from perturbing an existing split.
     for part in (train, val, test):
-        rng.shuffle(part)
+        part.sort(key=lambda c: _hash(f"{seed}:{c.id}"))
     return train, val, test
 
 

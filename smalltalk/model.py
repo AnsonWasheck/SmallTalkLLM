@@ -87,10 +87,18 @@ class LayerCache:
 
 
 class KVCache:
-    """Simple growing KV cache. `length` is the number of cached positions."""
+    """Growing KV cache with physical and absolute-position bookkeeping.
+
+    ``length`` is the number of *physical* keys retained.  ``next_position`` is
+    the absolute RoPE position for the next token.  Those deliberately diverge
+    after :meth:`trim`: dropping old keys must never cause RoPE positions to be
+    reused for newly generated tokens.
+    """
 
     def __init__(self, num_layers: int):
         self.layers: list[LayerCache | None] = [None] * num_layers
+        self.next_position = 0
+        self.cache_start_position = 0
 
     @property
     def length(self) -> int:
@@ -118,11 +126,22 @@ class KVCache:
         lc = self.layers[idx]
         return lc.key, lc.value
 
+    def advance(self, tokens: int) -> None:
+        """Advance the shared absolute position once per model forward call."""
+        if tokens < 0:
+            raise ValueError("tokens must be non-negative")
+        self.next_position += tokens
+
     def trim(self, max_len: int) -> None:
         """Drop oldest positions so the cache never exceeds `max_len`."""
+        if max_len < 0:
+            raise ValueError("max_len must be non-negative")
         for i, lc in enumerate(self.layers):
             if lc is not None and lc.key.shape[2] > max_len:
                 self.layers[i] = LayerCache(lc.key[:, :, -max_len:], lc.value[:, :, -max_len:])
+        # All layers are advanced together.  This is diagnostic metadata rather
+        # than an attention offset: retained keys already carry their RoPE phase.
+        self.cache_start_position = self.next_position - self.length
 
 
 class Attention(nn.Module):
@@ -145,6 +164,7 @@ class Attention(nn.Module):
         cache: KVCache | None = None,
         layer_idx: int = 0,
         attention_mask: torch.Tensor | None = None,
+        position_offset: int | None = None,
     ) -> torch.Tensor:
         b, t, _ = x.shape
         # Per-layer offset: deeper layers must not see layer 0's just-written chunk.
@@ -154,7 +174,14 @@ class Attention(nn.Module):
         k = self.k_proj(x).view(b, t, self.n_kv, self.head_dim).transpose(1, 2)
         v = self.v_proj(x).view(b, t, self.n_kv, self.head_dim).transpose(1, 2)
 
-        cos, sin = self.rope(t, offset, x.device, q.dtype)
+        # ``offset`` is a physical key count for the causal mask.  RoPE needs an
+        # absolute position, which remains monotonic when a sliding cache trims.
+        rope_offset = (
+            position_offset
+            if position_offset is not None
+            else (cache.next_position if cache is not None else offset)
+        )
+        cos, sin = self.rope(t, rope_offset, x.device, q.dtype)
         q, k = apply_rope(q, k, cos, sin)
 
         if cache is not None:
@@ -203,9 +230,9 @@ class Block(nn.Module):
         self.post_attention_layernorm = RMSNorm(cfg.hidden_size, cfg.rms_norm_eps)
         self.mlp = SwiGLU(cfg)
 
-    def forward(self, x, cache=None, attention_mask=None):
+    def forward(self, x, cache=None, attention_mask=None, position_offset=None):
         x = x + self.self_attn(
-            self.input_layernorm(x), cache, self.layer_idx, attention_mask
+            self.input_layernorm(x), cache, self.layer_idx, attention_mask, position_offset
         )
         return x + self.mlp(self.post_attention_layernorm(x))
 
@@ -248,6 +275,7 @@ class SmallTalkModel(nn.Module):
         labels: torch.Tensor | None = None,
         cache: KVCache | None = None,
         loss_mask: torch.Tensor | None = None,
+        segment_ids: torch.Tensor | None = None,
         reduction: str = "mean",
     ):
         """Returns (logits, loss). `loss_mask` (B,T) selects which label positions count.
@@ -256,9 +284,26 @@ class SmallTalkModel(nn.Module):
         pass `labels == input_ids` for plain causal LM. `loss_mask` aligns with
         `labels` (i.e. mask[t] == 1 means "predicting token t counts").
         """
+        if segment_ids is not None and cache is not None:
+            raise ValueError("segment_ids block masks are only supported without a KV cache")
+        attention_mask = None
+        if segment_ids is not None:
+            if segment_ids.shape != input_ids.shape:
+                raise ValueError("segment_ids must have shape (batch, sequence)")
+            # Correctness-first packed-document isolation: a token can only see
+            # earlier tokens from its own source conversation.  This is a full
+            # mask, so callers should use it for packed CLM training only.
+            t = input_ids.shape[1]
+            causal = torch.ones((t, t), dtype=torch.bool, device=input_ids.device).tril()
+            same_doc = segment_ids[:, :, None] == segment_ids[:, None, :]
+            attention_mask = (same_doc & causal[None, :, :])[:, None, :, :]
+
+        position_offset = cache.next_position if cache is not None else None
         x = self.embed_tokens(input_ids)
         for layer in self.layers:
-            x = layer(x, cache=cache)
+            x = layer(x, cache=cache, attention_mask=attention_mask, position_offset=position_offset)
+        if cache is not None:
+            cache.advance(input_ids.shape[1])
         x = self.norm(x)
         weight = self.embed_tokens.weight if self.lm_head is None else self.lm_head.weight
         logits = F.linear(x, weight)
