@@ -1,0 +1,2430 @@
+{
+  "tag": "core-r002",
+  "checkpoint": "/home/ans/MicroLLM/smalltalk-ai/artifacts/runs/core-r002/best",
+  "checksum": "33a35a049b672226",
+  "overall": 0.6286549707602339,
+  "per_intent": {
+    "greeting": 0.5416666666666666,
+    "greeting_how_are_you": 0.8333333333333334,
+    "how_are_you": 0.9583333333333334,
+    "thanks": 0.8095238095238095,
+    "goodbye": 0.7619047619047619,
+    "apology": 0.7333333333333333,
+    "good_news": 0.47619047619047616,
+    "bad_news": 0.5714285714285714,
+    "bored": 0.8,
+    "tired": 0.4,
+    "confused": 0.5333333333333333,
+    "agreement": 0.5333333333333333,
+    "disagreement": 0.3333333333333333,
+    "user_vents": 0.08333333333333333,
+    "user_jokes": 0.4166666666666667,
+    "user_asks_opinion": 0.5833333333333334,
+    "greeting_plus_name": 1.0,
+    "check_in": 0.7777777777777778,
+    "compliment": 0.5555555555555556,
+    "small_plan": 1.0,
+    "out_of_scope": 0.4444444444444444
+  },
+  "per_tier": {
+    "1": 0.7751937984496124,
+    "2": 0.5679012345679012,
+    "3": 0.45098039215686275
+  },
+  "generations": [
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "howdy",
+      "reply": "really? i don't see it",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so howdy",
+      "reply": "really? i don't see it",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "howdy lol",
+      "reply": "really? i don't see it",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hey hey",
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so hey hey",
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hey hey lol",
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "good evening",
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so good evening",
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "good evening lol",
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hullo",
+      "reply": "really? i don't see it",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so hullo",
+      "reply": "no idea honestly",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hullo lol",
+      "reply": "really? i don't see it",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "yo yo",
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so yo yo",
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "yo yo lol",
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hi there!",
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so hi there!",
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hi there! lol",
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "afternoon",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so afternoon",
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "afternoon lol",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "greetings",
+      "reply": "really? i don't see it",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so greetings",
+      "reply": "yeah still here",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "greetings lol",
+      "reply": "really? i don't see it",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "howdy, how are you",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so howdy, how are you",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "howdy, how are you lol",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hey how's your day going",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so hey how's your day going",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hey how's your day going lol",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hi how have you been",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so hi how have you been",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hi how have you been lol",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hello, all good?",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so hello, all good?",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hello, all good? lol",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hey you doing ok",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so hey you doing ok",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hey you doing ok lol",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "yo, how's things",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so yo, how's things",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "yo, how's things lol",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "good morning how are you",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so good morning how are you",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "good morning how are you lol",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hi there, you well?",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so hi there, you well?",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hi there, you well? lol",
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how are things with you",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so how are things with you",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how are things with you lol",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how've you been",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so how've you been",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how've you been lol",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "you doing ok?",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so you doing ok?",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "you doing ok? lol",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how's your day been",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so how's your day been",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how's your day been lol",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "what's new",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so what's new",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "what's new lol",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "all good?",
+      "reply": "I'm not sure.",
+      "correct": false
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so all good?",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "all good? lol",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how's everything",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so how's everything",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how's everything lol",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "you well?",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so you well?",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "you well? lol",
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thank you kindly",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so thank you kindly",
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thank you kindly lol",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thanks a bunch",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so thanks a bunch",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thanks a bunch lol",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "big thanks",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so big thanks",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "big thanks lol",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "ta",
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so ta",
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "ta lol",
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "appreciate that",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so appreciate that",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "appreciate that lol",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thanks so much",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so thanks so much",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thanks so much lol",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "cheers for that",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so cheers for that",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "cheers for that lol",
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "cya",
+      "reply": "really?",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so cya",
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "cya lol",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "i'm heading out",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so i'm heading out",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "i'm heading out lol",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "gotta run",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so gotta run",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "gotta run lol",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "night night",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so night night",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "night night lol",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "off to bed",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so off to bed",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "off to bed lol",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "i should go",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so i should go",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "i should go lol",
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "take care",
+      "reply": "no worries",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so take care",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "take care lol",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "sorry for that",
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "so sorry for that",
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "sorry for that lol",
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "my apologies",
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "so my apologies",
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "my apologies lol",
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "that's on me",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "so that's on me",
+      "reply": "same, nothing going on here",
+      "correct": false
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "that's on me lol",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "sorry, my bad",
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "so sorry, my bad",
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "sorry, my bad lol",
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "i messed up sorry",
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "so i messed up sorry",
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "i messed up sorry lol",
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i got accepted",
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so i got accepted",
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i got accepted lol",
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i aced it",
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so i aced it",
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i aced it lol",
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "we got the house",
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so we got the house",
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "we got the house lol",
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i got the callback",
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so i got the callback",
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i got the callback lol",
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "the results were good",
+      "reply": "I hope you did well on them.",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so the results were good",
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "the results were good lol",
+      "reply": "I hope you get a job,.",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i hit my target",
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so i hit my target",
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i hit my target lol",
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i graduated",
+      "reply": "no worries",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so i graduated",
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i graduated lol",
+      "reply": "no worries",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i lost my grandad",
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so i lost my grandad",
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i lost my grandad lol",
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "we split up",
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so we split up",
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "we split up lol",
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i didn't get the job",
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so i didn't get the job",
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i didn't get the job lol",
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "my cat passed",
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so my cat passed",
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "my cat passed lol",
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "it fell through",
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so it fell through",
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "it fell through lol",
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i got some bad news",
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so i got some bad news",
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i got some bad news lol",
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "the results were bad",
+      "reply": "I hope you did well with them.",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so the results were bad",
+      "reply": "ah thanks",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "the results were bad lol",
+      "reply": "I hope it is a good thing.",
+      "correct": false
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "bored as anything",
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "so bored as anything",
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "bored as anything lol",
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "unbelievably bored",
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "so unbelievably bored",
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "unbelievably bored lol",
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "i've got nothing to do",
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "so i've got nothing to do",
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "i've got nothing to do lol",
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "boring day",
+      "reply": "see you",
+      "correct": false
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "so boring day",
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "boring day lol",
+      "reply": "see you",
+      "correct": false
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "nothing going on",
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "so nothing going on",
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "nothing going on lol",
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "absolutely exhausted",
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "so absolutely exhausted",
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "absolutely exhausted lol",
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "i'm beat",
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "so i'm beat",
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "i'm beat lol",
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "barely slept",
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "so barely slept",
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "barely slept lol",
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "worn out",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "so worn out",
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "worn out lol",
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "i'm so tired today",
+      "reply": "same, nothing going on here",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "so i'm so tired today",
+      "reply": "same, nothing going on here",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "i'm so tired today lol",
+      "reply": "same, nothing going on here",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "eh?",
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "so eh?",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "eh? lol",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "i'm lost",
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "so i'm lost",
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "i'm lost lol",
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "what do you mean",
+      "reply": "what do you think?",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "so what do you mean",
+      "reply": "what do you think?",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "what do you mean lol",
+      "reply": "what do you think?",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "not following",
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "so not following",
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "not following lol",
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "you what",
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "so you what",
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "you what lol",
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "totally",
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "so totally",
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "totally lol",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "agreed",
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "so agreed",
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "agreed lol",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "true that",
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "so true that",
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "true that lol",
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "spot on",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "so spot on",
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "spot on lol",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "yeah i think so too",
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "so yeah i think so too",
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "yeah i think so too lol",
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "i don't buy it",
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "so i don't buy it",
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "i don't buy it lol",
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "disagree",
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "so disagree",
+      "reply": "really? i don't see it",
+      "correct": true
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "disagree lol",
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "not convinced",
+      "reply": "really? i don't see it",
+      "correct": true
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "so not convinced",
+      "reply": "really? i don't see it",
+      "correct": true
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "not convinced lol",
+      "reply": "really? i don't see it",
+      "correct": true
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "i doubt it",
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "so i doubt it",
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "i doubt it lol",
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "i'm at my limit",
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "so i'm at my limit",
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "i'm at my limit lol",
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "this week has been brutal",
+      "reply": "I have been looking forward to that. i hope that you will be okay",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "so this week has been brutal",
+      "reply": "that sounds rough",
+      "correct": true
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "this week has been brutal lol",
+      "reply": "I have been looking forward to that. What do you have planned?",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "everything keeps going wrong",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "so everything keeps going wrong",
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "everything keeps going wrong lol",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "i'm so fed up",
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "so i'm so fed up",
+      "reply": "same, nothing going on here",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "i'm so fed up lol",
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "lololol",
+      "reply": "haha",
+      "correct": true
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "so lololol",
+      "reply": "haha",
+      "correct": true
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "lololol lol",
+      "reply": "haha",
+      "correct": true
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "ha",
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "so ha",
+      "reply": "haha",
+      "correct": true
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "ha lol",
+      "reply": "haha",
+      "correct": true
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "that's hilarious",
+      "reply": "it's alright",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "so that's hilarious",
+      "reply": "it's alright",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "that's hilarious lol",
+      "reply": "it's alright",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "i can't stop laughing",
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "so i can't stop laughing",
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "i can't stop laughing lol",
+      "reply": "Yeah but you can always try to get off some sleep.",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "any thoughts",
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "so any thoughts",
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "any thoughts lol",
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "what's your take",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "so what's your take",
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "what's your take lol",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "do you think i should",
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "so do you think i should",
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "do you think i should lol",
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "reckon it's worth it",
+      "reply": "it's alright",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "so reckon it's worth it",
+      "reply": "no idea honestly",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "reckon it's worth it lol",
+      "reply": "Oh I bet! I would be too",
+      "correct": false
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hey it's alex",
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "so hey it's alex",
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hey it's alex lol",
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hello, me again",
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "so hello, me again",
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hello, me again lol",
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hi it's me!",
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "so hi it's me!",
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hi it's me! lol",
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "still there?",
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "so still there?",
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "still there? lol",
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "you around?",
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "so you around?",
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "you around? lol",
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "hey you there",
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "so hey you there",
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "hey you there lol",
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "you're lovely",
+      "reply": "ah thanks",
+      "correct": true
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "so you're lovely",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "you're lovely lol",
+      "reply": "ah thanks",
+      "correct": true
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "i enjoy this",
+      "reply": "same, nothing going on here",
+      "correct": false
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "so i enjoy this",
+      "reply": "same, nothing going on here",
+      "correct": false
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "i enjoy this lol",
+      "reply": "same, nothing going on here",
+      "correct": false
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "you're good at this",
+      "reply": "ah thanks",
+      "correct": true
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "so you're good at this",
+      "reply": "ah thanks",
+      "correct": true
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "you're good at this lol",
+      "reply": "ah thanks",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "fancy a walk?",
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "so fancy a walk?",
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "fancy a walk? lol",
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "up for lunch?",
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "so up for lunch?",
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "up for lunch? lol",
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "you around this weekend?",
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "so you around this weekend?",
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "you around this weekend? lol",
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what is the population of brazil",
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so what is the population of brazil",
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what is the population of brazil lol",
+      "reply": "I'm not a fan of pork right now. I have a question.",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's 23 plus 19",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so what's 23 plus 19",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's 23 plus 19 lol",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "who wrote hamlet",
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so who wrote hamlet",
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "who wrote hamlet lol",
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "write me an essay",
+      "reply": "no worries",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so write me an essay",
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "write me an essay lol",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "how do i install docker",
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so how do i install docker",
+      "reply": "what do you think?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "how do i install docker lol",
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's the boiling point of water",
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so what's the boiling point of water",
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's the boiling point of water lol",
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "hjkl asdf",
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so hjkl asdf",
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "hjkl asdf lol",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "define recursion",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so define recursion",
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "define recursion lol",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's 8 squared",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so what's 8 squared",
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's 8 squared lol",
+      "reply": "not bad, you?",
+      "correct": false
+    }
+  ]
+}

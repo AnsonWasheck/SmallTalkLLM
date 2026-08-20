@@ -28,8 +28,14 @@ checkpoint are byte-identical. Checksum `33a35a049b672226`.
 | round | overall | tier 1 | tier 2 | tier 3 |
 | --- | --- | --- | --- | --- |
 | baseline | 0.550 | 0.767 | 0.488 | 0.196 |
-| r001 | **0.594** | 0.760 | 0.506 | 0.451 |
+| r001 | 0.594 | 0.760 | 0.506 | 0.451 |
+| **r002 (current)** | **0.629** | 0.775 | 0.568 | 0.451 |
 | target | — | 0.99 | 0.95 | 0.90 |
+
+The current primary checkpoint is recorded in
+[CURRENT_MODEL.json](CURRENT_MODEL.json), which is verified by tests against the
+frozen benchmark checksum and against the archive refs, so a stale number cannot
+silently look authoritative. Superseded models are archived, never deleted.
 
 r001 added an `out_of_scope` class after a measured failure: with 20 intents and
 no way to decline, *"what is the square root of nine"* and *"my hovercraft is
