@@ -18,7 +18,7 @@ from smalltalk.infer.generate import GenerationConfig, load_engine
 
 BANNER = """\
 smalltalk-ai  ({params:,} params, {device})
-temp={temperature} top_p={top_p} top_k={top_k} rep_pen={repetition_penalty} max_new={max_new_tokens}
+decode={decode} top_p={top_p} top_k={top_k} rep_pen={repetition_penalty} max_new={max_new_tokens}
 commands: /reset /state /params /set temperature=0.8 /history /quit
 """
 
@@ -32,11 +32,15 @@ TUNABLE = {
 
 def repl(engine) -> None:
     g = engine.gen
+    # --greedy takes argmax regardless of the temperature value, so printing the
+    # unused temperature made a greedy session look like it was sampling at 0.7.
+    decode = "GREEDY (temp 0)" if (g.greedy or g.temperature <= 0) else f"temp={g.temperature}"
     print(BANNER.format(
+        decode=decode,
         params=engine.model.num_parameters(),
         device=next(engine.model.parameters()).device,
         **{k: getattr(g, k) for k in
-           ("temperature", "top_p", "top_k", "repetition_penalty", "max_new_tokens")},
+           ("top_p", "top_k", "repetition_penalty", "max_new_tokens")},
     ))
     while True:
         try:
