@@ -201,6 +201,18 @@ def one_round(state: dict) -> dict:
         f"sft_steps={state['sft_steps']}")
 
     verify_frozen(FROZEN)          # halts the loop rather than report a bad number
+
+    # A benchmark change invalidates the champion's score. Left in place, the loop
+    # would compare new-benchmark results against an old-benchmark high-water mark
+    # and never promote again -- silently ceasing to make progress while still
+    # reporting healthy rounds. Detect the change and re-baseline explicitly.
+    if state.get("bench_checksum") not in (None, checksum()):
+        log(f"benchmark changed {state['bench_checksum']} -> {checksum()}; "
+            f"discarding best_overall={state['best_overall']:.3f} as incomparable")
+        state["best_overall"] = -1.0
+        state["best_round"] = None
+        state["weight_boost"] = {}
+    state["bench_checksum"] = checksum()
     write_weights(state)
 
     entry = {"round": rnd, "started": now(), "phase": state["phase"],

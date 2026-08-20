@@ -61,3 +61,32 @@ def test_tier1_intents_are_the_conversational_openers():
     tier1 = {i.name for i in INTENTS if i.tier == 1}
     assert {"greeting", "greeting_how_are_you", "how_are_you", "thanks",
             "goodbye"} <= tier1
+
+
+def test_benchmark_measures_context_not_just_turn_one():
+    """A reflex that only fires on turn 1 is not reliable.
+
+    Until v0.2.2 every scenario ran on a freshly reset engine, so the benchmark
+    could not see the continuity axis that a manual side-by-side test found to
+    separate two checkpoints it scored as close.
+    """
+    scenarios = bench_core.build_scenarios()
+    with_ctx = [s for s in scenarios if s.context]
+    assert with_ctx, "benchmark is single-turn only"
+    assert len(with_ctx) / len(scenarios) > 0.25
+
+
+def test_context_preambles_carry_no_core_cue():
+    """Preambles must not themselves be answerable as a Core intent, or a model
+    could score by responding to the preamble instead of the probe."""
+    surfaces = {normalise(p) for i in INTENTS for p in i.train + i.held_out}
+    for ctx in bench_core.CONTEXTS:
+        for turn in ctx:
+            assert normalise(turn) not in surfaces, turn
+
+
+def test_topic_statement_covers_the_common_case():
+    """The class exists because 99.3% of real user turns matched no intent."""
+    it = next(i for i in INTENTS if i.name == "topic_statement")
+    assert len(it.train) >= 20
+    assert len(it.targets) == 1          # narrow output, per the design rule

@@ -255,6 +255,38 @@ INTENTS: list[Intent] = [
     # handled by the real-dialogue portion of the SFT mix, which supplies genuine
     # human replies. This class covers input the model should refuse to
     # pattern-match: factual queries, tasks, and noise.
+    # THE most common thing in real small talk, and until now entirely uncovered.
+    # Measured: only 0.73% of 81,029 real user turns match any Core intent surface.
+    # The other 99% are ordinary statements about the speaker's life -- "i started
+    # running", "i adopted a cat", "i'm learning guitar". With no class for them the
+    # model force-fit every one into the nearest reflex, which is why both r001 and
+    # r002 answered "i adopted a cat" with "oh no, i'm sorry": good_news/bad_news is
+    # a valence binary, and a neutral statement has no valence to read.
+    #
+    # The target is deliberately content-free. A 6.7M model cannot reliably say
+    # something specific about cats, but "acknowledge, then invite elaboration" is
+    # always appropriate and is the correct conversational ACTION. Selecting the
+    # right action is the objective; producing the right content is not, yet.
+    #
+    # Boundary against good_news/bad_news: those require explicit result language
+    # ("i got the job", "i failed"). This class is activity, possession, and plans.
+    _i("topic_statement", "short", ["oh nice, how's that going?"],
+       ["i started running", "i adopted a cat", "i'm learning guitar",
+        "i'm moving to spain", "i got a new bike", "i've been baking a lot",
+        "i joined a gym", "i'm redecorating the flat", "i've started a new book",
+        "we got a puppy", "i'm growing tomatoes", "i took up swimming",
+        "i've been learning spanish", "i'm building a desk",
+        "i started a new series", "we're planning a trip", "i got a fish tank",
+        "i've been cycling to work", "i'm doing a night class",
+        "i picked up photography", "my brother's staying with me",
+        "i'm trying to cook more", "i've got a new flatmate",
+        "i started volunteering"],
+       ["i took up pottery", "i'm learning to knit", "we adopted a rabbit",
+        "i've been gardening", "i joined a book club", "i'm painting the kitchen",
+        "i started a podcast", "i've been walking more", "i got a keyboard"],
+       accept=["oh nice, how's it going?", "oh nice", "nice, how's that going?",
+               "oh really? how's that going?", "how's that going?"], tier=2),
+
     _i("out_of_scope", "short", ["no idea honestly"],
        ["what is the capital of france", "what's 17 times 4",
         "who invented the telephone", "write me a poem",

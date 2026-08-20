@@ -51,14 +51,24 @@ def main() -> int:
     per_tier: dict[int, list[int]] = defaultdict(list)
     records = []
     t0 = time.time()
+    per_context: dict[str, list[int]] = defaultdict(list)
     for s in scenarios:
         engine.reset()
+        # Replay the preamble as real history so the probe is genuinely turn N,
+        # not turn 1 with some text prepended. The assistant side is injected
+        # verbatim rather than generated: a scripted preamble keeps the test
+        # deterministic and stops one model's bad turn-1 reply from poisoning its
+        # own turn-2 measurement.
+        for i, turn in enumerate(s.context):
+            engine.history.append(
+                {"role": "user" if i % 2 == 0 else "assistant", "content": turn})
         reply = engine.reply(s.prompt)
         ok = bool(score(s.intent, reply))
         per_intent[s.intent].append(int(ok))
         per_tier[s.tier].append(int(ok))
+        per_context["with_context" if s.context else "bare"].append(int(ok))
         records.append({"intent": s.intent, "tier": s.tier, "prompt": s.prompt,
-                        "reply": reply, "correct": ok})
+                        "context": list(s.context), "reply": reply, "correct": ok})
 
     overall = sum(v for r in per_intent.values() for v in r) / len(scenarios)
     print(f"\nCore-Bench {checksum()}  n={len(scenarios)}  "
@@ -74,6 +84,11 @@ def main() -> int:
     for tier in sorted(per_tier):
         vals = per_tier[tier]
         print(f"tier {tier}: {sum(vals) / len(vals):.1%}  (target {TIER_TARGETS[tier]:.0%})")
+    print()
+    for k in ("bare", "with_context"):
+        v = per_context.get(k, [])
+        if v:
+            print(f"{k:13s}: {sum(v) / len(v):.1%}  (n={len(v)})")
     print(f"\nOVERALL {overall:.1%}")
 
     out = Path(args.out) / f"{args.tag}.json"
@@ -83,6 +98,7 @@ def main() -> int:
         "overall": overall,
         "per_intent": {k: sum(v) / len(v) for k, v in per_intent.items()},
         "per_tier": {str(k): sum(v) / len(v) for k, v in per_tier.items()},
+        "per_context": {k: sum(v) / len(v) for k, v in per_context.items()},
         "generations": records,
     }, indent=2))
     print(f"wrote {out}")
