@@ -151,13 +151,34 @@ def adapt(state: dict, res: dict, improved: bool) -> list[str]:
     from smalltalk.core.core_gen import WEIGHTS
     from smalltalk.core.intents import BY_NAME
 
-    for name, acc in res["per_intent"].items():
-        tier = BY_NAME[name].tier if name in BY_NAME else 2
-        if acc < TIER_TARGETS[tier]:
-            cur = state["weight_boost"].get(name, 1.0)
-            if cur < 4.0:
-                state["weight_boost"][name] = round(min(4.0, cur * 1.4), 3)
-                notes.append(f"up-weight {name} x{state['weight_boost'][name]} (acc {acc:.2f})")
+    # Boost only the WORST few, not everything that missed. In round 1 nineteen of
+    # twenty-one intents were below target, so the original "boost every miss" rule
+    # multiplied almost the whole curriculum by 1.4 -- a uniform rescale, which
+    # changes the sampling distribution by nothing at all. Re-weighting is only
+    # meaningful when it is *relative*.
+    N_BOOST = 5
+    missing = sorted(
+        ((n, a) for n, a in res["per_intent"].items()
+         if a < TIER_TARGETS[BY_NAME[n].tier if n in BY_NAME else 2]),
+        key=lambda kv: kv[1],
+    )[:N_BOOST]
+    worst = {n for n, _ in missing}
+
+    for name, acc in missing:
+        cur = state["weight_boost"].get(name, 1.0)
+        if cur < 4.0:
+            state["weight_boost"][name] = round(min(4.0, cur * 1.5), 3)
+            notes.append(f"up-weight {name} x{state['weight_boost'][name]} (acc {acc:.2f})")
+
+    # Decay boosts on intents that are no longer among the worst, so the curriculum
+    # drifts back toward its designed frequencies instead of ratcheting forever.
+    for name in list(state["weight_boost"]):
+        if name not in worst:
+            new = round(max(1.0, state["weight_boost"][name] * 0.85), 3)
+            if new == 1.0:
+                del state["weight_boost"][name]
+            else:
+                state["weight_boost"][name] = new
 
     if improved:
         state["flat_rounds"] = 0
