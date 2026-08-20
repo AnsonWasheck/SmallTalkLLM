@@ -1,0 +1,35 @@
+# v0.2-Core stage 2: reflex SFT. Loss on assistant tokens only, so the model
+# spends its capacity on choosing the response, not on modelling the prompt.
+run_name: core-sft-7m
+stage: sft
+model_config: configs/model/smalltalk-7m.yaml
+tokenizer: artifacts/core/tokenizer-4096
+train_data: data/core/sft_train.jsonl
+val_data: data/core/sft_val.jsonl
+output_dir: artifacts/runs
+init_from: artifacts/runs/core-stage1-7m-v2/best
+
+seq_len: 512
+batch_size: 32
+grad_accum_steps: 2
+max_steps: 6000
+
+learning_rate: 3.0e-4
+min_lr_ratio: 0.1
+warmup_ratio: 0.05
+lr_schedule: cosine
+weight_decay: 0.1
+grad_clip: 1.0
+
+mask_non_assistant: true
+
+eval_every: 250
+eval_batches: 20
+save_every: 1000
+log_every: 50
+keep_last: 2
+
+device: auto
+dtype: auto
+seed: 1337
+wandb: false

@@ -27,7 +27,19 @@ USER = "<|user|>"
 ASSISTANT = "<|assistant|>"
 ENDOFTURN = "<|endofturn|>"
 
-SPECIAL_TOKENS = [PAD, BOS, EOS, SYSTEM, USER, ASSISTANT, ENDOFTURN]
+# Response-length policy tokens (v0.2-Core). The assistant emits one of these
+# first, turning "how long should this reply be" into an explicit decision rather
+# than something a 6.7M model must infer from an ambient style prior. They are
+# declared as specials so the BPE trainer allocates them inside the 4096 budget:
+# vocab_size is unchanged, so the released model stays at exactly 6,689,024
+# parameters. They cost four displaced merges, which is the intended trade.
+LEN_REACTION = "<|len_reaction|>"
+LEN_VSHORT = "<|len_vshort|>"
+LEN_SHORT = "<|len_short|>"
+LEN_MEDIUM = "<|len_medium|>"
+LENGTH_TOKENS = [LEN_REACTION, LEN_VSHORT, LEN_SHORT, LEN_MEDIUM]
+
+SPECIAL_TOKENS = [PAD, BOS, EOS, SYSTEM, USER, ASSISTANT, ENDOFTURN, *LENGTH_TOKENS]
 
 ROLE_TOKENS = {"system": SYSTEM, "user": USER, "assistant": ASSISTANT}
 
