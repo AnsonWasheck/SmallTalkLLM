@@ -38,8 +38,11 @@ def main() -> int:
     ap.add_argument("--dailydialog", default="data/raw/dailydialog")
     ap.add_argument("--empathetic", default="data/raw/empatheticdialogues")
     ap.add_argument("--core", type=int, default=60000)
-    ap.add_argument("--real-in-sft", type=int, default=8000,
+    ap.add_argument("--real-in-sft", type=int, default=4000,
                     help="real conversations mixed into SFT to preserve language")
+    ap.add_argument("--max-real-turns", type=int, default=6,
+                    help="truncate real SFT conversations; long ones dominate the "
+                         "assistant-token budget and teach a free-form-reply prior")
     ap.add_argument("--val-ratio", type=float, default=0.02)
     ap.add_argument("--seed", type=int, default=1337)
     ap.add_argument("--out", default="data/core")
@@ -84,8 +87,23 @@ def main() -> int:
     c_val = max(1, int(len(core) * args.val_ratio))
     core_val, core_train = core[:c_val], core[c_val:]
 
-    sft_train = core_train + real_train[: args.real_in_sft]
-    sft_val = core_val + real_val[: max(1, args.real_in_sft // 50)]
+    # Measured on the first baseline: real dialogue was 27.5% of assistant tokens
+    # and produced 25% of Core-Bench errors as free-form chat ("who wrote hamlet"
+    # -> "Oh that's a good idea. I hope you get a raise."). The model had learned a
+    # ~27% prior on "just talk" and applied it regardless of input. Real dialogue
+    # still has to be here or the language model degrades and ordinary off-topic
+    # chat gets a canned deflection -- so trim its share rather than remove it.
+    def _truncate(c):
+        if len(c.messages) <= args.max_real_turns:
+            return c
+        c.messages = c.messages[: args.max_real_turns]
+        if c.messages[-1].role == "user":       # never end on a user turn
+            c.messages = c.messages[:-1]
+        return c
+
+    real_for_sft = [_truncate(c) for c in real_train[: args.real_in_sft]]
+    sft_train = core_train + real_for_sft
+    sft_val = core_val + [_truncate(c) for c in real_val[: max(1, args.real_in_sft // 50)]]
     r.shuffle(sft_train)
 
     out = Path(args.out)
