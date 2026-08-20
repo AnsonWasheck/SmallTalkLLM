@@ -90,3 +90,34 @@ def test_topic_statement_covers_the_common_case():
     it = next(i for i in INTENTS if i.name == "topic_statement")
     assert len(it.train) >= 20
     assert len(it.targets) == 1          # narrow output, per the design rule
+
+
+def _fake_real_pool(n=300):
+    """Context requires a real-dialogue pool; without one the generator emits
+    turn-1 examples by necessity, which is a property of the input, not a bug."""
+    from smalltalk.data.schema import Conversation, Turn
+    return [Conversation(id=f"f{i}", source="fake",
+                         messages=[Turn("user", f"just some filler line {i} here"),
+                                   Turn("assistant", f"mm yeah line {i} indeed")])
+            for i in range(n)]
+
+
+def test_curriculum_trains_reflexes_in_context_not_just_as_openers():
+    """Measured: goodbye scored 76.2% bare but 35.7% with a preamble.
+
+    The curriculum was 65% turn-1 examples, so reflexes were being learned in a
+    position they rarely occupy in real use.
+    """
+    convs = list(core_gen.generate(core_gen.CoreConfig(n=4000),
+                                   real_convs=_fake_real_pool()))
+    multi = sum(1 for c in convs if len(c.messages) > 2)
+    assert multi / len(convs) > 0.5, "most Core examples are still turn-1 only"
+
+
+def test_inherently_mid_conversation_intents_get_context():
+    convs = [c for c in core_gen.generate(core_gen.CoreConfig(n=6000),
+                                          real_convs=_fake_real_pool())
+             if c.meta["skill"] == "goodbye"]
+    assert convs
+    with_ctx = sum(1 for c in convs if len(c.messages) > 2) / len(convs)
+    assert with_ctx > 0.75, f"goodbye trained with context only {with_ctx:.0%} of the time"
