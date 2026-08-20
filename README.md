@@ -29,8 +29,23 @@ checkpoint are byte-identical. Checksum `33a35a049b672226`.
 | --- | --- | --- | --- | --- |
 | baseline | 0.550 | 0.767 | 0.488 | 0.196 |
 | r001 | 0.594 | 0.760 | 0.506 | 0.451 |
-| **r002 (current)** | **0.629** | 0.775 | 0.568 | 0.451 |
+| r002 | 0.629 | 0.775 | 0.568 | 0.451 |
 | target | — | 0.99 | 0.95 | 0.90 |
+
+**Core-Bench v0.2.2 (checksum `0ff8bbceb84834f4`) retires those numbers.** The
+earlier benchmark evaluated every scenario on a freshly reset engine, so it was
+100% single-turn and blind to whether a reflex survives a preceding exchange.
+615 scenarios now, 246 of them multi-turn. The current model re-measured:
+
+| slice | score |
+| --- | --- |
+| bare | 0.583 |
+| with context | 0.516 |
+| **overall** | **0.556** |
+
+The 6.7-point context penalty was previously unobservable; the old headline was
+reporting the easier half of the problem. A benchmark change invalidates every
+prior score, so these are not comparable to the table above.
 
 The current primary checkpoint is recorded in
 [CURRENT_MODEL.json](CURRENT_MODEL.json), which is verified by tests against the

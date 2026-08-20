@@ -61,3 +61,111 @@ def test_tier1_intents_are_the_conversational_openers():
     tier1 = {i.name for i in INTENTS if i.tier == 1}
     assert {"greeting", "greeting_how_are_you", "how_are_you", "thanks",
             "goodbye"} <= tier1
+
+
+def test_benchmark_measures_context_not_just_turn_one():
+    """A reflex that only fires on turn 1 is not reliable.
+
+    Until v0.2.2 every scenario ran on a freshly reset engine, so the benchmark
+    could not see the continuity axis that a manual side-by-side test found to
+    separate two checkpoints it scored as close.
+    """
+    scenarios = bench_core.build_scenarios()
+    with_ctx = [s for s in scenarios if s.context]
+    assert with_ctx, "benchmark is single-turn only"
+    assert len(with_ctx) / len(scenarios) > 0.25
+
+
+def test_context_preambles_carry_no_core_cue():
+    """Preambles must not themselves be answerable as a Core intent, or a model
+    could score by responding to the preamble instead of the probe."""
+    surfaces = {normalise(p) for i in INTENTS for p in i.train + i.held_out}
+    for ctx in bench_core.CONTEXTS:
+        for turn in ctx:
+            assert normalise(turn) not in surfaces, turn
+
+
+def test_topic_statement_covers_the_common_case():
+    """The class exists because 99.3% of real user turns matched no intent."""
+    it = next(i for i in INTENTS if i.name == "topic_statement")
+    assert len(it.train) >= 20
+    assert len(it.targets) == 1          # narrow output, per the design rule
+
+
+def _fake_real_pool(n=300):
+    """Context requires a real-dialogue pool; without one the generator emits
+    turn-1 examples by necessity, which is a property of the input, not a bug."""
+    from smalltalk.data.schema import Conversation, Turn
+    return [Conversation(id=f"f{i}", source="fake",
+                         messages=[Turn("user", f"just some filler line {i} here"),
+                                   Turn("assistant", f"mm yeah line {i} indeed")])
+            for i in range(n)]
+
+
+def test_curriculum_trains_reflexes_in_context_not_just_as_openers():
+    """Measured: goodbye scored 76.2% bare but 35.7% with a preamble.
+
+    The curriculum was 65% turn-1 examples, so reflexes were being learned in a
+    position they rarely occupy in real use.
+    """
+    convs = list(core_gen.generate(core_gen.CoreConfig(n=4000),
+                                   real_convs=_fake_real_pool()))
+    multi = sum(1 for c in convs if len(c.messages) > 2)
+    assert multi / len(convs) > 0.5, "most Core examples are still turn-1 only"
+
+
+def test_inherently_mid_conversation_intents_get_context():
+    convs = [c for c in core_gen.generate(core_gen.CoreConfig(n=6000),
+                                          real_convs=_fake_real_pool())
+             if c.meta["skill"] == "goodbye"]
+    assert convs
+    with_ctx = sum(1 for c in convs if len(c.messages) > 2) / len(convs)
+    assert with_ctx > 0.75, f"goodbye trained with context only {with_ctx:.0%} of the time"
+
+
+def test_statebench_probes_carry_no_valence():
+    """The probe must be uninformative alone, or the pair stops being a test of
+    state and becomes a test of last-turn classification."""
+    from smalltalk.core import statebench as sb
+    for a, b in sb.pairs():
+        assert a.probe == b.probe, f"{a.pair_id} probes differ"
+        assert sb.classify(a.probe) in ("neutral", "other"), a.probe
+
+
+def test_statebench_pairs_differ_only_in_valence():
+    from smalltalk.core import statebench as sb
+    for a, b in sb.pairs():
+        assert a.topic == b.topic
+        assert len(a.turns) == len(b.turns)
+        differing = sum(x != y for x, y in zip(a.turns, b.turns))
+        assert differing <= 2, f"{a.pair_id} differs in {differing} turns"
+
+
+def test_state_curriculum_emits_minimal_counterfactual_pairs():
+    """The whole v0.3 mechanism: identical probes, opposite targets. If pairs
+    are not minimal, the model can separate them without tracking state."""
+    from smalltalk.core.state_gen import StateConfig, generate
+    fams = {}
+    for c in generate(StateConfig(n=400)):
+        fams.setdefault(c.meta["family"], []).append(c)
+    complete = [g for g in fams.values() if len(g) == 2]
+    assert len(complete) > 150
+    for a, b in complete:
+        ua = [m.content for m in a.messages if m.role == "user"]
+        ub = [m.content for m in b.messages if m.role == "user"]
+        ta = [m.content for m in a.messages if m.role == "assistant"]
+        tb = [m.content for m in b.messages if m.role == "assistant"]
+        assert len(ua) == len(ub)
+        assert sum(x != y for x, y in zip(ua, ub)) <= 2, "pair is not minimal"
+        assert ta != tb, "counterfactual pair has identical targets"
+
+
+def test_state_generator_never_emits_a_statebench_opener():
+    from smalltalk.core.state_gen import BENCH_SURFACES, StateConfig, generate
+    import re
+    def n(t):
+        return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9' ]+", " ", t.lower())).strip()
+    for c in generate(StateConfig(n=600)):
+        for m in c.messages:
+            if m.role == "user":
+                assert n(m.content) not in BENCH_SURFACES, m.content

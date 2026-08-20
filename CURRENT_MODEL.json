@@ -2,34 +2,51 @@
   "_comment": "Authoritative pointer to the current primary checkpoint. Update this in the same commit that promotes a model, never separately. Superseded entries move to `history` and their archive refs are never deleted.",
   "schema_version": 1,
   "current": {
-    "label": "core-v0.2.1-r002",
+    "label": "core-v0.3.0-r001",
     "promoted": "2026-08-20",
-    "run_name": "core-r002",
-    "checkpoint": "artifacts/runs/core-r002/best",
-    "archive_ref": "archive/core-v0.2-r002",
+    "run_name": "state-r001",
+    "checkpoint": "artifacts/snapshots/core-v0.3.0-r001",
+    "archive_ref": "archive/core-v0.3.0-r001",
     "params": 6689024,
-    "tokenizer": "artifacts/core/tokenizer-4096",
+    "tokenizer": "artifacts/state/tokenizer-4096",
     "tokenizer_vocab": 4096,
     "benchmark": {
       "name": "Core-Bench",
-      "version": "core-v0.2.1",
-      "checksum": "33a35a049b672226",
-      "scenarios": 342,
-      "decode": "greedy, temperature 0, top_p 1.0, top_k off, repetition_penalty 1.0, max_new_tokens 20",
-      "overall": 0.629,
-      "tier_1": 0.775,
-      "tier_2": 0.568,
-      "tier_3": 0.451
+      "version": "core-v0.2.2",
+      "checksum": "0ff8bbceb84834f4",
+      "overall": 0.6471544715447154,
+      "tier_1": 0.7674418604651163,
+      "decode": "greedy, temperature 0, top_p 1.0, repetition_penalty 1.0"
+    },
+    "statebench": {
+      "version": "statebench-v1.0.0",
+      "checksum": "a2192fb7b7757e7e",
+      "directional": 0.5833333333333334,
+      "divergence": 0.8333333333333334,
+      "accuracy": 0.7916666666666666,
+      "attractor_rate": 0.0
     },
     "training": {
-      "stage1": "configs/train/core_stage1_7m.yaml (1000 steps, real dialogue, loss on all tokens)",
-      "sft": "configs/train/core_sft_7m.yaml (6000 steps, assistant-only loss)",
-      "corpus": "60k Core curriculum + 4k real conversations truncated to 6 turns",
-      "final_val_loss": 1.669
+      "rung": "E1-state-trajectories",
+      "config": {
+        "name": "E1-state-trajectories",
+        "state": 40000,
+        "core": 24000,
+        "sft_steps": 4000
+      }
     },
-    "promotion_rationale": "Higher Core-Bench (0.629 vs 0.594) AND preferred in a manual side-by-side conversational test. Model B held a topic across turns more consistently than r001 despite rougher surface grammar. For the current objective -- semantic correctness and conversational action selection before stylistic polish -- that is the more valuable failure mode."
+    "promotion_rationale": "Automatic promotion. StateBench directional 0.000 -> 0.583 (gate: >= 0.3 absolute and >= +0.1 over incumbent), Core-Bench tier 1 within 0.02 of incumbent. Tests passed. Not reviewed by a human at promotion time."
   },
   "history": [
+    {
+      "label": "core-v0.2.1-r002",
+      "active_until": "2026-08-20",
+      "archive_ref": "archive/core-v0.2-r002",
+      "benchmark_overall": 0.556,
+      "statebench_directional": 0.0,
+      "superseded_by": "core-v0.3.0-r001",
+      "note": "superseded by automatic promotion on StateBench directional"
+    },
     {
       "label": "core-v0.2.1-r001",
       "active": "2026-08-19 to 2026-08-20",

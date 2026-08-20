@@ -1,0 +1,147 @@
+{
+  "checksum": "0fada5c5f9bbb9ae",
+  "divergence": 0.3333333333333333,
+  "directional": 0.0,
+  "accuracy": 0.0,
+  "neutral_rate": 0.0,
+  "attractor_rate": 0.6666666666666666,
+  "other_rate": 0.3333333333333333,
+  "pairs": [
+    {
+      "pair": "day-01",
+      "topic": "day",
+      "probe": "yeah",
+      "positive_reply": "yeah exactly",
+      "negative_reply": "yeah exactly",
+      "differs": false,
+      "both_correct": false
+    },
+    {
+      "pair": "day-02",
+      "topic": "day",
+      "probe": "i guess",
+      "positive_reply": "really? i don't see it",
+      "negative_reply": "really? i don't see it",
+      "differs": false,
+      "both_correct": false
+    },
+    {
+      "pair": "work-01",
+      "topic": "work",
+      "probe": "yeah",
+      "positive_reply": "yeah exactly",
+      "negative_reply": "yeah exactly",
+      "differs": false,
+      "both_correct": false
+    },
+    {
+      "pair": "work-02",
+      "topic": "work",
+      "probe": "mm",
+      "positive_reply": "haha",
+      "negative_reply": "no idea honestly",
+      "differs": true,
+      "both_correct": false
+    },
+    {
+      "pair": "sleep-01",
+      "topic": "sleep",
+      "probe": "yeah",
+      "positive_reply": "yeah exactly",
+      "negative_reply": "yeah exactly",
+      "differs": false,
+      "both_correct": false
+    },
+    {
+      "pair": "health-01",
+      "topic": "health",
+      "probe": "mm",
+      "positive_reply": "yeah exactly",
+      "negative_reply": "really? i don't see it",
+      "differs": true,
+      "both_correct": false
+    },
+    {
+      "pair": "social-01",
+      "topic": "social",
+      "probe": "yeah",
+      "positive_reply": "that's too bad. i hope you were not hurt",
+      "negative_reply": "that's true. i had to go to the hospital and how did it go",
+      "differs": true,
+      "both_correct": false
+    },
+    {
+      "pair": "news-01",
+      "topic": "news",
+      "probe": "yeah",
+      "positive_reply": "yeah exactly",
+      "negative_reply": "yeah exactly",
+      "differs": false,
+      "both_correct": false
+    },
+    {
+      "pair": "news-02",
+      "topic": "news",
+      "probe": "mm",
+      "positive_reply": "really? i don't see it",
+      "negative_reply": "hey",
+      "differs": true,
+      "both_correct": false
+    },
+    {
+      "pair": "home-01",
+      "topic": "home",
+      "probe": "yeah",
+      "positive_reply": "yeah exactly",
+      "negative_reply": "yeah exactly",
+      "differs": false,
+      "both_correct": false
+    },
+    {
+      "pair": "money-01",
+      "topic": "money",
+      "probe": "i guess",
+      "positive_reply": "really? i don't see it",
+      "negative_reply": "really? i don't see it",
+      "differs": false,
+      "both_correct": false
+    },
+    {
+      "pair": "study-01",
+      "topic": "study",
+      "probe": "yeah",
+      "positive_reply": "yeah exactly",
+      "negative_reply": "yeah exactly",
+      "differs": false,
+      "both_correct": false
+    }
+  ],
+  "replies": {
+    "day-01::positive::yeah": "yeah exactly",
+    "day-01::negative::yeah": "yeah exactly",
+    "day-02::positive::i guess": "really? i don't see it",
+    "day-02::negative::i guess": "really? i don't see it",
+    "work-01::positive::yeah": "yeah exactly",
+    "work-01::negative::yeah": "yeah exactly",
+    "work-02::positive::mm": "haha",
+    "work-02::negative::mm": "no idea honestly",
+    "sleep-01::positive::yeah": "yeah exactly",
+    "sleep-01::negative::yeah": "yeah exactly",
+    "health-01::positive::mm": "yeah exactly",
+    "health-01::negative::mm": "really? i don't see it",
+    "social-01::positive::yeah": "that's too bad. i hope you were not hurt",
+    "social-01::negative::yeah": "that's true. i had to go to the hospital and how did it go",
+    "news-01::positive::yeah": "yeah exactly",
+    "news-01::negative::yeah": "yeah exactly",
+    "news-02::positive::mm": "really? i don't see it",
+    "news-02::negative::mm": "hey",
+    "home-01::positive::yeah": "yeah exactly",
+    "home-01::negative::yeah": "yeah exactly",
+    "money-01::positive::i guess": "really? i don't see it",
+    "money-01::negative::i guess": "really? i don't see it",
+    "study-01::positive::yeah": "yeah exactly",
+    "study-01::negative::yeah": "yeah exactly"
+  },
+  "tag": "r002",
+  "checkpoint": "artifacts/snapshots/r002"
+}

@@ -39,7 +39,16 @@ WEIGHTS = {
     "small_plan": 3.0,
     # weighted like a common intent: declining is a skill, not an edge case
     "out_of_scope": 6.0,
+    # The single most common thing a real person says. Measured: 99.3% of real
+    # user turns match no other intent. Weighted at the top of the table because
+    # under-weighting it is what taught the model to force-fit every ordinary
+    # statement into the nearest reflex ("i adopted a cat" -> "oh no, i'm sorry").
+    "topic_statement": 12.0,
 }
+
+# Intents that only occur mid-conversation in real use.
+CONTEXT_HEAVY = {"goodbye", "check_in", "thanks", "agreement", "disagreement",
+                 "confused", "user_asks_opinion", "compliment"}
 
 _FILLERS = ["", "", "", "", "so ", "ok so ", "hey ", "right ", "anyway ", "um "]
 _TAILS = ["", "", "", "", " lol", " haha", " though", " tbh", " :)", "!"]
@@ -69,7 +78,12 @@ class CoreConfig:
     n: int = 60000
     seed: int = 7
     emit_length_token: bool = True
-    context_frac: float = 0.35      # fraction that get 1-3 preceding real turns
+    # Raised from 0.35 after the context axis was first measured. 65% of the
+    # curriculum was turn-1 only, and the benchmark showed reflexes degrading
+    # sharply once a preamble exists -- goodbye fell 76.2% -> 35.7%, the single
+    # largest effect in the run. A reflex trained only as an opener is not a
+    # reliable reflex; real conversations reach "i'm heading out" at turn nine.
+    context_frac: float = 0.65      # fraction that get 1-3 preceding real turns
     max_context_turns: int = 3
     weights: dict = field(default_factory=lambda: dict(WEIGHTS))
 
@@ -110,7 +124,11 @@ def generate(cfg: CoreConfig | None = None,
 
         # Optional preceding real exchange. The intent turn must still dominate
         # the decision, so context is short and never contains another Core cue.
-        if pool and r.random() < cfg.context_frac:
+        # Some intents are inherently mid-conversation: nobody opens a chat with
+        # "i'm heading out". Training those as turn-1 examples teaches a reflex
+        # that fires in a position it will never occupy in use.
+        frac = 0.9 if intent.name in CONTEXT_HEAVY else cfg.context_frac
+        if pool and r.random() < frac:
             for _ in range(r.randint(1, cfg.max_context_turns)):
                 u, a = r.choice(pool)
                 msgs.append(Turn("user", u))

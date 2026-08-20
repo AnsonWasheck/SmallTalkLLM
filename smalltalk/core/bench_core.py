@@ -20,6 +20,21 @@ from pathlib import Path
 
 from .intents import CORE_VERSION, INTENTS, Intent, normalise
 
+# Fixed conversational preambles. Until v0.2.2 every scenario was evaluated on a
+# freshly reset engine, so the benchmark was 100% single-turn and structurally
+# incapable of measuring whether a reflex survives context -- which is exactly the
+# axis a manual side-by-side test found to separate two checkpoints the score
+# considered close. A reflex that only fires on turn one is not reliable.
+#
+# The preambles are deliberately neutral and carry no Core cue of their own, so a
+# correct model answers the probe identically with or without them. Divergence is
+# the measurement.
+CONTEXTS: list[tuple[str, ...]] = [
+    (),
+    ("so what have you been up to", "not much, you?"),
+    ("did you see the weather today", "yeah, grim isn't it"),
+]
+
 # Fixed surface transforms. Deterministic -- no RNG anywhere in this module.
 VARIANTS = [
     lambda s: s,
@@ -39,23 +54,36 @@ class CoreScenario:
     intent: str
     tier: int
     prompt: str
+    context: tuple[str, ...] = ()      # alternating user/assistant turns
 
     @property
     def id(self) -> str:
-        return f"{self.intent}::{normalise(self.prompt)}"
+        ctx = "|".join(normalise(c) for c in self.context)
+        return f"{self.intent}::{normalise(self.prompt)}::{ctx}"
 
 
 def build_scenarios() -> list[CoreScenario]:
+    """Held-out paraphrases x surface transforms x conversational context.
+
+    Surface transforms are applied only in the bare-context case: crossing all
+    three axes would triple the runtime to re-measure the same surface robustness
+    under context, when the question context asks is simply "does the right answer
+    survive a preceding exchange".
+    """
     out: list[CoreScenario] = []
     seen: set[str] = set()
     for it in INTENTS:
         for p in it.held_out:
             for v in VARIANTS:
-                s = CoreScenario(it.name, it.tier, v(p))
-                if s.id in seen:
-                    continue
-                seen.add(s.id)
-                out.append(s)
+                s = CoreScenario(it.name, it.tier, v(p), ())
+                if s.id not in seen:
+                    seen.add(s.id)
+                    out.append(s)
+            for ctx in CONTEXTS[1:]:
+                s = CoreScenario(it.name, it.tier, p, ctx)
+                if s.id not in seen:
+                    seen.add(s.id)
+                    out.append(s)
     return out
 
 

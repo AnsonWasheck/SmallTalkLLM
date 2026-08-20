@@ -1,0 +1,5699 @@
+{
+  "tag": "core-r004",
+  "checkpoint": "/home/ans/MicroLLM/smalltalk-ai/artifacts/runs/core-r004/best",
+  "checksum": "0ff8bbceb84834f4",
+  "overall": 0.6585365853658537,
+  "per_intent": {
+    "greeting": 0.7,
+    "greeting_how_are_you": 0.725,
+    "how_are_you": 0.975,
+    "thanks": 0.8285714285714286,
+    "goodbye": 0.6285714285714286,
+    "apology": 0.8,
+    "good_news": 0.7142857142857143,
+    "bad_news": 0.6285714285714286,
+    "bored": 0.84,
+    "tired": 0.52,
+    "confused": 0.6,
+    "agreement": 0.56,
+    "disagreement": 0.35,
+    "user_vents": 0.0,
+    "user_jokes": 0.25,
+    "user_asks_opinion": 0.5,
+    "greeting_plus_name": 0.8,
+    "check_in": 0.6666666666666666,
+    "compliment": 0.4666666666666667,
+    "small_plan": 0.7333333333333333,
+    "topic_statement": 0.8222222222222222,
+    "out_of_scope": 0.6444444444444445
+  },
+  "per_tier": {
+    "1": 0.7767441860465116,
+    "2": 0.6095238095238096,
+    "3": 0.5411764705882353
+  },
+  "per_context": {
+    "bare": 0.6747967479674797,
+    "with_context": 0.6341463414634146
+  },
+  "generations": [
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "howdy",
+      "context": [],
+      "reply": "it's alright",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so howdy",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "howdy lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "howdy",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "howdy",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hey hey",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so hey hey",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hey hey lol",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hey hey",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hey hey",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "good evening",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so good evening",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "good evening lol",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "good evening",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "good evening",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hullo",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so hullo",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hullo lol",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hullo",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hullo",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "yo yo",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so yo yo",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "yo yo lol",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "yo yo",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "yo yo",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hi there!",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so hi there!",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hi there! lol",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hi there!",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "hi there!",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "afternoon",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so afternoon",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "afternoon lol",
+      "context": [],
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "afternoon",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "afternoon",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "greetings",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "so greetings",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "greetings lol",
+      "context": [],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "greetings",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting",
+      "tier": 1,
+      "prompt": "greetings",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "howdy, how are you",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so howdy, how are you",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "howdy, how are you lol",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "howdy, how are you",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "howdy, how are you",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hey how's your day going",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so hey how's your day going",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hey how's your day going lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hey how's your day going",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hey how's your day going",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hi how have you been",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so hi how have you been",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hi how have you been lol",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hi how have you been",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hi how have you been",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hello, all good?",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so hello, all good?",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hello, all good? lol",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hello, all good?",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hello, all good?",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hey you doing ok",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so hey you doing ok",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hey you doing ok lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hey you doing ok",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hey you doing ok",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "yo, how's things",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so yo, how's things",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "yo, how's things lol",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "yo, how's things",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "yo, how's things",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "good morning how are you",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so good morning how are you",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "good morning how are you lol",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "good morning how are you",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "good morning how are you",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hi there, you well?",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "so hi there, you well?",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hi there, you well? lol",
+      "context": [],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hi there, you well?",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_how_are_you",
+      "tier": 1,
+      "prompt": "hi there, you well?",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "i'm good, how about you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how are things with you",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so how are things with you",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how are things with you lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how are things with you",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how are things with you",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how've you been",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so how've you been",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how've you been lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how've you been",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how've you been",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "you doing ok?",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so you doing ok?",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "you doing ok? lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "you doing ok?",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "you doing ok?",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how's your day been",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so how's your day been",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how's your day been lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how's your day been",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how's your day been",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "what's new",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so what's new",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "what's new lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "what's new",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "what's new",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "all good?",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so all good?",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "all good? lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "all good?",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "all good?",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how's everything",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so how's everything",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how's everything lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how's everything",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "how's everything",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "you well?",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "so you well?",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "you well? lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "you well?",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "how_are_you",
+      "tier": 1,
+      "prompt": "you well?",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thank you kindly",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so thank you kindly",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thank you kindly lol",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thank you kindly",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thank you kindly",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "I hope you have a great time.",
+      "correct": false
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thanks a bunch",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so thanks a bunch",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thanks a bunch lol",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thanks a bunch",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thanks a bunch",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "big thanks",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so big thanks",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "big thanks lol",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "big thanks",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "big thanks",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "ta",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so ta",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "ta lol",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "ta",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "ta",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "appreciate that",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so appreciate that",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "appreciate that lol",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "appreciate that",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "appreciate that",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thanks so much",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so thanks so much",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thanks so much lol",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thanks so much",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "thanks so much",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "cheers for that",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "so cheers for that",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "cheers for that lol",
+      "context": [],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "cheers for that",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "thanks",
+      "tier": 1,
+      "prompt": "cheers for that",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "no worries",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "cya",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so cya",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "cya lol",
+      "context": [],
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "cya",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "cya",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "i'm heading out",
+      "context": [],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so i'm heading out",
+      "context": [],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "i'm heading out lol",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "i'm heading out",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "i'm heading out",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "gotta run",
+      "context": [],
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so gotta run",
+      "context": [],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "gotta run lol",
+      "context": [],
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "gotta run",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "gotta run",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "night night",
+      "context": [],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so night night",
+      "context": [],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "night night lol",
+      "context": [],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "night night",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "night night",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "off to bed",
+      "context": [],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so off to bed",
+      "context": [],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "off to bed lol",
+      "context": [],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "off to bed",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "off to bed",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "i should go",
+      "context": [],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so i should go",
+      "context": [],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "i should go lol",
+      "context": [],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "i should go",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "i should go",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "take care",
+      "context": [],
+      "reply": "no worries",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "so take care",
+      "context": [],
+      "reply": "see you",
+      "correct": true
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "take care lol",
+      "context": [],
+      "reply": "no worries",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "take care",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no worries",
+      "correct": false
+    },
+    {
+      "intent": "goodbye",
+      "tier": 1,
+      "prompt": "take care",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "no worries",
+      "correct": false
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "sorry for that",
+      "context": [],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "so sorry for that",
+      "context": [],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "sorry for that lol",
+      "context": [],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "sorry for that",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "sorry for that",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "my apologies",
+      "context": [],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "so my apologies",
+      "context": [],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "my apologies lol",
+      "context": [],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "my apologies",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "my apologies",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "that's on me",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "so that's on me",
+      "context": [],
+      "reply": "really? i don't see it",
+      "correct": false
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "that's on me lol",
+      "context": [],
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "that's on me",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "really? i don't see it",
+      "correct": false
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "that's on me",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "sorry, my bad",
+      "context": [],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "so sorry, my bad",
+      "context": [],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "sorry, my bad lol",
+      "context": [],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "sorry, my bad",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "sorry, my bad",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "i messed up sorry",
+      "context": [],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "so i messed up sorry",
+      "context": [],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "i messed up sorry lol",
+      "context": [],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "i messed up sorry",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "apology",
+      "tier": 1,
+      "prompt": "i messed up sorry",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "it's alright",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i got accepted",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so i got accepted",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i got accepted lol",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i got accepted",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i got accepted",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i aced it",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so i aced it",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i aced it lol",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i aced it",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i aced it",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "we got the house",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so we got the house",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "we got the house lol",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "we got the house",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "we got the house",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i got the callback",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so i got the callback",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i got the callback lol",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i got the callback",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i got the callback",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "That's good to hear! I hope it goes well!",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "the results were good",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so the results were good",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "the results were good lol",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "the results were good",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "the results were good",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i hit my target",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so i hit my target",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i hit my target lol",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i hit my target",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i hit my target",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i graduated",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "so i graduated",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i graduated lol",
+      "context": [],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i graduated",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "good_news",
+      "tier": 2,
+      "prompt": "i graduated",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "that's great!",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i lost my grandad",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so i lost my grandad",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i lost my grandad lol",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i lost my grandad",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i lost my grandad",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "we split up",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so we split up",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "we split up lol",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "we split up",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "we split up",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i didn't get the job",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so i didn't get the job",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i didn't get the job lol",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i didn't get the job",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i didn't get the job",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "my cat passed",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so my cat passed",
+      "context": [],
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "my cat passed lol",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "my cat passed",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "my cat passed",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "Oh no, that's terrible.",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "it fell through",
+      "context": [],
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so it fell through",
+      "context": [],
+      "reply": "really? i don't see it",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "it fell through lol",
+      "context": [],
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "it fell through",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "it fell through",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i got some bad news",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so i got some bad news",
+      "context": [],
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i got some bad news lol",
+      "context": [],
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i got some bad news",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "i got some bad news",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "the results were bad",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "so the results were bad",
+      "context": [],
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "the results were bad lol",
+      "context": [],
+      "reply": "Why did you do that?",
+      "correct": false
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "the results were bad",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bad_news",
+      "tier": 2,
+      "prompt": "the results were bad",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "bored as anything",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "so bored as anything",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "bored as anything lol",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "bored as anything",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "bored as anything",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "unbelievably bored",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "so unbelievably bored",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "unbelievably bored lol",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "unbelievably bored",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "unbelievably bored",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "i've got nothing to do",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "so i've got nothing to do",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "i've got nothing to do lol",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "i've got nothing to do",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "i've got nothing to do",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "boring day",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "so boring day",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "boring day lol",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "boring day",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "boring day",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "nothing going on",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "so nothing going on",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "nothing going on lol",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "nothing going on",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "bored",
+      "tier": 2,
+      "prompt": "nothing going on",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "same, nothing going on here",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "absolutely exhausted",
+      "context": [],
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "so absolutely exhausted",
+      "context": [],
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "absolutely exhausted lol",
+      "context": [],
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "absolutely exhausted",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "absolutely exhausted",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "i'm beat",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "so i'm beat",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "i'm beat lol",
+      "context": [],
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "i'm beat",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no worries",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "i'm beat",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "barely slept",
+      "context": [],
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "so barely slept",
+      "context": [],
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "barely slept lol",
+      "context": [],
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "barely slept",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "I'm sorry, but we're going to be able to help you out.",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "barely slept",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "I'm sorry, I'm not in the mood to get it.",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "worn out",
+      "context": [],
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "so worn out",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "worn out lol",
+      "context": [],
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "worn out",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no idea honestly",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "worn out",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "see you",
+      "correct": false
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "i'm so tired today",
+      "context": [],
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "so i'm so tired today",
+      "context": [],
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "i'm so tired today lol",
+      "context": [],
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "i'm so tired today",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "tired",
+      "tier": 2,
+      "prompt": "i'm so tired today",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "long day?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "eh?",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "so eh?",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "eh? lol",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "eh?",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "eh?",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "i'm lost",
+      "context": [],
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "so i'm lost",
+      "context": [],
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "i'm lost lol",
+      "context": [],
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "i'm lost",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "i'm lost",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "what do you mean",
+      "context": [],
+      "reply": "what do you think?",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "so what do you mean",
+      "context": [],
+      "reply": "what do you think?",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "what do you mean lol",
+      "context": [],
+      "reply": "what do you think?",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "what do you mean",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "what do you think?",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "what do you mean",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "what do you think?",
+      "correct": false
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "not following",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "so not following",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "not following lol",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "not following",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "not following",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "you what",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "so you what",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "you what lol",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "you what",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "confused",
+      "tier": 2,
+      "prompt": "you what",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "what do you mean?",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "totally",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "so totally",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "totally lol",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "totally",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "totally",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "agreed",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "so agreed",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "agreed lol",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "agreed",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "agreed",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "true that",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "so true that",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "true that lol",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "true that",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "true that",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "spot on",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "so spot on",
+      "context": [],
+      "reply": "really? i don't see it",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "spot on lol",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "spot on",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "spot on",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "yeah i think so too",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "so yeah i think so too",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "yeah i think so too lol",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "yeah i think so too",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "agreement",
+      "tier": 2,
+      "prompt": "yeah i think so too",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "yeah exactly",
+      "correct": true
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "i don't buy it",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "so i don't buy it",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "i don't buy it lol",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "i don't buy it",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "i don't buy it",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "disagree",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "so disagree",
+      "context": [],
+      "reply": "really? i don't see it",
+      "correct": true
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "disagree lol",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "disagree",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "disagree",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "not convinced",
+      "context": [],
+      "reply": "really? i don't see it",
+      "correct": true
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "so not convinced",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "not convinced lol",
+      "context": [],
+      "reply": "really? i don't see it",
+      "correct": true
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "not convinced",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "really? i don't see it",
+      "correct": true
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "not convinced",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "I'm sorry, I won't do it again.",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "i doubt it",
+      "context": [],
+      "reply": "really? i don't see it",
+      "correct": true
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "so i doubt it",
+      "context": [],
+      "reply": "really? i don't see it",
+      "correct": true
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "i doubt it lol",
+      "context": [],
+      "reply": "really? i don't see it",
+      "correct": true
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "i doubt it",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "disagreement",
+      "tier": 3,
+      "prompt": "i doubt it",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "I hope it was a good day for you.",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "i'm at my limit",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "so i'm at my limit",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "i'm at my limit lol",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "i'm at my limit",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "i'm at my limit",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "this week has been brutal",
+      "context": [],
+      "reply": "Oh my, I am too. How do you do it?",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "so this week has been brutal",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "this week has been brutal lol",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "this week has been brutal",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "this week has been brutal",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "Oh my god. What do you do?",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "everything keeps going wrong",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "so everything keeps going wrong",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "everything keeps going wrong lol",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "everything keeps going wrong",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "everything keeps going wrong",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "i'm so fed up",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "so i'm so fed up",
+      "context": [],
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "i'm so fed up lol",
+      "context": [],
+      "reply": "same, nothing going on here",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "i'm so fed up",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "same, nothing going on here",
+      "correct": false
+    },
+    {
+      "intent": "user_vents",
+      "tier": 2,
+      "prompt": "i'm so fed up",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "long day?",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "lololol",
+      "context": [],
+      "reply": "haha",
+      "correct": true
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "so lololol",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "lololol lol",
+      "context": [],
+      "reply": "haha",
+      "correct": true
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "lololol",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "haha",
+      "correct": true
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "lololol",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "haha",
+      "correct": true
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "ha",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "so ha",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "ha lol",
+      "context": [],
+      "reply": "haha",
+      "correct": true
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "ha",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "ha",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "that's hilarious",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "so that's hilarious",
+      "context": [],
+      "reply": "it's alright",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "that's hilarious lol",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "that's hilarious",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "it's alright",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "that's hilarious",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "it's alright",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "i can't stop laughing",
+      "context": [],
+      "reply": "that sounds rough",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "so i can't stop laughing",
+      "context": [],
+      "reply": "that sounds rough",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "i can't stop laughing lol",
+      "context": [],
+      "reply": "that sounds rough",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "i can't stop laughing",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "really? i don't see it",
+      "correct": false
+    },
+    {
+      "intent": "user_jokes",
+      "tier": 2,
+      "prompt": "i can't stop laughing",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "that sounds rough",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "any thoughts",
+      "context": [],
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "so any thoughts",
+      "context": [],
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "any thoughts lol",
+      "context": [],
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "any thoughts",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "any thoughts",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "what's your take",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "so what's your take",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "what's your take lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "what's your take",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "what's your take",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "do you think i should",
+      "context": [],
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "so do you think i should",
+      "context": [],
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "do you think i should lol",
+      "context": [],
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "do you think i should",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "do you think i should",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "what do you think?",
+      "correct": true
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "reckon it's worth it",
+      "context": [],
+      "reply": "I love scary movies. What was it about?",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "so reckon it's worth it",
+      "context": [],
+      "reply": "no worries",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "reckon it's worth it lol",
+      "context": [],
+      "reply": "I've never been on a vacation myself, I'm not sure I can.",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "reckon it's worth it",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no worries",
+      "correct": false
+    },
+    {
+      "intent": "user_asks_opinion",
+      "tier": 3,
+      "prompt": "reckon it's worth it",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "I hope it will be a good day for you.",
+      "correct": false
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hey it's alex",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "so hey it's alex",
+      "context": [],
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hey it's alex lol",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hey it's alex",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hey it's alex",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": false
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hello, me again",
+      "context": [],
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "so hello, me again",
+      "context": [],
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hello, me again lol",
+      "context": [],
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hello, me again",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hello, me again",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hi it's me!",
+      "context": [],
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "so hi it's me!",
+      "context": [],
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hi it's me! lol",
+      "context": [],
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hi it's me!",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "greeting_plus_name",
+      "tier": 2,
+      "prompt": "hi it's me!",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey, how's it going?",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "still there?",
+      "context": [],
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "so still there?",
+      "context": [],
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "still there? lol",
+      "context": [],
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "still there?",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "still there?",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "you around?",
+      "context": [],
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "so you around?",
+      "context": [],
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "you around? lol",
+      "context": [],
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "you around?",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "you around?",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "yeah still here",
+      "correct": true
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "hey you there",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "so hey you there",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "hey you there lol",
+      "context": [],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "hey you there",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "check_in",
+      "tier": 2,
+      "prompt": "hey you there",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "hey",
+      "correct": false
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "you're lovely",
+      "context": [],
+      "reply": "ah thanks",
+      "correct": true
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "so you're lovely",
+      "context": [],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "you're lovely lol",
+      "context": [],
+      "reply": "ah thanks",
+      "correct": true
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "you're lovely",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "you're lovely",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "ah thanks",
+      "correct": true
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "i enjoy this",
+      "context": [],
+      "reply": "I'm not too sure about it either. It's always a good outlook to have a",
+      "correct": false
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "so i enjoy this",
+      "context": [],
+      "reply": "what do you think?",
+      "correct": false
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "i enjoy this lol",
+      "context": [],
+      "reply": "I'm not too sure about it either",
+      "correct": false
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "i enjoy this",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "i enjoy this",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "I'm sorry to hear that. I hope it's a good night.",
+      "correct": false
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "you're good at this",
+      "context": [],
+      "reply": "ah thanks",
+      "correct": true
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "so you're good at this",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "you're good at this lol",
+      "context": [],
+      "reply": "ah thanks",
+      "correct": true
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "you're good at this",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "ah thanks",
+      "correct": true
+    },
+    {
+      "intent": "compliment",
+      "tier": 2,
+      "prompt": "you're good at this",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "ah thanks",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "fancy a walk?",
+      "context": [],
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "so fancy a walk?",
+      "context": [],
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "fancy a walk? lol",
+      "context": [],
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "fancy a walk?",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "fancy a walk?",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "up for lunch?",
+      "context": [],
+      "reply": "No, but you're not sure that that you want to eat.",
+      "correct": false
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "so up for lunch?",
+      "context": [],
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "up for lunch? lol",
+      "context": [],
+      "reply": "No, but that's just not the same.",
+      "correct": false
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "up for lunch?",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no, but i do do it every every once in a while.",
+      "correct": false
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "up for lunch?",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "no, it's just not too late.",
+      "correct": false
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "you around this weekend?",
+      "context": [],
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "so you around this weekend?",
+      "context": [],
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "you around this weekend? lol",
+      "context": [],
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "you around this weekend?",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "small_plan",
+      "tier": 2,
+      "prompt": "you around this weekend?",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "sounds good",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i took up pottery",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "so i took up pottery",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i took up pottery lol",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i took up pottery",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i took up pottery",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i'm learning to knit",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "so i'm learning to knit",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i'm learning to knit lol",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i'm learning to knit",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i'm learning to knit",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "we adopted a rabbit",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "so we adopted a rabbit",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "we adopted a rabbit lol",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "we adopted a rabbit",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "we adopted a rabbit",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i've been gardening",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "so i've been gardening",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i've been gardening lol",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i've been gardening",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i've been gardening",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i joined a book club",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "so i joined a book club",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i joined a book club lol",
+      "context": [],
+      "reply": "That sounds fun!",
+      "correct": false
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i joined a book club",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i joined a book club",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i'm painting the kitchen",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "so i'm painting the kitchen",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i'm painting the kitchen lol",
+      "context": [],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i'm painting the kitchen",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i'm painting the kitchen",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh no, i'm sorry",
+      "correct": false
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i started a podcast",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "so i started a podcast",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i started a podcast lol",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i started a podcast",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i started a podcast",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i've been walking more",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "so i've been walking more",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i've been walking more lol",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i've been walking more",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i've been walking more",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i got a keyboard",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "so i got a keyboard",
+      "context": [],
+      "reply": "that's great!",
+      "correct": false
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i got a keyboard lol",
+      "context": [],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i got a keyboard",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "topic_statement",
+      "tier": 2,
+      "prompt": "i got a keyboard",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "oh nice, how's that going?",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what is the population of brazil",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so what is the population of brazil",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what is the population of brazil lol",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what is the population of brazil",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what is the population of brazil",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's 23 plus 19",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so what's 23 plus 19",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's 23 plus 19 lol",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's 23 plus 19",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's 23 plus 19",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "who wrote hamlet",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so who wrote hamlet",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "who wrote hamlet lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "who wrote hamlet",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "who wrote hamlet",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "write me an essay",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so write me an essay",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "write me an essay lol",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "write me an essay",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "write me an essay",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "I love the weather that time of the day, I am glad you have enjoying the weather that",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "how do i install docker",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so how do i install docker",
+      "context": [],
+      "reply": "what do you think?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "how do i install docker lol",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "how do i install docker",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "what do you think?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "how do i install docker",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "what do you think?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's the boiling point of water",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so what's the boiling point of water",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's the boiling point of water lol",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's the boiling point of water",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's the boiling point of water",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "I'm not sure what to do. I can't stop being picnic myself.",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "hjkl asdf",
+      "context": [],
+      "reply": "no worries",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so hjkl asdf",
+      "context": [],
+      "reply": "what do you mean?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "hjkl asdf lol",
+      "context": [],
+      "reply": "haha",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "hjkl asdf",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no worries",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "hjkl asdf",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "yeah exactly",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "define recursion",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so define recursion",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "define recursion lol",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "define recursion",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "define recursion",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's 8 squared",
+      "context": [],
+      "reply": "not bad, you?",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "so what's 8 squared",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's 8 squared lol",
+      "context": [],
+      "reply": "no idea honestly",
+      "correct": true
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's 8 squared",
+      "context": [
+        "so what have you been up to",
+        "not much, you?"
+      ],
+      "reply": "really? i don't see it",
+      "correct": false
+    },
+    {
+      "intent": "out_of_scope",
+      "tier": 3,
+      "prompt": "what's 8 squared",
+      "context": [
+        "did you see the weather today",
+        "yeah, grim isn't it"
+      ],
+      "reply": "no idea honestly",
+      "correct": true
+    }
+  ]
+}

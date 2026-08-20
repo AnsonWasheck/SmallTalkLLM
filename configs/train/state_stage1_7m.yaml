@@ -1,0 +1,35 @@
+# v0.2-Core stage 1: language base on real dialogue only (loss on all tokens).
+# The Core curriculum is deliberately kept OUT of this stage -- pretraining on
+# 60k copies of "hey" would collapse the language model before SFT ever runs.
+run_name: state-stage1-7m
+stage: clm
+model_config: configs/model/smalltalk-7m.yaml
+tokenizer: artifacts/state/tokenizer-4096
+train_data: data/state/pretrain_train.jsonl
+val_data: data/state/pretrain_val.jsonl
+output_dir: artifacts/runs
+
+seq_len: 512
+batch_size: 32
+grad_accum_steps: 2
+max_steps: 1000   # ~5 epochs of the 5M-token real corpus; val bottomed at 750/4000 in the first run and rose to ppl 258 by 3750
+
+learning_rate: 6.0e-4
+min_lr_ratio: 0.1
+beta1: 0.9
+beta2: 0.95
+weight_decay: 0.1
+grad_clip: 1.0
+warmup_ratio: 0.03
+lr_schedule: cosine
+
+eval_every: 100
+eval_batches: 20
+save_every: 1000
+log_every: 50
+keep_last: 2
+
+device: auto
+dtype: auto
+seed: 1337
+wandb: false
