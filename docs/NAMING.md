@@ -71,3 +71,17 @@ never edited.
 Generated corpora (`data/core/`), checkpoints and run artifacts (`artifacts/`)
 stay local -- they are reproducible from the committed code plus the recorded
 seed and config. The ledger and reports are the durable record.
+
+## Archives
+
+Superseded lines are preserved as both a branch and an annotated tag, never
+deleted, so any earlier claim can be re-run:
+
+| ref | contents |
+| --- | --- |
+| `archive/main-v0.1-pre-core` / `archive/v0.1-pre-core` | main before the v0.2-Core rework |
+| `archive/core-v0.2-r001` / `core-v0.2.1-r001` | the r001 champion, Core-Bench 0.594 |
+
+Branch form: `archive/<line>-<version>`. Tag form: the milestone name itself.
+The tag message carries the scores and the benchmark checksum they were measured
+under, because a score without its checksum is not a result.
