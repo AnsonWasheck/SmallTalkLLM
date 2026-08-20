@@ -51,6 +51,15 @@ while true; do
         continue
     fi
 
+    # A running trainer is direct evidence of progress. Checked BEFORE the
+    # heartbeat because the heartbeat is an indirect proxy, and trusting the
+    # proxy over the evidence is what killed seven healthy runs.
+    if pgrep -f "state_sft_7m.yaml|state_stage1_7m.yaml" > /dev/null; then
+        last_train_seen=$now
+        sleep "$INTERVAL"
+        continue
+    fi
+
     if [ -f "$HEARTBEAT" ]; then
         hb=$(head -1 "$HEARTBEAT" 2>/dev/null | cut -d. -f1)
         hb=${hb:-0}

@@ -28,6 +28,7 @@ import argparse
 import json
 import shutil
 import subprocess
+import threading
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -79,10 +80,29 @@ def save_state(s: dict) -> None:
 
 
 def run(cmd: list[str], logfile: Path) -> int:
+    """Run a step, refreshing the heartbeat throughout.
+
+    The heartbeat previously only advanced between commands. SFT takes ~45
+    minutes, which exceeded the watchdog's stall threshold, so the watchdog
+    killed SEVEN healthy training runs overnight and cost roughly five hours of
+    GPU time. Liveness has to be reported while the long thing is running, not
+    only when it finishes.
+    """
     logfile.parent.mkdir(parents=True, exist_ok=True)
     log(f"$ {' '.join(cmd[:6])} ... -> {logfile.name}")
-    with logfile.open("w") as fh:
-        p = subprocess.run(cmd, stdout=fh, stderr=subprocess.STDOUT, cwd=ROOT)
+    done = threading.Event()
+
+    def beat() -> None:
+        while not done.wait(30):
+            HEARTBEAT.write_text(f"{time.time()}\n{now()}\nrunning {logfile.name}\n")
+
+    t = threading.Thread(target=beat, daemon=True)
+    t.start()
+    try:
+        with logfile.open("w") as fh:
+            p = subprocess.run(cmd, stdout=fh, stderr=subprocess.STDOUT, cwd=ROOT)
+    finally:
+        done.set()
     if p.returncode != 0:
         log(f"  FAILED rc={p.returncode}; see {logfile}")
     return p.returncode
