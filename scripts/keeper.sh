@@ -25,5 +25,10 @@ while true; do
         nohup setsid bash scripts/watchdog.sh >> artifacts/state_loop/watchdog.out 2>&1 &
         sleep 5
     fi
+    if ! pgrep -f "[p]romoter.sh" > /dev/null; then
+        echo "[$(date -Is)] promoter missing; starting" >> "$LOG"
+        nohup setsid bash scripts/promoter.sh >> artifacts/state_loop/promoter.out 2>&1 &
+        sleep 5
+    fi
     sleep 120
 done

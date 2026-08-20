@@ -35,6 +35,15 @@
       "benchmark": "core-v0.2.1",
       "checksum": "33a35a049b672226",
       "overall": 0.629
+    },
+    "statebench": {
+      "version": "statebench-v1.0.0",
+      "checksum": "0fada5c5f9bbb9ae",
+      "directional": 0.0,
+      "divergence": 0.3333333333333333,
+      "accuracy": 0.0,
+      "attractor_rate": 0.6666666666666666,
+      "_note": "Measured after the fact on StateBench-v1. directional 0.0 is the baseline this line must beat."
     }
   },
   "history": [
