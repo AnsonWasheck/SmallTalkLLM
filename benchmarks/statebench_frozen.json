@@ -1,0 +1,32 @@
+{
+  "version": "statebench-v1.0.0",
+  "checksum": "a2192fb7b7757e7e",
+  "pairs": 12,
+  "trajectories": 24,
+  "ids": [
+    "day-01::positive::yeah",
+    "day-01::negative::yeah",
+    "day-02::positive::i guess",
+    "day-02::negative::i guess",
+    "work-01::positive::yeah",
+    "work-01::negative::yeah",
+    "work-02::positive::mm",
+    "work-02::negative::mm",
+    "sleep-01::positive::yeah",
+    "sleep-01::negative::yeah",
+    "health-01::positive::mm",
+    "health-01::negative::mm",
+    "social-01::positive::yeah",
+    "social-01::negative::yeah",
+    "news-01::positive::yeah",
+    "news-01::negative::yeah",
+    "news-02::positive::mm",
+    "news-02::negative::mm",
+    "home-01::positive::yeah",
+    "home-01::negative::yeah",
+    "money-01::positive::i guess",
+    "money-01::negative::i guess",
+    "study-01::positive::yeah",
+    "study-01::negative::yeah"
+  ]
+}

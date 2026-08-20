@@ -121,3 +121,51 @@ def test_inherently_mid_conversation_intents_get_context():
     assert convs
     with_ctx = sum(1 for c in convs if len(c.messages) > 2) / len(convs)
     assert with_ctx > 0.75, f"goodbye trained with context only {with_ctx:.0%} of the time"
+
+
+def test_statebench_probes_carry_no_valence():
+    """The probe must be uninformative alone, or the pair stops being a test of
+    state and becomes a test of last-turn classification."""
+    from smalltalk.core import statebench as sb
+    for a, b in sb.pairs():
+        assert a.probe == b.probe, f"{a.pair_id} probes differ"
+        assert sb.classify(a.probe) in ("neutral", "other"), a.probe
+
+
+def test_statebench_pairs_differ_only_in_valence():
+    from smalltalk.core import statebench as sb
+    for a, b in sb.pairs():
+        assert a.topic == b.topic
+        assert len(a.turns) == len(b.turns)
+        differing = sum(x != y for x, y in zip(a.turns, b.turns))
+        assert differing <= 2, f"{a.pair_id} differs in {differing} turns"
+
+
+def test_state_curriculum_emits_minimal_counterfactual_pairs():
+    """The whole v0.3 mechanism: identical probes, opposite targets. If pairs
+    are not minimal, the model can separate them without tracking state."""
+    from smalltalk.core.state_gen import StateConfig, generate
+    fams = {}
+    for c in generate(StateConfig(n=400)):
+        fams.setdefault(c.meta["family"], []).append(c)
+    complete = [g for g in fams.values() if len(g) == 2]
+    assert len(complete) > 150
+    for a, b in complete:
+        ua = [m.content for m in a.messages if m.role == "user"]
+        ub = [m.content for m in b.messages if m.role == "user"]
+        ta = [m.content for m in a.messages if m.role == "assistant"]
+        tb = [m.content for m in b.messages if m.role == "assistant"]
+        assert len(ua) == len(ub)
+        assert sum(x != y for x, y in zip(ua, ub)) <= 2, "pair is not minimal"
+        assert ta != tb, "counterfactual pair has identical targets"
+
+
+def test_state_generator_never_emits_a_statebench_opener():
+    from smalltalk.core.state_gen import BENCH_SURFACES, StateConfig, generate
+    import re
+    def n(t):
+        return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9' ]+", " ", t.lower())).strip()
+    for c in generate(StateConfig(n=600)):
+        for m in c.messages:
+            if m.role == "user":
+                assert n(m.content) not in BENCH_SURFACES, m.content
