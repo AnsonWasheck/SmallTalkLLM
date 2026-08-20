@@ -3,14 +3,14 @@
 Stage 1 (CLM)   : conversations packed into fixed-length blocks; loss on all tokens
                   so the model learns the shape of *both* sides of a dialogue.
 Stage 2 (SFT)   : one example per conversation, loss masked to assistant tokens only.
-Stage 3 (distill): same as SFT but the assistant target is the winning teacher
-                  candidate for the final turn.
+Stage 3 (rejection-selected SFT): same as SFT but the assistant target is the
+                  winning teacher candidate for the final turn. This is not
+                  token-distribution distillation; see ``smalltalk.train.distillation``.
 
-Design choice: stage 1 packs across conversation boundaries (with <|eos|> between)
-because at 1024 tokens and ~120-token dialogues, per-example padding would waste
-most of the compute budget. Attention is *not* reset at document boundaries -- an
-explicit, documented simplification; the <|eos|> token is a strong enough signal at
-this scale and it keeps the attention path a single fast SDPA call.
+Stage 1 still packs across conversation boundaries to avoid padding waste, but it
+supplies document segment IDs.  The model applies a block-causal mask so a packed
+dialogue cannot read tokens from its neighbour.  This costs an explicit mask during
+training, but preserves the meaning of a held-out dialogue loss.
 """
 
 from __future__ import annotations
@@ -86,12 +86,16 @@ class PackedCLMDataset(Dataset):
 
         stream: list[int] = []
         asst: list[int] = []
+        segments: list[int] = []
+        segment = 0
         for i in order:
             e = encoded[i]
             reps = 2 if e.weight > 1.5 else 1  # integer upweighting only
             for _ in range(reps):
                 stream.extend(e.ids)
                 asst.extend(e.assistant_mask)
+                segments.extend([segment] * len(e.ids))
+                segment += 1
         n_blocks = max(len(stream) // (seq_len + 1), 0)
         if n_blocks == 0:
             raise ValueError(
@@ -101,6 +105,7 @@ class PackedCLMDataset(Dataset):
         usable = n_blocks * (seq_len + 1)
         self.tokens = torch.tensor(stream[:usable], dtype=torch.long).view(n_blocks, -1)
         self.assistant = torch.tensor(asst[:usable], dtype=torch.long).view(n_blocks, -1)
+        self.segments = torch.tensor(segments[:usable], dtype=torch.long).view(n_blocks, -1)
         self.num_tokens = usable
 
     def __len__(self) -> int:
@@ -113,6 +118,7 @@ class PackedCLMDataset(Dataset):
             "labels": block[:-1].clone(),
             "loss_mask": torch.ones(self.seq_len, dtype=torch.long),
             "assistant_mask": self.assistant[idx][:-1].clone(),
+            "segment_ids": self.segments[idx][:-1].clone(),
         }
 
 

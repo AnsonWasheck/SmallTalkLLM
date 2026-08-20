@@ -30,6 +30,7 @@ data/raw/
 data/processed/
 data/generated/
 data/qwen_teacher_v1/
+data/core/
 !data/seed/
 !data/seed/**
 

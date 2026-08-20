@@ -1,4 +1,4 @@
-"""Guard against training on the held-out benchmark.
+"""Guard against training on every frozen held-out benchmark.
 
 The overnight loop generates corpus data aimed at fixing benchmark failures. That
 is legitimate *capability* work, but it becomes cheating the moment benchmark
@@ -7,7 +7,8 @@ before every training round and refuses corpora that overlap the benchmark.
 
 We check 6-gram overlap rather than exact strings, because paraphrase-level copying
 ("what was my sister's name again?" -> "what was my sisters name again") would
-otherwise slip through.
+otherwise slip through. Any hit is a rejection in v0.2; a corpus generation run
+must be fixed, not averaged into an acceptable leakage rate.
 """
 
 from __future__ import annotations
@@ -19,9 +20,7 @@ from ..data.schema import Conversation
 from .metrics import ngrams, words
 
 NGRAM_N = 6
-# A handful of unavoidable generic overlaps ("how was your day", "i gotta go").
-# Allowing a small rate keeps the check from firing on ordinary English.
-MAX_OVERLAP_RATE = 0.02
+MAX_OVERLAP_RATE = 0.0
 
 
 @dataclass
@@ -47,10 +46,14 @@ class LeakageReport:
 
 def benchmark_ngrams(n: int = NGRAM_N) -> set[tuple[str, ...]]:
     from .bench import default_scenarios
+    from .bench_v2 import build_scenarios, verify_frozen
     from .hard_bench import hard_scenarios
 
+    # Fail closed if the public frozen benchmark has drifted.
+    verify_frozen()
+
     strings: list[str] = []
-    for sc in list(hard_scenarios()) + list(default_scenarios()):
+    for sc in list(hard_scenarios()) + list(default_scenarios()) + list(build_scenarios()):
         strings.extend(sc.user_turns)
         for p in sc.probes:
             strings.extend(p.expect_any)

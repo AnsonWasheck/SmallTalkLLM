@@ -137,24 +137,32 @@ class Trainer:
             else torch.autocast(device_type="cpu", enabled=False)
         )
         with autocast:
-            _, loss = self.model(
-                batch["input_ids"], labels=batch["labels"], loss_mask=batch.get("loss_mask")
+            _, loss_sum = self.model(
+                batch["input_ids"], labels=batch["labels"], loss_mask=batch.get("loss_mask"),
+                segment_ids=batch.get("segment_ids"), reduction="sum"
             )
-        return loss
+        labels = batch["labels"][:, 1:]
+        mask = batch.get("loss_mask")
+        if mask is None:
+            n_tokens = (labels != -100).sum()
+        else:
+            n_tokens = ((labels != -100) & mask[:, 1:].bool()).sum()
+        return loss_sum, n_tokens.clamp(min=1)
 
     @torch.no_grad()
     def evaluate(self, max_batches: int | None = None) -> float | None:
         if self.val_loader is None:
             return None
         self.model.eval()
-        total, n = 0.0, 0
+        total_loss, total_tokens = 0.0, 0
         for i, batch in enumerate(self.val_loader):
             if max_batches and i >= max_batches:
                 break
-            total += self._forward(batch).detach().item()
-            n += 1
+            loss_sum, n_tokens = self._forward(batch)
+            total_loss += loss_sum.detach().item()
+            total_tokens += n_tokens.detach().item()
         self.model.train()
-        return total / max(n, 1)
+        return total_loss / max(total_tokens, 1)
 
     def train(self) -> dict[str, float]:
         cfg = self.cfg
@@ -164,7 +172,6 @@ class Trainer:
         it = iter(self.train_loader)
         t0 = time.time()
         running = 0.0
-        tokens_per_step = cfg.batch_size * cfg.grad_accum_steps * cfg.seq_len
 
         while self.state.step < total:
             lr = lr_at_step(
@@ -174,22 +181,31 @@ class Trainer:
                 group["lr"] = lr
 
             self.opt.zero_grad(set_to_none=True)
-            accum_loss = 0.0
+            microbatches = []
             for _ in range(cfg.grad_accum_steps):
                 try:
-                    batch = next(it)
+                    microbatches.append(next(it))
                 except StopIteration:
                     it = iter(self.train_loader)
-                    batch = next(it)
-                loss = self._forward(batch) / cfg.grad_accum_steps
-                loss.backward()
-                accum_loss += loss.detach().item()
+                    microbatches.append(next(it))
+            # One denominator for the whole accumulation window makes every
+            # supervised token contribute equally, including a short final batch.
+            expected_tokens = sum(
+                int(((b["labels"][:, 1:] != -100) & b.get("loss_mask", torch.ones_like(b["labels"]))[:, 1:].bool()).sum())
+                for b in microbatches
+            )
+            expected_tokens = max(expected_tokens, 1)
+            accum_loss_sum = 0.0
+            for batch in microbatches:
+                loss_sum, _ = self._forward(batch)
+                (loss_sum / expected_tokens).backward()
+                accum_loss_sum += loss_sum.detach().item()
 
             grad_norm = torch.nn.utils.clip_grad_norm_(self.model.parameters(), cfg.grad_clip)
             self.opt.step()
             self.state.step += 1
-            self.state.tokens_seen += tokens_per_step
-            running += accum_loss
+            self.state.tokens_seen += expected_tokens
+            running += accum_loss_sum / expected_tokens
 
             if self.state.step % cfg.log_every == 0:
                 avg = running / cfg.log_every

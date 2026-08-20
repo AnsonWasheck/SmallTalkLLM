@@ -16,6 +16,7 @@ from smalltalk.data.clean import (
     merge_consecutive,
     normalize_text,
     split_train_val,
+    split_by_family,
 )
 from smalltalk.data.dataset import PackedCLMDataset, SFTDataset, build_dataset
 from smalltalk.data.schema import Conversation, Turn, load_conversations, write_jsonl
@@ -183,6 +184,25 @@ def test_split_is_deterministic_and_stratified():
     assert {c.source for c in v1} == {"s", "t"}
 
 
+def test_family_split_is_disjoint_and_append_stable():
+    original = [
+        Conversation(id=f"c{i}", messages=conv("hey", "hi", cid=f"c{i}").messages,
+                     source="qwen", meta={"family": f"family-{i}"})
+        for i in range(40)
+    ]
+    expanded = original + [
+        Conversation(id=f"new{i}", messages=conv("hey", "hi", cid=f"new{i}").messages,
+                     source="qwen", meta={"family": f"new-family-{i}"})
+        for i in range(40)
+    ]
+    a = split_by_family(original, seed=7)
+    b = split_by_family(expanded, seed=7)
+    memberships_a = {c.meta["family"]: split for split, part in zip(("train", "val", "test"), a) for c in part}
+    memberships_b = {c.meta["family"]: split for split, part in zip(("train", "val", "test"), b) for c in part}
+    assert memberships_a == {k: memberships_b[k] for k in memberships_a}
+    assert len(set().union(*(set(c.meta["family"] for c in part) for part in a))) == 40
+
+
 def test_corpus_stats(tiny_corpus):
     s = corpus_stats(tiny_corpus)
     assert s["conversations"] == len(tiny_corpus)
@@ -197,6 +217,7 @@ def test_packed_clm_dataset_shapes(tiny_corpus, tokenizer):
     assert item["input_ids"].shape == (64,)
     assert item["labels"].shape == (64,)
     assert item["loss_mask"].sum() == 64  # stage 1 trains on everything
+    assert item["segment_ids"].shape == (64,)
     assert len(ds) > 1
 
 

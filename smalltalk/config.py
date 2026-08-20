@@ -94,10 +94,10 @@ class ModelConfig(_FromDictMixin):
 
 @dataclass
 class TrainConfig(_FromDictMixin):
-    """Hyperparameters shared by stage 1 (CLM), stage 2 (SFT) and stage 3 (distill)."""
+    """Hyperparameters for CLM, assistant SFT, and rejection-selected SFT."""
 
     run_name: str = "run"
-    stage: str = "clm"  # clm | sft | distill
+    stage: str = "clm"  # clm | sft | distill (legacy name: rejection-selected SFT)
     model_config: str = "configs/model/smalltalk-4m.yaml"
     tokenizer: str = "artifacts/tokenizer-4096"
     train_data: str = "data/processed/train.jsonl"

@@ -58,6 +58,41 @@ def test_cache_trim_keeps_recent_positions(tiny_cfg):
     assert cache.length == 30
     cache.trim(10)
     assert cache.length == 10
+    assert cache.next_position == 30
+    assert cache.cache_start_position == 20
+
+
+def test_sliding_cache_rope_positions_remain_monotonic_after_trim(tiny_cfg):
+    """A sliding cache must not reuse position 0..N after reaching capacity."""
+    torch.manual_seed(0)
+    m = build_model(tiny_cfg).eval()
+    cache = m.new_cache()
+    x = torch.randint(0, tiny_cfg.vocab_size, (1, 24))
+    with torch.no_grad():
+        m(x[:, :12], cache=cache)
+        cache.trim(8)
+        m(x[:, 12:13], cache=cache)
+    assert cache.length == 9
+    assert cache.next_position == 13
+    # Position 12 must use a different RoPE phase than the physical cache index
+    # 8 it happens to occupy after trimming.
+    cos_abs, _ = m.rope(1, 12, x.device, torch.float32)
+    cos_physical, _ = m.rope(1, 8, x.device, torch.float32)
+    assert not torch.allclose(cos_abs, cos_physical)
+
+
+def test_packed_document_block_mask_isolates_neighbouring_dialogues(tiny_cfg):
+    """Changing document A cannot alter logits for packed document B."""
+    torch.manual_seed(0)
+    m = build_model(tiny_cfg).eval()
+    x = torch.randint(0, tiny_cfg.vocab_size, (1, 16))
+    segments = torch.tensor([[0] * 8 + [1] * 8])
+    changed = x.clone()
+    changed[:, :8] = (changed[:, :8] + 5) % tiny_cfg.vocab_size
+    with torch.no_grad():
+        base, _ = m(x, segment_ids=segments)
+        isolated, _ = m(changed, segment_ids=segments)
+    assert torch.allclose(base[:, 8:], isolated[:, 8:], atol=1e-5)
 
 
 def test_rope_makes_the_model_order_sensitive(tiny_cfg):

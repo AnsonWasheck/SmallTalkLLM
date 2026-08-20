@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Autonomous improvement loop: evaluate -> diagnose -> grow corpus -> retrain -> repeat.
+"""Legacy autonomous improvement loop (guarded; use v0.2 orchestration instead).
 
     python scripts/autoloop.py --iterations 99999          # run forever
     python scripts/autoloop.py --status                    # read the ledger
 
 INVARIANTS (must never be violated -- they are what make the results meaningful):
   * The model config is FROZEN at smalltalk-7m. Never touched.
-  * SmallTalkBench-HARD is FROZEN and HELD OUT. Every corpus passes a leakage
-    check before training; leaked conversations are dropped, not tolerated.
+  * SmallTalkBench-HARD is FROZEN and HELD OUT. It is not a development
+    optimizer: this legacy loop requires an explicit unsafe acknowledgement.
   * Every iteration appends to artifacts/loop/ledger.jsonl. Nothing is overwritten,
     so regressions stay visible in the morning.
-  * The best checkpoint by hard-bench score is preserved at artifacts/loop/best/.
+  * A regression is never used as the next initialization checkpoint.
 
 Each iteration:
   1. Evaluate the current champion on SmallTalkBench-HARD (frozen).
@@ -170,7 +170,7 @@ def write_data_request(result: dict, iteration: int) -> Path:
 def rebuild_corpus() -> dict:
     """Merge every data source, clean, leakage-filter, split. Returns stats."""
     from smalltalk.data import adapters
-    from smalltalk.data.clean import split_train_val
+    from smalltalk.data.clean import split_by_family
 
     convs = []
     counts = {}
@@ -201,7 +201,7 @@ def rebuild_corpus() -> dict:
     if not leak.clean:
         print("[leakage] dropped the overlapping conversations; continuing on the clean remainder")
 
-    train, val = split_train_val(kept, val_ratio=0.02, seed=1337)
+    train, val, _test = split_by_family(kept, val_families=0.02, test_families=0.02, seed=1337)
     out = ROOT / "data/processed"
     write_jsonl(out / "train.jsonl", train)
     write_jsonl(out / "val.jsonl", val)
@@ -293,11 +293,20 @@ def main() -> int:
     ap.add_argument("--lr", type=float, default=2.5e-4)
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--eval-only", action="store_true")
+    ap.add_argument("--unsafe-legacy-loop", action="store_true",
+                    help="acknowledge that this old loop evaluates a frozen benchmark repeatedly")
     ap.add_argument("--init", default=None, help="checkpoint to seed the champion")
     args = ap.parse_args()
 
     assert_frozen_architecture()
     LOOP_DIR.mkdir(parents=True, exist_ok=True)
+
+    if args.iterations and not args.status and not args.eval_only and not args.unsafe_legacy_loop:
+        raise SystemExit(
+            "Refusing to use a frozen benchmark for automatic selection. "
+            "Use the v0.2 development evaluator, or explicitly pass "
+            "--unsafe-legacy-loop for historical reproduction only."
+        )
 
     if args.status:
         rows = read_ledger()
@@ -346,8 +355,7 @@ def main() -> int:
             if promoted:
                 best_score = result["score"]
                 promote(ckpt, BEST)
-            # always continue training from the newest weights; keep BEST separate
-            promote(ckpt, CHAMPION)
+                promote(ckpt, CHAMPION)
 
             entry = {
                 "iteration": i, "time": now(),
