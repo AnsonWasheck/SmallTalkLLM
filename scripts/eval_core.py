@@ -27,7 +27,7 @@ def main() -> int:
     ap.add_argument("--checkpoint", required=True)
     ap.add_argument("--tokenizer", default="artifacts/tokenizer-4096")
     ap.add_argument("--tag", required=True)
-    ap.add_argument("--frozen", default="artifacts/core_bench_frozen.json")
+    ap.add_argument("--frozen", default="benchmarks/core_bench_frozen.json")
     ap.add_argument("--max-new-tokens", type=int, default=20)
     ap.add_argument("--out", default="reports/core")
     ap.add_argument("--freeze", action="store_true", help="write the frozen manifest")

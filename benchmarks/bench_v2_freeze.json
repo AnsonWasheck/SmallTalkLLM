@@ -1,0 +1,25 @@
+{
+  "seed": 20240819,
+  "n_scenarios": 396,
+  "checksum": "a2ce68928e780ce5",
+  "skills": {
+    "long_memory": 22,
+    "memory_update": 22,
+    "memory_absent": 22,
+    "implicit_emotion": 22,
+    "sarcasm": 22,
+    "topic_callback": 22,
+    "repair": 22,
+    "contradiction": 22,
+    "ambiguous_referent": 22,
+    "negative_news": 22,
+    "boundary": 22,
+    "humor_timing": 22,
+    "no_fabrication": 22,
+    "minimal_input": 22,
+    "persona_consistency": 22,
+    "long_horizon": 22,
+    "celebration": 22,
+    "epistemic_discrimination": 22
+  }
+}

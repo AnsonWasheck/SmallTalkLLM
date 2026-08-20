@@ -331,7 +331,12 @@ class SmallTalkModel(nn.Module):
             from safetensors.torch import save_file
 
             save_file(state, str(path / "model.safetensors"))
-        except Exception:  # pragma: no cover - fallback when safetensors absent
+        except ImportError as exc:
+            # Fall back only when safetensors is genuinely unavailable. A blanket
+            # `except Exception` here previously swallowed a missing-numpy error
+            # and silently wrote model.pt, so three tests failed on a *save* path
+            # with no indication of the real cause. Surface anything else.
+            print(f"[model] safetensors unavailable ({exc}); writing model.pt")
             torch.save(state, path / "model.pt")
         (path / "config.json").write_text(json.dumps(self.cfg.to_dict(), indent=2))
         return path
