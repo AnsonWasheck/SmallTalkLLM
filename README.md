@@ -6,6 +6,44 @@
 
 > The released student model is frozen at exactly **6,689,024 trainable parameters**.
 
+## Current line: v0.2-Core
+
+The project has shifted objective. Earlier rounds optimized for conversational
+*diversity*, which at 6.7M parameters spread probability mass across a dozen
+equally-plausible replies and made greedy decoding a coin flip. v0.2-Core
+optimizes for *reliability* instead:
+
+> Given an ordinary conversational input, choose an appropriate short response
+> almost every time.
+
+The design rule is **broad input paraphrases, narrow output behaviour**. Each
+intent has one canonical target; a wider accept set is used only for scoring.
+Conditional entropy is driven down on purpose.
+
+**Core-Bench** (`smalltalk/core/bench_core.py`) measures this: 342 scenarios
+built from held-out paraphrases the generator never emits, crossed with fixed
+surface transforms, scored at temperature 0. No RNG anywhere, so two runs of one
+checkpoint are byte-identical. Checksum `33a35a049b672226`.
+
+| round | overall | tier 1 | tier 2 | tier 3 |
+| --- | --- | --- | --- | --- |
+| baseline | 0.550 | 0.767 | 0.488 | 0.196 |
+| r001 | **0.594** | 0.760 | 0.506 | 0.451 |
+| target | — | 0.99 | 0.95 | 0.90 |
+
+r001 added an `out_of_scope` class after a measured failure: with 20 intents and
+no way to decline, *"what is the square root of nine"* and *"my hovercraft is
+full of eels"* both returned *"that sounds rough"*. That class went 0.00 → 0.556
+without costing tiers 1 or 2.
+
+Training runs unattended via `scripts/core_loop.py`, which verifies the benchmark
+checksum every round and halts rather than report an incomparable number. It may
+change the curriculum but never the test, and never promotes a regression.
+
+```bash
+python scripts/core_loop.py --status      # read the experiment ledger
+```
+
 ## Project status
 
 This repository is **research alpha**. The architecture, tokenizer, benchmark, training code, and reproducibility scaffolding are public. Checkpoints and downloaded/private datasets are intentionally excluded from git. Results are versioned in reports and experiment manifests rather than presented as production claims.
@@ -92,7 +130,20 @@ Every training corpus should carry source provenance, licenses, generator/model 
 
 ## Evaluation
 
-SmallTalkBench-v2 contains **396 scenarios across 18 skills** and has frozen checksum `a2ce68928e780ce5`. It is not training data. It evaluates complete trajectories with separate metrics for semantic coherence, long-range memory, state updates, absent-memory discrimination, epistemic correctness, emotional response, repair, ambiguity, response length, repetition, lexical diversity, question overuse, and stopping.
+Two instruments, deliberately measuring different things.
+
+**Core-Bench** — reliability on conversational primitives. Deterministic, frozen
+by checksum, tier targets 99/95/90%.
+
+```bash
+python scripts/eval_core.py --checkpoint /path/to/checkpoint --tag my-run
+```
+
+Frozen manifests live in `benchmarks/`, not `artifacts/`: a score is meaningless
+without the checksum it was measured under, so they are part of the durable
+record rather than regenerable output.
+
+**SmallTalkBench-v2** — trajectory quality. SmallTalkBench-v2 contains **396 scenarios across 18 skills** and has frozen checksum `a2ce68928e780ce5`. It is not training data. It evaluates complete trajectories with separate metrics for semantic coherence, long-range memory, state updates, absent-memory discrimination, epistemic correctness, emotional response, repair, ambiguity, response length, repetition, lexical diversity, question overuse, and stopping.
 
 Run the frozen evaluator:
 
@@ -143,9 +194,14 @@ smalltalk-ai/
 
 - `main`: stable public releases only;
 - `develop`: integration branch for the next release;
+- `archive/<line>-<version>`: superseded lines, preserved not deleted;
 - `exp/<name>`: one controlled experiment or ablation;
 - `release/<version>`: short-lived stabilization branch;
 - `vMAJOR.MINOR.PATCH`: reproducible source releases.
+
+Commits follow the scheme in [docs/NAMING.md](docs/NAMING.md), including an
+`exp(...)` type that records a measurement in the subject line so `git log
+--oneline` reads as an experiment history.
 
 Model/data experiments are versioned independently of source releases. Each result must record the git commit, config, exact parameter count, tokenizer identifier, dataset manifest/checksum, seed, optimizer, token budget, checkpoint path, and evaluation tag. See [EXPERIMENTS.md](EXPERIMENTS.md).
 

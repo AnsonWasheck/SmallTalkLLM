@@ -46,7 +46,7 @@ from smalltalk.core.bench_core import TIER_TARGETS, checksum, verify_frozen
 ROOT = Path(__file__).resolve().parent.parent
 LOOP = ROOT / "artifacts" / "core_loop"
 LEDGER = LOOP / "ledger.jsonl"
-FROZEN = ROOT / "artifacts" / "core_bench_frozen.json"
+FROZEN = ROOT / "benchmarks" / "core_bench_frozen.json"
 STATE = LOOP / "state.json"
 
 # Phase 1 is reliability on the current intent set. Later phases widen the task;

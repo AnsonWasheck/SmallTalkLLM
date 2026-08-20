@@ -2,6 +2,7 @@
 torch>=2.1
 tokenizers>=0.15
 safetensors>=0.4
+numpy>=1.24
 pyyaml>=6.0
 
 # optional

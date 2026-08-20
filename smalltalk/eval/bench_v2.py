@@ -259,7 +259,10 @@ def checksum(scenarios: list[Scenario]) -> str:
     return hashlib.sha256(blob.encode()).hexdigest()[:16]
 
 
-FREEZE_PATH = Path(__file__).resolve().parents[2] / "artifacts" / "bench_v2_freeze.json"
+# The frozen manifest is a durable record, not runtime output: a score is
+# meaningless without the checksum it was measured under, and CI needs it to
+# prove the leakage gate still fails closed. Hence benchmarks/, not artifacts/.
+FREEZE_PATH = Path(__file__).resolve().parents[2] / "benchmarks" / "bench_v2_freeze.json"
 
 
 def freeze(path: Path | None = None) -> dict:
