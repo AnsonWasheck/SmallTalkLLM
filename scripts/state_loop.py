@@ -35,7 +35,7 @@ from pathlib import Path
 
 import _bootstrap  # noqa: F401
 
-from smalltalk.core import bench_core, statebench
+from smalltalk.core import bench_core, statebench, varietybench
 
 ROOT = Path(__file__).resolve().parent.parent
 LOOP = ROOT / "artifacts" / "state_loop"
@@ -113,7 +113,8 @@ def rocm(script: str, *args: str) -> list[str]:
 
 
 def checksums() -> dict:
-    return {"core": bench_core.checksum(), "state": statebench.checksum()}
+    return {"core": bench_core.checksum(), "state": statebench.checksum(),
+            "variety": varietybench.checksum()}
 
 
 def one_round(state: dict) -> dict:
@@ -128,6 +129,7 @@ def one_round(state: dict) -> dict:
 
     bench_core.verify_frozen(ROOT / "benchmarks" / "core_bench_frozen.json")
     statebench.verify_frozen(ROOT / "benchmarks" / "statebench_frozen.json")
+    varietybench.verify_frozen(ROOT / "benchmarks" / "variety_frozen.json")
 
     cur = checksums()
     if state["bench_checksums"] not in (None, cur):
@@ -160,11 +162,16 @@ def one_round(state: dict) -> dict:
                 "--tag", tag, "--quiet"), rd / "state_eval.log") != 0:
         entry["status"] = "state_eval_failed"
         return entry
+    run(rocm("scripts/eval_variety.py", "--checkpoint", str(ckpt),
+             "--tokenizer", "artifacts/state/tokenizer-4096",
+             "--tag", tag), rd / "variety_eval.log")
     run(rocm("scripts/eval_core.py", "--checkpoint", str(ckpt),
              "--tokenizer", "artifacts/state/tokenizer-4096",
              "--tag", tag), rd / "core_eval.log")
 
     sb = json.loads((ROOT / "reports" / "state" / f"{tag}.json").read_text())
+    vp = ROOT / "reports" / "variety" / f"{tag}.json"
+    vb = json.loads(vp.read_text()) if vp.exists() else {}
     core_path = ROOT / "reports" / "core" / f"{tag}.json"
     cb = json.loads(core_path.read_text()) if core_path.exists() else {}
 
@@ -174,9 +181,20 @@ def one_round(state: dict) -> dict:
         "state_accuracy": sb["accuracy"], "attractor_rate": sb["attractor_rate"],
         "core_overall": cb.get("overall"),
         "core_tier1": (cb.get("per_tier") or {}).get("1"),
+        "repeat_rate": vb.get("repeat_rate"),
+        "distinct_ratio": vb.get("distinct_ratio"),
     })
 
-    improved = sb["directional"] > state["best_directional"]
+    # Promotion now requires state tracking AND conversational variety. Judging
+    # on directional alone is what let r004 through: it tracked valence better on
+    # paper while repeating one phrase 37.5% of the time, which is worse to talk
+    # to. A model may not buy state by becoming a broken record.
+    repeat = vb.get("repeat_rate", 1.0)
+    varied_enough = repeat <= 0.25
+    improved = sb["directional"] > state["best_directional"] and varied_enough
+    if not varied_enough:
+        entry.setdefault("notes", []).append(
+            f"HELD: repeat_rate {repeat:.1%} exceeds the 25% variety gate")
     if improved:
         state.update({"best_directional": sb["directional"], "best_round": rnd,
                       "best_config": cfg["name"]})

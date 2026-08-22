@@ -169,3 +169,31 @@ def test_state_generator_never_emits_a_statebench_opener():
         for m in c.messages:
             if m.role == "user":
                 assert n(m.content) not in BENCH_SURFACES, m.content
+
+
+def test_varietybench_penalises_a_broken_record():
+    """A model repeating one phrase must score badly even if the phrase is right."""
+    from smalltalk.core import varietybench as vb
+    stuck = {n: ["that sounds rough"] * len(t) for n, t in vb.CONVERSATIONS}
+    varied = {n: [f"reply number {i} here" for i, _ in enumerate(t)]
+              for n, t in vb.CONVERSATIONS}
+    assert vb.score(stuck)["repeat_rate"] > 0.7
+    assert vb.score(varied)["repeat_rate"] == 0.0
+    assert vb.score(stuck)["top1_share"] > vb.score(varied)["top1_share"]
+
+
+def test_varietybench_forgives_trivial_acknowledgements():
+    """"yeah" twice in a conversation is human; a repeated reaction is not."""
+    from smalltalk.core import varietybench as vb
+    trivial = {n: ["yeah"] * len(t) for n, t in vb.CONVERSATIONS}
+    assert vb.score(trivial)["repeat_rate"] == 0.0
+
+
+def test_state_curriculum_does_not_repeat_within_a_conversation():
+    from smalltalk.core.state_gen import StateConfig, generate
+    dup = tot = 0
+    for c in generate(StateConfig(n=800)):
+        rs = [m.content for m in c.messages if m.role == "assistant"]
+        dup += len(rs) - len(set(rs))
+        tot += len(rs)
+    assert dup / tot < 0.05, "training conversations repeat themselves"

@@ -39,6 +39,14 @@ class HarnessConfig:
     # --- memory ---------------------------------------------------------
     memory_slots: int = 8
 
+    # Reject a candidate reply already used this conversation. Measured on
+    # v0.3.1-r004: 40% of replies inside a conversation were verbatim repeats of
+    # an earlier one ("that sounds rough" three turns running). Tracking what has
+    # already been said is exact bookkeeping and belongs in the harness, not in
+    # the 6.7M model's weights.
+    avoid_repeats: bool = False
+    repeat_window: int = 4
+
     # --- Phase 3 steering interfaces (mutually comparable, one variable each) --
     steer: str = "none"          # none | restrict | bias | hidden
     steer_steps: int = 1         # how many opening tokens the interface touches
@@ -59,6 +67,10 @@ class HarnessConfig:
 # a difference between adjacent rows is attributable to that mechanism.
 MODES: dict[str, HarnessConfig] = {
     "A_RAW": HarnessConfig(name="A_RAW"),
+    # Repetition control ALONE on top of raw, so its contribution is separable
+    # from every other mechanism.
+    "R_NOREPEAT": HarnessConfig(name="R_NOREPEAT", avoid_repeats=True,
+                                output_controls=True, repetition_control=True),
     "B_CONTEXT": HarnessConfig(name="B_CONTEXT", context_selection=True),
     "C_POLICY": HarnessConfig(name="C_POLICY", context_selection=True, policy=True),
     "D_POLICY_CONFIDENCE": HarnessConfig(

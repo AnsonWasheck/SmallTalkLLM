@@ -1,0 +1,84 @@
+{
+  "checksum": "0fc63d268b68386e",
+  "repeat_rate": 0.375,
+  "distinct_ratio": 0.3333333333333333,
+  "top1_share": 0.3333333333333333,
+  "per_conversation": {
+    "good_day": 0.6666666666666666,
+    "bad_day": 0.6666666666666666,
+    "neutral_news": 0.3333333333333333,
+    "tired": 0.16666666666666666,
+    "hobby": 0.16666666666666666,
+    "social": 0.16666666666666666,
+    "bored": 0.5,
+    "plans": 0.3333333333333333
+  },
+  "tag": "v0.3.1-r004",
+  "checkpoint": "artifacts/snapshots/v0.3.1-r004",
+  "transcripts": {
+    "good_day": [
+      "good stuff",
+      "good stuff",
+      "good stuff",
+      "that's great",
+      "that's great",
+      "that's great"
+    ],
+    "bad_day": [
+      "that sucks",
+      "that sounds rough",
+      "that sounds rough",
+      "that sounds rough",
+      "that sucks",
+      "that sucks"
+    ],
+    "neutral_news": [
+      "oh nice, how's that going?",
+      "that's great!",
+      "yeah exactly",
+      "that's great",
+      "that's great",
+      "glad to hear it"
+    ],
+    "tired": [
+      "long day?",
+      "oh nice, how's that going?",
+      "really? i don't see it",
+      "that sounds rough",
+      "that sounds rough",
+      "see you"
+    ],
+    "hobby": [
+      "oh nice, how's that going?",
+      "I'm not sure if I'm available to see the doctor as soon as I know it is a",
+      "yeah exactly",
+      "same, nothing going on here",
+      "that sounds rough",
+      "that sounds rough"
+    ],
+    "social": [
+      "Oh nice. What happened?",
+      "oh nice, how's that going?",
+      "yeah exactly",
+      "that sounds rough",
+      "that sounds rough",
+      "that's great"
+    ],
+    "bored": [
+      "same, nothing going on here",
+      "yeah still here",
+      "that sounds rough",
+      "that sounds rough",
+      "that sounds rough",
+      "that sounds rough"
+    ],
+    "plans": [
+      "I hope you do not have any fun plans to do it?",
+      "Oh I hope you have a good time.",
+      "yeah exactly",
+      "that sounds rough",
+      "that sounds rough",
+      "that sounds rough"
+    ]
+  }
+}

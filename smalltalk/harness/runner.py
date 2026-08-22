@@ -312,7 +312,19 @@ class Harness:
         if policy is not None and self.cfg.policy:
             max_new = min(max_new, LENGTH_TOKENS[policy.length] + 4)
 
-        if self.cfg.steer != "none" and policy is not None:
+        if self.cfg.avoid_repeats:
+            # Ask the model for several openings and take its own top choice that
+            # it has not already used. The reply is still entirely generated; the
+            # harness only declines to say the same thing twice.
+            cands = self._candidates(prompt_ids, max_new,
+                                     max(self.cfg.n_candidates, 4))
+            tr.candidates = cands
+            said = [h["content"].strip().lower()
+                    for h in self.history[-2 * self.cfg.repeat_window:]
+                    if h["role"] == "assistant"]
+            fresh = [c for c in cands if c.strip().lower() not in said]
+            reply = (fresh or cands or [""])[0]
+        elif self.cfg.steer != "none" and policy is not None:
             # One steered greedy decode. The interface touches only the opening
             # tokens; everything after is ordinary autoregressive generation.
             kw = {}
