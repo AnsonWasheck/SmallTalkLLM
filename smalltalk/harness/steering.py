@@ -30,6 +30,44 @@ import torch
 import torch.nn.functional as F
 
 
+# Words that carry no referent. Kept here rather than imported from the
+# benchmark so the harness never depends on a test module.
+_STOP = {
+    "i", "you", "it", "that", "this", "the", "a", "an", "is", "was", "are", "were",
+    "to", "of", "in", "on", "at", "for", "and", "or", "but", "so", "my", "your",
+    "me", "we", "they", "he", "she", "them", "him", "her", "do", "did", "does",
+    "have", "has", "had", "be", "been", "got", "get", "no", "not", "yeah", "yes",
+    "oh", "ah", "well", "how", "what", "when", "where", "who", "why", "up", "out",
+    "all", "just", "really", "very", "with", "about", "like", "if", "there",
+    "here", "again", "still", "too", "then", "now", "one", "new", "much",
+}
+_WORD_RE = __import__("re").compile(r"[a-z']+")
+
+
+def referent_tokens(text: str, tokenizer, max_words: int = 3) -> dict[int, float]:
+    """Token ids for the content words the user just said.
+
+    Pulling the noun out of "i got a new dog" is exact string work, and the
+    founding principle of this project is that the 6.7M model should not spend
+    capacity on operations ordinary software performs perfectly. The harness
+    extracts the referent; the model still decides whether and how to use it.
+
+    Returns a flat bias map -- later words are weighted slightly higher, since
+    the thing being talked about tends to arrive at the end of a short turn.
+    """
+    ws = [w for w in _WORD_RE.findall(text.lower()) if w not in _STOP and len(w) > 2]
+    if not ws:
+        return {}
+    ws = ws[-max_words:]
+    bias: dict[int, float] = {}
+    for i, w in enumerate(ws):
+        weight = 0.6 + 0.4 * (i + 1) / len(ws)
+        for form in (" " + w, w):
+            for tid in tokenizer.encode(form):
+                bias[tid] = max(bias.get(tid, 0.0), weight)
+    return bias
+
+
 @dataclass
 class PrefixMap:
     """Mined policy -> opening-token statistics. A static harness asset."""

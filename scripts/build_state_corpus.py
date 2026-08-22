@@ -32,6 +32,8 @@ import _bootstrap  # noqa: F401
 from smalltalk.core.bench_core import build_scenarios as core_scenarios
 from smalltalk.core.core_gen import CoreConfig, generate as core_generate
 from smalltalk.core.intents import normalise
+from smalltalk.core.frame_gen import FrameConfig, generate as frame_generate
+from smalltalk.core.elaboration import SCENARIOS as ELAB_SCENARIOS
 from smalltalk.core.state_gen import BENCH_SURFACES, StateConfig, generate as state_generate
 from smalltalk.data import adapters
 from smalltalk.data.clean import FilterConfig, clean_conversations, corpus_stats
@@ -44,6 +46,8 @@ def main() -> int:
     ap.add_argument("--empathetic", default="data/raw/empathetic")
     ap.add_argument("--state", type=int, default=40000)
     ap.add_argument("--core", type=int, default=24000)
+    ap.add_argument("--frames", type=int, default=24000,
+                    help="elaboration frames: closed shapes, open nouns")
     ap.add_argument("--real-in-sft", type=int, default=4000)
     ap.add_argument("--max-real-turns", type=int, default=6)
     ap.add_argument("--cap-frac", type=float, default=0.020,
@@ -69,8 +73,11 @@ def main() -> int:
     # pool, so an unfiltered pool leaks the test into training as context. Filter
     # the pool rather than dropping the generated examples afterwards: the aim is
     # for the corpus to be clean by construction, not cleaned up after the fact.
+    _elab_prompts = {normalise(s.prompt) for s in ELAB_SCENARIOS}
+
     def clean_of_bench(c) -> bool:
         return not any(norm(m.content) in BENCH_SURFACES
+                       or normalise(m.content) in _elab_prompts
                        for m in c.messages if m.role == "user")
 
     pool = [c for c in real if clean_of_bench(c)]
@@ -78,8 +85,15 @@ def main() -> int:
     core = list(core_generate(CoreConfig(n=args.core, seed=args.seed), real_convs=pool))
     print(f"[core] {len(core):,} reflex examples")
 
+    frames = list(frame_generate(FrameConfig(n=args.frames, seed=args.seed)))
+    reuse = sum(1 for c in frames for m in c.messages
+                if m.role == "assistant" and c.meta["noun"] in m.content)
+    n_asst = sum(1 for c in frames for m in c.messages if m.role == "assistant")
+    print(f"[frames] {len(frames):,} elaboration examples, "
+          f"{reuse / max(1, n_asst):.0%} of replies reuse the referent")
+
     # ---- gate 1: StateBench openers -------------------------------------
-    hits = [c.id for c in state + core
+    hits = [c.id for c in state + core + frames
             for m in c.messages if m.role == "user" and norm(m.content) in BENCH_SURFACES]
     if hits:
         raise SystemExit(f"LEAKAGE: {len(hits)} examples reproduce a StateBench opener "
@@ -88,12 +102,21 @@ def main() -> int:
 
     # ---- gate 2: Core-Bench probes --------------------------------------
     probes = {normalise(s.prompt) for s in core_scenarios()}
-    hits = [c.id for c in state + core
+    hits = [c.id for c in state + core + frames
             for m in c.messages if m.role == "user" and normalise(m.content) in probes]
     if hits:
         raise SystemExit(f"LEAKAGE: {len(hits)} examples reproduce a Core-Bench probe "
                          f"(e.g. {hits[:3]}). Refusing to write.")
     print(f"[leak] 0 examples touch the {len(probes)} Core-Bench probes")
+
+    # ---- gate 3: ElaborationBench prompts --------------------------------
+    elab = {normalise(s.prompt) for s in ELAB_SCENARIOS}
+    hits = [c.id for c in state + core + frames
+            for m in c.messages if m.role == "user" and normalise(m.content) in elab]
+    if hits:
+        raise SystemExit(f"LEAKAGE: {len(hits)} examples reproduce an "
+                         f"ElaborationBench prompt (e.g. {hits[:3]}). Refusing to write.")
+    print(f"[leak] 0 examples touch the {len(elab)} ElaborationBench prompts")
 
     r = random.Random(args.seed)
     r.shuffle(real)
@@ -119,8 +142,16 @@ def main() -> int:
     c_val = max(1, int(len(core) * args.val_ratio))
     core_val, core_train = core[:c_val], core[c_val:]
 
-    sft_train = state_train + core_train + [truncate(c) for c in real_train[: args.real_in_sft]]
-    sft_val = state_val + core_val + [truncate(c) for c in real_val[:80]]
+    # Frames split by FAMILY (frame + noun) so a noun never straddles the split.
+    ffams = sorted({c.meta["family"] for c in frames})
+    r.shuffle(ffams)
+    fval = set(ffams[: max(1, int(len(ffams) * args.val_ratio))])
+    frame_val = [c for c in frames if c.meta["family"] in fval]
+    frame_train = [c for c in frames if c.meta["family"] not in fval]
+
+    sft_train = (state_train + core_train + frame_train
+                 + [truncate(c) for c in real_train[: args.real_in_sft]])
+    sft_val = state_val + core_val + frame_val + [truncate(c) for c in real_val[:80]]
     r.shuffle(sft_train)
 
     # ---- attractor report (not enforced; measured so the loop can react) --
@@ -139,6 +170,7 @@ def main() -> int:
     }
     (out / "corpus_report.json").write_text(json.dumps({
         "counts": counts, "state": len(state), "core": len(core),
+        "frames": len(frames),
         "state_pairs": len(state) // 2,
         "top_target_share": top[1] / n_assist,
         "stats_sft_train": corpus_stats(sft_train),

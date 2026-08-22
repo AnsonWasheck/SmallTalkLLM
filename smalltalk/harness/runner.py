@@ -39,7 +39,7 @@ from .policy import (BY_ID, CONSERVATIVE, CONSERVATIVE_CLOSING, LENGTH_TOKENS,
                      POLICIES, Policy, QuestionPolicy, consistency,
                      high_confidence_shortcut)
 from .state import ConversationState
-from .steering import PrefixMap, steered_generate
+from .steering import PrefixMap, referent_tokens, steered_generate
 from .trace import Trace
 from . import repetition
 from .validator import validate
@@ -312,7 +312,17 @@ class Harness:
         if policy is not None and self.cfg.policy:
             max_new = min(max_new, LENGTH_TOKENS[policy.length] + 4)
 
-        if self.cfg.avoid_repeats:
+        if self.cfg.referent_bias and not self.cfg.avoid_repeats:
+            rb = referent_tokens(user_text, self.tokenizer)
+            out = steered_generate(
+                self.model, self.tokenizer, prompt_ids,
+                self.gen.with_(max_new_tokens=max_new), device=self.device,
+                bias=rb, bias_steps=self.cfg.referent_steps,
+                bias_scale=self.cfg.referent_bias)
+            self._calls += 1
+            reply = self.tokenizer.decode(out).strip()
+            tr.candidates = [reply]
+        elif self.cfg.avoid_repeats:
             # Ask the model for several openings and take its own top choice that
             # it has not already used. The reply is still entirely generated; the
             # harness only declines to say the same thing twice.

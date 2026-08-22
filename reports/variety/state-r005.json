@@ -1,0 +1,84 @@
+{
+  "checksum": "0fc63d268b68386e",
+  "repeat_rate": 0.1875,
+  "distinct_ratio": 0.4375,
+  "top1_share": 0.22916666666666666,
+  "per_conversation": {
+    "good_day": 0.3333333333333333,
+    "bad_day": 0.0,
+    "neutral_news": 0.3333333333333333,
+    "tired": 0.16666666666666666,
+    "hobby": 0.0,
+    "social": 0.16666666666666666,
+    "bored": 0.5,
+    "plans": 0.0
+  },
+  "tag": "state-r005",
+  "checkpoint": "/home/ans/MicroLLM/smalltalk-ai/artifacts/runs/state-r005/best",
+  "transcripts": {
+    "good_day": [
+      "that's brilliant",
+      "that's great",
+      "that's the way",
+      "nice one",
+      "nice one",
+      "that's great"
+    ],
+    "bad_day": [
+      "that's rubbish",
+      "oh nice, how's that going?",
+      "yeah exactly",
+      "that's a pain",
+      "that sounds rough",
+      "that's hard going"
+    ],
+    "neutral_news": [
+      "oh nice, how's that going?",
+      "that's great!",
+      "yeah exactly",
+      "that's great",
+      "that's great",
+      "that's brilliant"
+    ],
+    "tired": [
+      "long day?",
+      "long day?",
+      "really? i don't see it",
+      "oh no, i'm sorry",
+      "it's alright",
+      "see you"
+    ],
+    "hobby": [
+      "oh nice, how's that going?",
+      "Oh, I was in a room for a few days, so I would be afraid to take a",
+      "yeah exactly",
+      "i see",
+      "that sounds rough",
+      "that's great!"
+    ],
+    "social": [
+      "Oh, well I am sorry. What happened?",
+      "oh nice, how's that going?",
+      "yeah exactly",
+      "that's great",
+      "that's great",
+      "that's brilliant"
+    ],
+    "bored": [
+      "same, nothing going on here",
+      "same, nothing going on here",
+      "that's great",
+      "that's great",
+      "that's great",
+      "what do you mean?"
+    ],
+    "plans": [
+      "I'm sorry. I hope it's not too late.",
+      "see you",
+      "yeah exactly",
+      "that sounds rough",
+      "that's hard going",
+      "that's a pain"
+    ]
+  }
+}

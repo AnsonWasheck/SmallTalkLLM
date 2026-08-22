@@ -44,6 +44,12 @@ class HarnessConfig:
     # an earlier one ("that sounds rough" three turns running). Tracking what has
     # already been said is exact bookkeeping and belongs in the harness, not in
     # the 6.7M model's weights.
+    # Bias generation toward the content words the user just said, so that
+    # referencing them is cheap. Measured need: all checkpoints answer a new dog,
+    # a nursing job and a trip to Italy with the same stock phrase.
+    referent_bias: float = 0.0
+    referent_steps: int = 6
+
     avoid_repeats: bool = False
     repeat_window: int = 4
 
@@ -71,6 +77,11 @@ MODES: dict[str, HarnessConfig] = {
     # from every other mechanism.
     "R_NOREPEAT": HarnessConfig(name="R_NOREPEAT", avoid_repeats=True,
                                 output_controls=True, repetition_control=True),
+    # Referent biasing alone, so its contribution is separable.
+    "E_REFERENT": HarnessConfig(name="E_REFERENT", referent_bias=3.0),
+    "E_REFERENT_STRONG": HarnessConfig(name="E_REFERENT_STRONG", referent_bias=6.0),
+    "E_FULL": HarnessConfig(name="E_FULL", referent_bias=3.0, avoid_repeats=True,
+                            output_controls=True, repetition_control=True),
     "B_CONTEXT": HarnessConfig(name="B_CONTEXT", context_selection=True),
     "C_POLICY": HarnessConfig(name="C_POLICY", context_selection=True, policy=True),
     "D_POLICY_CONFIDENCE": HarnessConfig(

@@ -197,3 +197,41 @@ def test_state_curriculum_does_not_repeat_within_a_conversation():
         dup += len(rs) - len(set(rs))
         tot += len(rs)
     assert dup / tot < 0.05, "training conversations repeat themselves"
+
+
+def test_every_frame_reply_reuses_the_referent():
+    """The whole point: an elaboration that drops the noun is a hedge."""
+    from smalltalk.core.frame_gen import FRAMES
+    for f in FRAMES:
+        for t in f.reply:
+            assert "{n}" in t, f"{f.name}: reply {t!r} has no referent slot"
+        for t in f.user:
+            assert "{n}" in t, f"{f.name}: user {t!r} has no referent slot"
+
+
+def test_frame_nouns_are_split_and_bench_words_blocked():
+    from smalltalk.core.frame_gen import BENCH_WORDS, noun_split
+    train, held = noun_split()
+    for slot in train:
+        assert not (set(train[slot]) & set(held[slot])), "train/held-out overlap"
+        assert not (set(train[slot]) & BENCH_WORDS), "benchmark subject in training"
+        assert len(held[slot]) >= 1
+
+
+def test_frame_generator_reuses_the_noun_it_was_given():
+    from smalltalk.core.frame_gen import FrameConfig, generate
+    convs = list(generate(FrameConfig(n=400)))
+    reuse = sum(1 for c in convs for m in c.messages
+                if m.role == "assistant" and c.meta["noun"] in m.content)
+    total = sum(1 for c in convs for m in c.messages if m.role == "assistant")
+    assert reuse / total > 0.5, "most elaborations should name the referent"
+
+
+def test_held_out_nouns_never_appear_in_training_output():
+    """If held-out nouns leaked, generalisation could not be measured."""
+    from smalltalk.core.frame_gen import FrameConfig, generate, noun_split
+    _, held = noun_split()
+    banned = {w for ws in held.values() for w in ws}
+    for c in generate(FrameConfig(n=600)):
+        for m in c.messages:
+            assert not (set(m.content.lower().split()) & banned), m.content

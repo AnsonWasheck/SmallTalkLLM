@@ -1,0 +1,147 @@
+{
+  "checksum": "a2192fb7b7757e7e",
+  "divergence": 0.8333333333333334,
+  "directional": 0.08333333333333333,
+  "accuracy": 0.4583333333333333,
+  "neutral_rate": 0.0,
+  "attractor_rate": 0.125,
+  "other_rate": 0.25,
+  "pairs": [
+    {
+      "pair": "day-01",
+      "topic": "day",
+      "probe": "yeah",
+      "positive_reply": "that's great",
+      "negative_reply": "that's a pain",
+      "differs": true,
+      "both_correct": false
+    },
+    {
+      "pair": "day-02",
+      "topic": "day",
+      "probe": "i guess",
+      "positive_reply": "that's great",
+      "negative_reply": "that's a pain",
+      "differs": true,
+      "both_correct": false
+    },
+    {
+      "pair": "work-01",
+      "topic": "work",
+      "probe": "yeah",
+      "positive_reply": "that's great",
+      "negative_reply": "that's a pain",
+      "differs": true,
+      "both_correct": false
+    },
+    {
+      "pair": "work-02",
+      "topic": "work",
+      "probe": "mm",
+      "positive_reply": "that's great",
+      "negative_reply": "that's rubbish",
+      "differs": true,
+      "both_correct": true
+    },
+    {
+      "pair": "sleep-01",
+      "topic": "sleep",
+      "probe": "yeah",
+      "positive_reply": "yeah exactly",
+      "negative_reply": "that's great",
+      "differs": true,
+      "both_correct": false
+    },
+    {
+      "pair": "health-01",
+      "topic": "health",
+      "probe": "mm",
+      "positive_reply": "that's great",
+      "negative_reply": "that's hard going",
+      "differs": true,
+      "both_correct": false
+    },
+    {
+      "pair": "social-01",
+      "topic": "social",
+      "probe": "yeah",
+      "positive_reply": "that's great",
+      "negative_reply": "that's a pain",
+      "differs": true,
+      "both_correct": false
+    },
+    {
+      "pair": "news-01",
+      "topic": "news",
+      "probe": "yeah",
+      "positive_reply": "yeah exactly",
+      "negative_reply": "yeah exactly",
+      "differs": false,
+      "both_correct": false
+    },
+    {
+      "pair": "news-02",
+      "topic": "news",
+      "probe": "mm",
+      "positive_reply": "that's great!",
+      "negative_reply": "that's great",
+      "differs": true,
+      "both_correct": false
+    },
+    {
+      "pair": "home-01",
+      "topic": "home",
+      "probe": "yeah",
+      "positive_reply": "that's brilliant",
+      "negative_reply": "that's a pain",
+      "differs": true,
+      "both_correct": false
+    },
+    {
+      "pair": "money-01",
+      "topic": "money",
+      "probe": "i guess",
+      "positive_reply": "that's great!",
+      "negative_reply": "that's great!",
+      "differs": false,
+      "both_correct": false
+    },
+    {
+      "pair": "study-01",
+      "topic": "study",
+      "probe": "yeah",
+      "positive_reply": "that's great",
+      "negative_reply": "that's great!",
+      "differs": true,
+      "both_correct": false
+    }
+  ],
+  "replies": {
+    "day-01::positive::yeah": "that's great",
+    "day-01::negative::yeah": "that's a pain",
+    "day-02::positive::i guess": "that's great",
+    "day-02::negative::i guess": "that's a pain",
+    "work-01::positive::yeah": "that's great",
+    "work-01::negative::yeah": "that's a pain",
+    "work-02::positive::mm": "that's great",
+    "work-02::negative::mm": "that's rubbish",
+    "sleep-01::positive::yeah": "yeah exactly",
+    "sleep-01::negative::yeah": "that's great",
+    "health-01::positive::mm": "that's great",
+    "health-01::negative::mm": "that's hard going",
+    "social-01::positive::yeah": "that's great",
+    "social-01::negative::yeah": "that's a pain",
+    "news-01::positive::yeah": "yeah exactly",
+    "news-01::negative::yeah": "yeah exactly",
+    "news-02::positive::mm": "that's great!",
+    "news-02::negative::mm": "that's great",
+    "home-01::positive::yeah": "that's brilliant",
+    "home-01::negative::yeah": "that's a pain",
+    "money-01::positive::i guess": "that's great!",
+    "money-01::negative::i guess": "that's great!",
+    "study-01::positive::yeah": "that's great",
+    "study-01::negative::yeah": "that's great!"
+  },
+  "tag": "state-r005",
+  "checkpoint": "/home/ans/MicroLLM/smalltalk-ai/artifacts/runs/state-r005/best"
+}
