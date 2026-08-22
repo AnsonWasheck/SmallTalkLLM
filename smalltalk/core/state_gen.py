@@ -159,6 +159,12 @@ class StateConfig:
     seed: int = 11
     shapes: dict = field(default_factory=lambda: {
         "sustained": 0.55, "corrected": 0.25, "drifted": 0.20})
+    # Measured on the v0.3 corpus: 67.7% of state_gen assistant turns were pure
+    # neutral filler, so two thirds of the supervision taught the model to say
+    # "mm". In conversation it duly acknowledges instead of reacting. Mid-turns
+    # now mostly carry the valence, which raises the learning signal without
+    # changing the trajectory shape that makes the probe informative.
+    filler_frac: float = 0.35
     min_probes: int = 1
     max_probes: int = 3
     emit_length_token: bool = True
@@ -185,7 +191,9 @@ def _build(shape: str, topic: str, valence: str, r: random.Random,
     n_mid = r.randint(1, 2)
     for _ in range(n_mid):
         msgs.append(Turn("user", r.choice(MIDDLES)))
-        msgs.append(Turn("assistant", r.choice(NEUTRAL_ACKS)))
+        msgs.append(Turn("assistant",
+                         r.choice(NEUTRAL_ACKS) if r.random() < cfg.filler_frac
+                         else _target(current, r, cfg.emit_length_token)))
 
     if shape == "corrected":
         msgs.append(Turn("user", r.choice(CORRECTIONS[current])))
@@ -206,7 +214,9 @@ def _build(shape: str, topic: str, valence: str, r: random.Random,
         msgs.append(Turn("assistant", _target(current, r, cfg.emit_length_token)))
         if r.random() < 0.5:
             msgs.append(Turn("user", r.choice(MIDDLES)))
-            msgs.append(Turn("assistant", r.choice(NEUTRAL_ACKS)))
+            msgs.append(Turn("assistant",
+                             r.choice(NEUTRAL_ACKS) if r.random() < cfg.filler_frac
+                             else _target(current, r, cfg.emit_length_token)))
 
     return msgs, current
 
