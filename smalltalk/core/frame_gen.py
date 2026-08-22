@@ -46,31 +46,85 @@ from ..data.schema import Conversation, Turn
 FRAME_GEN_VERSION = "frame-gen-v0.4.0"
 
 # --- open noun banks --------------------------------------------------------
+# Banks are deliberately LARGE. The pilot learned the frame perfectly and then
+# filled the slot with a different member of the same bank -- "i got a new dog"
+# -> "what's the puppy called?". With ~22 nouns per slot the model could hedge
+# across the bank and still cut its loss; the noun was predictable from the
+# frame, so attending to the user's turn bought almost nothing. Several hundred
+# per slot makes hedging worthless and copying the only strategy that pays.
 OBJECTS = """bike car laptop phone kettle sofa desk chair bed lamp fridge oven
 mirror rug curtain shelf mattress printer camera speaker keyboard monitor guitar
 piano violin drum radio watch ring necklace jacket coat boots trainers backpack
 suitcase tent kayak surfboard skateboard scooter mower shed fence gate greenhouse
 aquarium telescope typewriter blender toaster microwave dishwasher heater fan
-projector console controller headset router doorbell""".split()
+projector console controller headset router doorbell van caravan trailer bicycle
+tricycle wheelbarrow ladder toolbox drill sander chisel hammer saw wrench
+lawnmower hosepipe sprinkler barbecue firepit hammock parasol bench stool
+wardrobe dresser bookcase cabinet sideboard footstool armchair recliner
+bunk cot crib pram pushchair highchair playpen trampoline swing slide
+kite frisbee cricket racket bat ball glove helmet goggles wetsuit
+snorkel flippers paddle canoe dinghy sail anchor compass binoculars
+lantern torch stove flask cooler rucksack sleeping mat pillow duvet
+blanket throw cushion doormat coathook clock barometer thermometer
+kettlebell dumbbell treadmill rower bench crosstrainer skipping
+banjo mandolin ukulele harmonica flute clarinet trumpet saxophone
+turntable amplifier mixer microphone tripod lens flash filter
+tablet stylus scanner shredder stapler whiteboard projector
+freezer boiler radiator thermostat extractor humidifier purifier
+kayak paddleboard bodyboard wakeboard snowboard toboggan""".split()
 
 PETS = """dog cat puppy kitten rabbit hamster parrot budgie goldfish terrapin
-gecko snake ferret guinea tortoise pony donkey chicken duck""".split()
+gecko snake ferret guinea tortoise pony donkey chicken duck cockatiel canary
+finch lovebird macaw parakeet chinchilla degu gerbil mouse rat hedgehog
+axolotl newt frog toad iguana chameleon python corn boa tarantula
+goat sheep alpaca llama pigeon quail turkey goose swan koi
+labrador collie beagle poodle spaniel terrier retriever dachshund
+husky corgi pug boxer greyhound whippet setter pointer""".split()
 
 JOBS = """nurse teacher plumber electrician chef baker driver mechanic engineer
 accountant designer librarian gardener joiner painter roofer welder florist
 optician dentist vet pharmacist paramedic firefighter surveyor architect
-translator editor photographer barber tailor butcher farmer courier""".split()
+translator editor photographer barber tailor butcher farmer courier
+midwife physio radiographer podiatrist counsellor therapist dietitian
+carpenter bricklayer plasterer glazier locksmith upholsterer cobbler
+jeweller watchmaker blacksmith potter weaver printer bookbinder
+sailor pilot conductor guard signaller dispatcher stevedore
+brewer distiller vintner fishmonger greengrocer grocer caterer
+auditor actuary underwriter broker valuer bailiff registrar
+lecturer tutor invigilator archivist curator conservator
+ranger warden keeper groom farrier shearer beekeeper""".split()
 
 PLACES = """italy spain portugal norway iceland morocco japan peru canada wales
 scotland cornwall brighton glasgow dublin lisbon prague vienna krakow seville
-kyoto osaka montreal boston austin denver perth adelaide galway inverness""".split()
+kyoto osaka montreal boston austin denver perth adelaide galway inverness
+greece croatia slovenia estonia latvia finland sweden denmark belgium
+poland hungary romania bulgaria turkey tunisia egypt kenya namibia
+chile argentina uruguay colombia ecuador bolivia mexico cuba
+vietnam thailand malaysia taiwan korea nepal bhutan mongolia
+cardiff swansea bristol exeter plymouth norwich lincoln durham
+leeds sheffield hull preston carlisle stirling aberdeen dundee
+cork limerick belfast derry kilkenny sligo tralee
+naples bologna verona siena bergamo turin genoa palermo
+porto braga faro coimbra evora sintra""".split()
 
 ACTIVITIES = """running swimming cycling climbing baking pottery knitting
 gardening painting drawing woodwork sewing yoga boxing rowing fishing hiking
-birdwatching photography chess bouldering kayaking archery fencing skating""".split()
+birdwatching photography chess bouldering kayaking archery fencing skating
+crochet quilting embroidery weaving whittling carving calligraphy
+origami bookbinding printmaking sculpting welding blacksmithing
+surfing sailing canoeing paddleboarding snorkelling diving
+skiing snowboarding curling bowling darts snooker
+gardening composting foraging beekeeping brewing baking
+juggling unicycling slacklining orienteering geocaching
+birding stargazing metalwork modelling gaming coding
+dancing singing drumming piano guitar violin
+pilates spinning weightlifting stretching walking jogging""".split()
 
-RELATIONS = """sister brother cousin nephew niece aunt uncle mum dad flatmate
-neighbour colleague friend partner grandad grandma godmother""".split()
+RELATIONS = """.split()sister brother cousin nephew niece aunt uncle mum dad flatmate
+neighbour colleague friend partner grandad grandma godmother godfather
+stepsister stepbrother stepmum stepdad sisterinlaw brotherinlaw
+housemate roommate landlord tenant workmate teammate classmate
+mentor apprentice trainee supervisor manager""".split()
 
 BANKS = {"object": OBJECTS, "pet": PETS, "job": JOBS, "place": PLACES,
          "activity": ACTIVITIES, "relation": RELATIONS}
@@ -147,9 +201,19 @@ def noun_split(seed: int = 5, held_out: float = 0.25
     Held-out nouns are the generalisation test: if the model only echoes nouns it
     was trained on, it memorised a list rather than learning the frame.
     """
+    # A noun must belong to exactly ONE slot. "guitar" is both an object and an
+    # activity, and "printer" is both an object and a job; without this, a noun
+    # held out of one bank leaks back in through another and the generalisation
+    # test is quietly void. First bank wins, deterministically.
+    claimed: set[str] = set()
     train, held = {}, {}
-    for slot, bank in BANKS.items():
-        pool = sorted(w for w in bank if w not in BENCH_WORDS)
+    for slot in sorted(BANKS):
+        pool = []
+        for w in sorted(set(BANKS[slot])):
+            if w in BENCH_WORDS or w in claimed:
+                continue
+            claimed.add(w)
+            pool.append(w)
         r = random.Random(seed + len(slot))
         r.shuffle(pool)
         cut = max(1, int(len(pool) * held_out))

@@ -35,7 +35,7 @@ from pathlib import Path
 
 import _bootstrap  # noqa: F401
 
-from smalltalk.core import bench_core, statebench, varietybench
+from smalltalk.core import bench_core, elaboration, statebench, varietybench
 
 ROOT = Path(__file__).resolve().parent.parent
 LOOP = ROOT / "artifacts" / "state_loop"
@@ -44,15 +44,19 @@ STATE = LOOP / "state.json"
 HEARTBEAT = LOOP / "heartbeat"
 
 # The ladder. Each rung changes ONE major variable so a result is attributable.
+# The ladder now walks the ELABORATION axis: how much frame data, and how long,
+# does it take before the model copies the referent instead of hedging across the
+# noun bank. One variable per rung.
 LADDER = [
-    {"name": "E1-state-trajectories", "state": 40000, "core": 24000, "sft_steps": 4000},
-    {"name": "E2-state-heavy",        "state": 60000, "core": 16000, "sft_steps": 4000},
-    {"name": "E3-longer-training",    "state": 60000, "core": 16000, "sft_steps": 8000},
-    {"name": "E4-core-rebalance",     "state": 50000, "core": 30000, "sft_steps": 8000},
+    {"name": "F1-frames-24k",  "state": 30000, "core": 16000, "frames": 24000, "sft_steps": 4000},
+    {"name": "F2-frames-40k",  "state": 24000, "core": 12000, "frames": 40000, "sft_steps": 4000},
+    {"name": "F3-frames-long", "state": 24000, "core": 12000, "frames": 40000, "sft_steps": 8000},
+    {"name": "F4-frames-heavy","state": 16000, "core": 12000, "frames": 60000, "sft_steps": 8000},
 ]
 
 DEFAULT_STATE = {
-    "round": 0, "rung": 0, "best_directional": -1.0, "best_round": None,
+    "round": 0, "rung": 0, "best_directional": -1.0, "best_elaboration": -1.0,
+    "best_round": None,
     "best_config": None, "flat_rounds": 0,
     "bench_checksums": None,
 }
@@ -114,7 +118,8 @@ def rocm(script: str, *args: str) -> list[str]:
 
 def checksums() -> dict:
     return {"core": bench_core.checksum(), "state": statebench.checksum(),
-            "variety": varietybench.checksum()}
+            "variety": varietybench.checksum(),
+            "elaboration": elaboration.checksum()}
 
 
 def one_round(state: dict) -> dict:
@@ -125,17 +130,20 @@ def one_round(state: dict) -> dict:
     rd.mkdir(parents=True, exist_ok=True)
     tag = f"state-r{rnd:03d}"
     log(f"=== round {rnd}  rung={cfg['name']}  "
-        f"state={cfg['state']} core={cfg['core']} steps={cfg['sft_steps']}")
+        f"state={cfg['state']} core={cfg['core']} "
+        f"frames={cfg.get('frames', 0)} steps={cfg['sft_steps']}")
 
     bench_core.verify_frozen(ROOT / "benchmarks" / "core_bench_frozen.json")
     statebench.verify_frozen(ROOT / "benchmarks" / "statebench_frozen.json")
     varietybench.verify_frozen(ROOT / "benchmarks" / "variety_frozen.json")
+    elaboration.verify_frozen(ROOT / "benchmarks" / "elaboration_frozen.json")
 
     cur = checksums()
     if state["bench_checksums"] not in (None, cur):
         log(f"benchmarks changed {state['bench_checksums']} -> {cur}; "
             f"discarding best_directional={state['best_directional']:.3f} as incomparable")
-        state.update({"best_directional": -1.0, "best_round": None})
+        state.update({"best_directional": -1.0, "best_elaboration": -1.0,
+                      "best_round": None})
     state["bench_checksums"] = cur
 
     entry = {"round": rnd, "started": now(), "rung": cfg["name"],
@@ -143,6 +151,7 @@ def one_round(state: dict) -> dict:
 
     if run([".venv-rocm/bin/python", "scripts/build_state_corpus.py",
             "--state", str(cfg["state"]), "--core", str(cfg["core"]),
+            "--frames", str(cfg.get("frames", 24000)),
             "--out", "data/state"], rd / "corpus.log") != 0:
         entry["status"] = "corpus_failed"
         return entry
@@ -162,6 +171,9 @@ def one_round(state: dict) -> dict:
                 "--tag", tag, "--quiet"), rd / "state_eval.log") != 0:
         entry["status"] = "state_eval_failed"
         return entry
+    run(rocm("scripts/eval_elaboration.py", "--checkpoint", str(ckpt),
+             "--tokenizer", "artifacts/state/tokenizer-4096",
+             "--tag", tag), rd / "elab_eval.log")
     run(rocm("scripts/eval_variety.py", "--checkpoint", str(ckpt),
              "--tokenizer", "artifacts/state/tokenizer-4096",
              "--tag", tag), rd / "variety_eval.log")
@@ -172,6 +184,8 @@ def one_round(state: dict) -> dict:
     sb = json.loads((ROOT / "reports" / "state" / f"{tag}.json").read_text())
     vp = ROOT / "reports" / "variety" / f"{tag}.json"
     vb = json.loads(vp.read_text()) if vp.exists() else {}
+    ep = ROOT / "reports" / "elaboration" / f"{tag}.json"
+    eb = json.loads(ep.read_text()) if ep.exists() else {}
     core_path = ROOT / "reports" / "core" / f"{tag}.json"
     cb = json.loads(core_path.read_text()) if core_path.exists() else {}
 
@@ -182,6 +196,9 @@ def one_round(state: dict) -> dict:
         "core_overall": cb.get("overall"),
         "core_tier1": (cb.get("per_tier") or {}).get("1"),
         "repeat_rate": vb.get("repeat_rate"),
+        "elaboration": eb.get("elaboration_rate"),
+        "elaboration_unknown": eb.get("elaboration_unknown"),
+        "false_elaboration": eb.get("false_elaboration_rate"),
         "distinct_ratio": vb.get("distinct_ratio"),
     })
 
@@ -189,15 +206,23 @@ def one_round(state: dict) -> dict:
     # on directional alone is what let r004 through: it tracked valence better on
     # paper while repeating one phrase 37.5% of the time, which is worse to talk
     # to. A model may not buy state by becoming a broken record.
+    # The objective is now ELABORATION, so that is the promotion metric.
+    # StateBench and VarietyBench become guards: a model may not buy elaboration
+    # by fabricating, by repeating itself, or by losing the state it had.
     repeat = vb.get("repeat_rate", 1.0)
-    varied_enough = repeat <= 0.25
-    improved = sb["directional"] > state["best_directional"] and varied_enough
-    if not varied_enough:
-        entry.setdefault("notes", []).append(
-            f"HELD: repeat_rate {repeat:.1%} exceeds the 25% variety gate")
+    elab = eb.get("elaboration_rate", 0.0)
+    false_elab = eb.get("false_elaboration_rate", 1.0)
+    guards = []
+    if repeat > 0.25:
+        guards.append(f"repeat_rate {repeat:.1%} > 25%")
+    if false_elab > 0.10:
+        guards.append(f"false_elaboration {false_elab:.1%} > 10%")
+    improved = elab > state.get("best_elaboration", -1.0) and not guards
+    if guards:
+        entry.setdefault("notes", []).append("HELD: " + "; ".join(guards))
     if improved:
-        state.update({"best_directional": sb["directional"], "best_round": rnd,
-                      "best_config": cfg["name"]})
+        state.update({"best_elaboration": elab, "best_directional": sb["directional"],
+                      "best_round": rnd, "best_config": cfg["name"]})
         champ = LOOP / "champion"
         if champ.exists():
             shutil.rmtree(champ)
@@ -238,10 +263,17 @@ def main() -> int:
         for line in LEDGER.read_text().splitlines():
             e = json.loads(line)
             d = e.get("directional")
-            print(f"r{e['round']:03d} {e.get('rung','?'):22s} {e['status']:16s} "
-                  f"directional={d if d is None else f'{d:.3f}'} "
-                  f"divergence={e.get('divergence')} core={e.get('core_overall')} "
-                  f"{'PROMOTED' if e.get('promoted') else ''} {'; '.join(e.get('notes', []))}")
+            el = e.get("elaboration")
+
+            def fmt(x):
+                return "  --  " if x is None else f"{x:.3f}"
+
+            print(f"r{e['round']:03d} {e.get('rung', '?'):18s} {e['status']:14s} "
+                  f"elab={fmt(el)} dir={fmt(d)} "
+                  f"repeat={fmt(e.get('repeat_rate'))} "
+                  f"core={fmt(e.get('core_overall'))} "
+                  f"{'PROMOTED' if e.get('promoted') else ''} "
+                  + "; ".join(e.get("notes", [])))
         return 0
 
     state = load_state()
