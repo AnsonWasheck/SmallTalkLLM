@@ -60,5 +60,13 @@
       "archive_ref": "archive/main-v0.1-pre-core",
       "note": "Diversity-optimised line, before the v0.2-Core reliability rework. No Core-Bench."
     }
-  ]
+  ],
+  "_status": "UNSTABLE research line. `main` points at the best DEMONSTRATED checkpoint, not the newest. Newer checkpoints (v0.3.2-r005, frame-pilot) score worse on the older benchmarks by design: the objective moved from reliability to elaboration, and the older benchmarks reward the determinism the project is now trying to remove. Do not read a single score as progress or regression without its benchmark checksum.",
+  "direction": {
+    "objective": "elaboration -- reuse the content word the user actually said",
+    "measured_baseline": "0.0% elaboration on every checkpoint to date",
+    "false_elaboration": "0.0% on every checkpoint; the restraint half already works",
+    "open_problem": "the frame pilot learned the sentence shape but fills the slot with the wrong member of the same bank (dog -> puppy, nurse -> teacher). Slot memorisation, one level up from v0.1.",
+    "next": "widen the noun banks so hedging across a small bank stops being viable"
+  }
 }

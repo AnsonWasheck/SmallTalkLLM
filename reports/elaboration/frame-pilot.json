@@ -1,0 +1,53 @@
+{
+  "checksum": "183056e1a9438487",
+  "elaboration_rate": 0.03333333333333333,
+  "elaboration_known": 0.0,
+  "elaboration_unknown": 0.08333333333333333,
+  "false_elaboration_rate": 0.0,
+  "hedge_rate": 0.13333333333333333,
+  "composite": 0.0,
+  "known_breakdown": {
+    "OTHER": 7,
+    "HEDGE": 4,
+    "GENERIC": 7
+  },
+  "unknown_breakdown": {
+    "ELABORATION": 1,
+    "OTHER": 5,
+    "GENERIC": 6
+  },
+  "tag": "frame-pilot",
+  "checkpoint": "artifacts/runs/frame-pilot/best",
+  "replies": {
+    "work-1::i'm a nurse": "do you like being a teacher?",
+    "work-2::i started a new job": "oh nice, how's that going?",
+    "work-3::work has been really busy": "that's great!",
+    "pet-1::i got a new dog": "what's the puppy called?",
+    "pet-2::my cat keeps waking me up": "oh nice, how's that going?",
+    "study-1::i've got exams next week": "that's great!",
+    "study-2::i signed up for an evening course": "I'm sorry to hear that. What's the problem?",
+    "travel-1::we went to italy": "how long were you in brighton?",
+    "travel-2::i'm off to scotland next month": "that sounds rough",
+    "health-1::i've been feeling run down": "that's rubbish",
+    "sleep-1::i barely slept last night": "that's hard going",
+    "home-1::we're redecorating the kitchen": "oh nice, how's that going?",
+    "hobby-1::i've been learning guitar": "oh nice, how's that going?",
+    "hobby-2::i've taken up jogging": "how's the sewing going?",
+    "food-1::i made bread from scratch": "oh no, i'm sorry",
+    "family-1::my sister is visiting": "how's your grandma doing?",
+    "money-1::the bills came in higher than usual": "that's great!",
+    "social-1::i saw an old friend yesterday": "Oh, what kind of dog?",
+    "car-1::my car broke down on the motorway": "Oh no! Did you get to go to the car?",
+    "legal-1::i've got jury duty next week": "what's jacket like?",
+    "dental-1::i had a root canal this morning": "what's the roofer like?",
+    "admin-1::my passport application got rejected": "oh no, i'm sorry",
+    "plumb-1::the boiler packed in again": "that's great",
+    "wedding-1::my cousin's wedding is on saturday": "how long is your cousin staying?",
+    "tech-1::my laptop screen cracked": "oh no, i'm sorry",
+    "insure-1::the insurance claim went through": "that's great!",
+    "neighbour-1::the neighbours were arguing all night": "I would have been too!",
+    "parking-1::i got a parking ticket": "what's the trainers like?",
+    "delivery-1::the delivery never turned up": "that's a pain",
+    "bank-1::the bank froze my account": "that's great!"
+  }
+}

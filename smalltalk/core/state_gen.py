@@ -127,11 +127,21 @@ PROBES = ["yeah", "mm", "i guess", "yeah i know", "suppose so", "mm yeah", "righ
 
 # Valence-committed continuations. Narrow (the design rule), but conditioned on
 # STATE rather than on the last turn -- which is the whole point of v0.3.
+# Several valid ways to hold the same state. v0.2's design rule was "narrow
+# output behaviour", which bought reliability and cost conversation: with one
+# canonical target per act the model says the same phrase every turn, and
+# VarietyBench measured 37.5% verbatim repeats inside a conversation. Entropy is
+# restored here but stays CONDITIONED -- every option below is correct for its
+# valence, so variety never comes at the cost of committing to the right act.
 CONTINUE = {
     "positive": ["that's great", "nice one", "glad to hear it", "long may it last",
-                 "can't complain then", "good stuff"],
+                 "can't complain then", "good stuff", "that's brilliant",
+                 "ah lovely", "happy for you", "sounds like a good one",
+                 "nice, about time", "that's the way"],
     "negative": ["that sounds rough", "hopefully tomorrow's better", "that's rubbish",
-                 "sorry to hear that", "that sucks", "hope it picks up"],
+                 "sorry to hear that", "that sucks", "hope it picks up",
+                 "ugh, that's grim", "that's a pain", "not great is it",
+                 "sounds exhausting", "that's hard going", "rough one"],
 }
 
 # Openers used by StateBench. The generator must never emit these or the test
@@ -159,6 +169,12 @@ class StateConfig:
     seed: int = 11
     shapes: dict = field(default_factory=lambda: {
         "sustained": 0.55, "corrected": 0.25, "drifted": 0.20})
+    # Measured on the v0.3 corpus: 67.7% of state_gen assistant turns were pure
+    # neutral filler, so two thirds of the supervision taught the model to say
+    # "mm". In conversation it duly acknowledges instead of reacting. Mid-turns
+    # now mostly carry the valence, which raises the learning signal without
+    # changing the trajectory shape that makes the probe informative.
+    filler_frac: float = 0.20
     min_probes: int = 1
     max_probes: int = 3
     emit_length_token: bool = True
@@ -168,29 +184,62 @@ def _norm(t: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9' ]+", " ", t.lower())).strip()
 
 
-def _target(valence: str, r: random.Random, length_token: bool) -> str:
-    t = r.choice(CONTINUE[valence])
+def _target(valence: str, r: random.Random, length_token: bool,
+            used: set[str] | None = None) -> str:
+    """Pick a target for this valence, avoiding ones already used here.
+
+    Repetition is a property of the CONVERSATION, not of the turn, so it has to
+    be prevented while the trajectory is being built. Training on conversations
+    that repeat themselves is what taught the model to repeat itself.
+    """
+    options = CONTINUE[valence]
+    if used is not None:
+        fresh = [o for o in options if o not in used]
+        if fresh:
+            options = fresh
+    t = r.choice(options)
+    if used is not None:
+        used.add(t)
     return f"<|len_short|> {t}" if length_token else t
+
+
+def _react(valence: str, r: random.Random, cfg: StateConfig,
+           used: set[str] | None = None) -> Turn:
+    """The assistant's reply to a SUBSTANTIVE user turn.
+
+    Acknowledgement is the low-information move and belongs after a
+    backchannel, not after someone tells you something. The previous version
+    hardcoded a neutral ack immediately after the opener -- the single most
+    substantive turn in the conversation -- and measured 61% filler after
+    substantive turns against 0% after backchannels, i.e. exactly inverted. The
+    model duly learned to agree with everything and react to nothing.
+    """
+    if r.random() < cfg.filler_frac:
+        return Turn("assistant", r.choice(NEUTRAL_ACKS))
+    return Turn("assistant", _target(valence, r, cfg.emit_length_token, used))
 
 
 def _build(shape: str, topic: str, valence: str, r: random.Random,
            cfg: StateConfig) -> tuple[list[Turn], str]:
     """Return (messages, final_valence). Deterministic given `r`."""
     msgs: list[Turn] = []
+    used: set[str] = set()          # targets already spent in THIS conversation
     opener = r.choice(OPENERS[topic][valence])
     msgs.append(Turn("user", opener))
-    msgs.append(Turn("assistant", r.choice(NEUTRAL_ACKS)))
+    msgs.append(_react(valence, r, cfg, used))
 
     current = valence
     n_mid = r.randint(1, 2)
     for _ in range(n_mid):
         msgs.append(Turn("user", r.choice(MIDDLES)))
-        msgs.append(Turn("assistant", r.choice(NEUTRAL_ACKS)))
+        msgs.append(_react(current, r, cfg, used))
 
     if shape == "corrected":
         msgs.append(Turn("user", r.choice(CORRECTIONS[current])))
-        msgs.append(Turn("assistant", r.choice(NEUTRAL_ACKS)))
         current = _FLIP[current]
+        # React to the CORRECTED valence: a correction is substantive and the
+        # whole point is that the state changed.
+        msgs.append(_react(current, r, cfg, used))
         msgs.append(Turn("user", r.choice(MIDDLES)))
         msgs.append(Turn("assistant", r.choice(NEUTRAL_ACKS)))
     elif shape == "drifted":
@@ -198,15 +247,16 @@ def _build(shape: str, topic: str, valence: str, r: random.Random,
         # a model keying on topic words rather than on state will fail here.
         other = r.choice([t for t in OPENERS if t != topic])
         msgs.append(Turn("user", r.choice(OPENERS[other][current])))
-        msgs.append(Turn("assistant", r.choice(NEUTRAL_ACKS)))
+        msgs.append(_react(current, r, cfg, used))
 
     # One or more probes. Each is a bare backchannel; each requires the state.
     for _ in range(r.randint(cfg.min_probes, cfg.max_probes)):
         msgs.append(Turn("user", r.choice(PROBES)))
-        msgs.append(Turn("assistant", _target(current, r, cfg.emit_length_token)))
+        msgs.append(Turn("assistant",
+                         _target(current, r, cfg.emit_length_token, used)))
         if r.random() < 0.5:
             msgs.append(Turn("user", r.choice(MIDDLES)))
-            msgs.append(Turn("assistant", r.choice(NEUTRAL_ACKS)))
+            msgs.append(_react(current, r, cfg, used))
 
     return msgs, current
 

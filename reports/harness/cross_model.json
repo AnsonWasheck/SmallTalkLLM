@@ -1,0 +1,47 @@
+[
+  {
+    "name": "v0.2 core-r001",
+    "raw": 0.5625,
+    "oracle": 0.6,
+    "headroom": 0.03749999999999998,
+    "q_raw": 0.325,
+    "q_oracle": 0.2875,
+    "state_directional": 0.0
+  },
+  {
+    "name": "v0.2 core-r002",
+    "raw": 0.5375,
+    "oracle": 0.6,
+    "headroom": 0.0625,
+    "q_raw": 0.3125,
+    "q_oracle": 0.25,
+    "state_directional": 0.0
+  },
+  {
+    "name": "v0.2 core-r004",
+    "raw": 0.6875,
+    "oracle": 0.7125,
+    "headroom": 0.025000000000000022,
+    "q_raw": 0.35,
+    "q_oracle": 0.3125,
+    "state_directional": 0.0
+  },
+  {
+    "name": "v0.3 state-r001",
+    "raw": 0.6125,
+    "oracle": 0.65,
+    "headroom": 0.03749999999999998,
+    "q_raw": 0.4,
+    "q_oracle": 0.2625,
+    "state_directional": 0.5833333333333334
+  },
+  {
+    "name": "v0.3 state-r002",
+    "raw": 0.65,
+    "oracle": 0.725,
+    "headroom": 0.07499999999999996,
+    "q_raw": 0.4375,
+    "q_oracle": 0.35,
+    "state_directional": 0.6666666666666666
+  }
+]

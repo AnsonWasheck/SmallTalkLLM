@@ -28,13 +28,14 @@ import argparse
 import json
 import shutil
 import subprocess
+import threading
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 
 import _bootstrap  # noqa: F401
 
-from smalltalk.core import bench_core, statebench
+from smalltalk.core import bench_core, statebench, varietybench
 
 ROOT = Path(__file__).resolve().parent.parent
 LOOP = ROOT / "artifacts" / "state_loop"
@@ -79,10 +80,29 @@ def save_state(s: dict) -> None:
 
 
 def run(cmd: list[str], logfile: Path) -> int:
+    """Run a step, refreshing the heartbeat throughout.
+
+    The heartbeat previously only advanced between commands. SFT takes ~45
+    minutes, which exceeded the watchdog's stall threshold, so the watchdog
+    killed SEVEN healthy training runs overnight and cost roughly five hours of
+    GPU time. Liveness has to be reported while the long thing is running, not
+    only when it finishes.
+    """
     logfile.parent.mkdir(parents=True, exist_ok=True)
     log(f"$ {' '.join(cmd[:6])} ... -> {logfile.name}")
-    with logfile.open("w") as fh:
-        p = subprocess.run(cmd, stdout=fh, stderr=subprocess.STDOUT, cwd=ROOT)
+    done = threading.Event()
+
+    def beat() -> None:
+        while not done.wait(30):
+            HEARTBEAT.write_text(f"{time.time()}\n{now()}\nrunning {logfile.name}\n")
+
+    t = threading.Thread(target=beat, daemon=True)
+    t.start()
+    try:
+        with logfile.open("w") as fh:
+            p = subprocess.run(cmd, stdout=fh, stderr=subprocess.STDOUT, cwd=ROOT)
+    finally:
+        done.set()
     if p.returncode != 0:
         log(f"  FAILED rc={p.returncode}; see {logfile}")
     return p.returncode
@@ -93,7 +113,8 @@ def rocm(script: str, *args: str) -> list[str]:
 
 
 def checksums() -> dict:
-    return {"core": bench_core.checksum(), "state": statebench.checksum()}
+    return {"core": bench_core.checksum(), "state": statebench.checksum(),
+            "variety": varietybench.checksum()}
 
 
 def one_round(state: dict) -> dict:
@@ -108,6 +129,7 @@ def one_round(state: dict) -> dict:
 
     bench_core.verify_frozen(ROOT / "benchmarks" / "core_bench_frozen.json")
     statebench.verify_frozen(ROOT / "benchmarks" / "statebench_frozen.json")
+    varietybench.verify_frozen(ROOT / "benchmarks" / "variety_frozen.json")
 
     cur = checksums()
     if state["bench_checksums"] not in (None, cur):
@@ -140,11 +162,16 @@ def one_round(state: dict) -> dict:
                 "--tag", tag, "--quiet"), rd / "state_eval.log") != 0:
         entry["status"] = "state_eval_failed"
         return entry
+    run(rocm("scripts/eval_variety.py", "--checkpoint", str(ckpt),
+             "--tokenizer", "artifacts/state/tokenizer-4096",
+             "--tag", tag), rd / "variety_eval.log")
     run(rocm("scripts/eval_core.py", "--checkpoint", str(ckpt),
              "--tokenizer", "artifacts/state/tokenizer-4096",
              "--tag", tag), rd / "core_eval.log")
 
     sb = json.loads((ROOT / "reports" / "state" / f"{tag}.json").read_text())
+    vp = ROOT / "reports" / "variety" / f"{tag}.json"
+    vb = json.loads(vp.read_text()) if vp.exists() else {}
     core_path = ROOT / "reports" / "core" / f"{tag}.json"
     cb = json.loads(core_path.read_text()) if core_path.exists() else {}
 
@@ -154,9 +181,20 @@ def one_round(state: dict) -> dict:
         "state_accuracy": sb["accuracy"], "attractor_rate": sb["attractor_rate"],
         "core_overall": cb.get("overall"),
         "core_tier1": (cb.get("per_tier") or {}).get("1"),
+        "repeat_rate": vb.get("repeat_rate"),
+        "distinct_ratio": vb.get("distinct_ratio"),
     })
 
-    improved = sb["directional"] > state["best_directional"]
+    # Promotion now requires state tracking AND conversational variety. Judging
+    # on directional alone is what let r004 through: it tracked valence better on
+    # paper while repeating one phrase 37.5% of the time, which is worse to talk
+    # to. A model may not buy state by becoming a broken record.
+    repeat = vb.get("repeat_rate", 1.0)
+    varied_enough = repeat <= 0.25
+    improved = sb["directional"] > state["best_directional"] and varied_enough
+    if not varied_enough:
+        entry.setdefault("notes", []).append(
+            f"HELD: repeat_rate {repeat:.1%} exceeds the 25% variety gate")
     if improved:
         state.update({"best_directional": sb["directional"], "best_round": rnd,
                       "best_config": cfg["name"]})

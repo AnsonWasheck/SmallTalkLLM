@@ -1,0 +1,84 @@
+{
+  "checksum": "0fc63d268b68386e",
+  "repeat_rate": 0.1875,
+  "distinct_ratio": 0.3333333333333333,
+  "top1_share": 0.14583333333333334,
+  "per_conversation": {
+    "good_day": 0.3333333333333333,
+    "bad_day": 0.0,
+    "neutral_news": 0.16666666666666666,
+    "tired": 0.3333333333333333,
+    "hobby": 0.16666666666666666,
+    "social": 0.0,
+    "bored": 0.3333333333333333,
+    "plans": 0.16666666666666666
+  },
+  "tag": "v0.3-r002",
+  "checkpoint": "artifacts/snapshots/v0.3-r002",
+  "transcripts": {
+    "good_day": [
+      "fair enough",
+      "go on",
+      "long may it last",
+      "that's great",
+      "that's great",
+      "fair enough"
+    ],
+    "bad_day": [
+      "okay",
+      "i see",
+      "that sucks",
+      "go on",
+      "that sounds rough",
+      "fair enough"
+    ],
+    "neutral_news": [
+      "oh nice, how's that going?",
+      "oh nice, how's that going?",
+      "yeah exactly",
+      "mhm",
+      "that's great",
+      "mhm"
+    ],
+    "tired": [
+      "long day?",
+      "i see",
+      "that's great",
+      "fair enough",
+      "that's great",
+      "fair enough"
+    ],
+    "hobby": [
+      "oh nice, how's that going?",
+      "i see",
+      "long may it last",
+      "i see",
+      "that's great",
+      "mhm"
+    ],
+    "social": [
+      "Oh no. What did he do?",
+      "oh nice, how's that going?",
+      "yeah exactly",
+      "mhm",
+      "that's great",
+      "fair enough"
+    ],
+    "bored": [
+      "same, nothing going on here",
+      "that sounds rough",
+      "that sucks",
+      "fair enough",
+      "that sucks",
+      "that sucks"
+    ],
+    "plans": [
+      "I'm sorry to hear that. What are you going to do?",
+      "see you",
+      "yeah exactly",
+      "that sounds rough",
+      "that sounds rough",
+      "mhm"
+    ]
+  }
+}
