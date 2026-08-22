@@ -38,8 +38,11 @@ def main() -> int:
     scripts = [ROOT / "scripts" / n for n in
                ("chat_harness.py", "eval_harness.py", "report_harness_size.py",
                 "compare_harness_modes.py")]
-    aux = sorted((ROOT / "artifacts" / "harness").glob("*.safetensors")) \
-        if (ROOT / "artifacts" / "harness").exists() else []
+    # Learned harness weights count: they are persistent assets required for
+    # inference and owned by the harness, not by the base model.
+    hdir = ROOT / "artifacts" / "harness"
+    aux = sorted(list(hdir.glob("*.safetensors")) + list(hdir.glob("*.pt"))) \
+        if hdir.exists() else []
 
     src = tally(harness)
     scr = tally(scripts)

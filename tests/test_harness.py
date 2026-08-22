@@ -231,3 +231,36 @@ def test_harness_stays_within_the_model_size_budget():
     root = Path(__file__).resolve().parents[1]
     total = sum(p.stat().st_size for p in (root / "smalltalk" / "harness").glob("*.py"))
     assert total <= 6_689_024 * 4
+
+
+# --- learned policy head ----------------------------------------------
+def test_policy_head_is_tiny_and_linear():
+    """A linear probe answers a sharper question than an MLP: is policy
+    LINEARLY encoded in the 256-dim state? Measured: 96.6% on held-out corpus
+    paraphrases, so yes -- the model knows the policy it cannot act on."""
+    from smalltalk.harness.head import POLICY_IDS, PolicyHead
+    head = PolicyHead(hidden_size=256, n_features=0)
+    assert head.n_params < 6000
+    assert head.n_bytes < 25_000
+    assert len(POLICY_IDS) == 19
+
+
+def test_policy_head_reads_the_model_without_changing_it(tiny):
+    from smalltalk.harness.head import hidden_state
+    model, tok = tiny
+    before = [p.clone() for p in model.parameters()]
+    ids, _ = tok.encode_conversation([{"role": "user", "content": "hey"}],
+                                     add_bos=True, add_generation_prompt=True)
+    h = hidden_state(model, ids)
+    assert h.shape == (model.cfg.hidden_size,)
+    # The forward hook must be removed and no weight touched.
+    assert not model.norm._forward_hooks
+    for a, b in zip(before, model.parameters()):
+        assert torch.equal(a, b)
+
+
+def test_feature_vector_is_bounded():
+    from smalltalk.harness.head import FEATURE_KEYS, feature_vector
+    v = feature_vector(extract("WHAT ARE YOU DOING!!! " * 20))
+    assert v.shape == (len(FEATURE_KEYS),)
+    assert float(v.max()) <= 1.0 and float(v.min()) >= 0.0

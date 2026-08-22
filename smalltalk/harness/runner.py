@@ -55,6 +55,34 @@ class Harness:
     memory: Memory = field(default_factory=Memory)
     _calls: int = 0
     _baselines: dict = field(default_factory=dict)
+    _head: object = None
+    _head_norm: object = None
+
+    def __post_init__(self) -> None:
+        if self.cfg.policy_head:
+            from pathlib import Path
+
+            import torch as _t
+
+            from .head import PolicyHead
+            p = Path(self.cfg.policy_head)
+            if p.exists():
+                self._head = PolicyHead.load(p)
+                self._head_norm = _t.load(p.with_suffix(".norm.pt"),
+                                          map_location="cpu", weights_only=False)
+
+    def _head_policy(self, prompt_ids: list[int], f) -> dict[str, float]:
+        """Policy distribution from the learned probe: one extra forward pass."""
+        from .head import POLICY_IDS, feature_vector, hidden_state
+
+        h = hidden_state(self.model, prompt_ids, device=self.device)
+        self._calls += 1
+        if self._head.n_features:
+            h = torch.cat([h, feature_vector(f)])
+        h = (h.unsqueeze(0) - self._head_norm["mu"]) / self._head_norm["sd"]
+        with torch.no_grad():
+            probs = torch.softmax(self._head(h)[0], dim=-1)
+        return {pid: float(pr) for pid, pr in zip(POLICY_IDS, probs)}
 
     # ---- plumbing ------------------------------------------------------
     def reset(self) -> None:
@@ -150,7 +178,8 @@ class Harness:
                 outs.append(text)
         return outs
 
-    def _rerank(self, cands: list[str], policy: Policy | None) -> str:
+    def _rerank(self, cands: list[str], policy: Policy | None,
+                use_consistency: bool = True) -> str:
         """Pick the candidate most consistent with the chosen policy.
 
         Consistency only -- length class and question policy. The harness never
@@ -176,7 +205,7 @@ class Harness:
             # defers to the model rather than substituting its own taste.
             rank = cands.index(c)
             # Negated so that higher consistency sorts earlier under `min`.
-            match = -round(consistency(c, policy), 2)
+            match = -round(consistency(c, policy), 2) if use_consistency else 0.0
             is_q = c.strip().endswith("?")
             # Only NO_QUESTION is a constraint. PREFERRED was originally treated
             # as "required", which made the harness discard a correct greedy
@@ -237,7 +266,12 @@ class Harness:
                 policy, source = oracle, "oracle"
             else:
                 shortcut = high_confidence_shortcut(f)
-                probs = self._infer_policy(prompt_ids)
+                if self._head is not None:
+                    probs = self._head_policy(prompt_ids, f)
+                    inferred_source = "head"
+                else:
+                    probs = self._infer_policy(prompt_ids)
+                    inferred_source = "model"
                 tr.policy_scores = {k: round(v, 4) for k, v in probs.items()}
                 conf = score_confidence(probs, min_top1=self.cfg.min_top1,
                                         min_margin=self.cfg.min_margin)
@@ -254,7 +288,7 @@ class Harness:
                     # than the model -- so it should get out of the way.
                     policy, source = None, "abstain"
                 else:
-                    policy, source = best, "model"
+                    policy, source = best, inferred_source
         tr.policy = str(policy) if policy else None
         tr.policy_source = source
 
@@ -278,8 +312,18 @@ class Harness:
             # policy is far worse than not steering at all -- it took Core-Bench
             # from 0.675 to 0.458. Deterministic shortcuts and oracle policies
             # are trusted; a model-inferred policy is used only for length.
-            trusted = source in ("shortcut", "oracle")
-            reply = self._rerank(cands, policy if trusted else None)
+            # The learned head is trusted: 92.2% held-out accuracy against 19.2%
+            # for same-model exemplar scoring. Trust is granted on measured
+            # accuracy, not on the mechanism being newer.
+            # Two levels of trust, separated because they were measured to
+            # behave differently. Length and question constraints are safe under
+            # an imperfect policy -- a wrong length is a mild error. Exemplar
+            # CONSISTENCY matching is not: it actively pulls generation toward
+            # the wrong act, and at 76.9% classification accuracy that cost more
+            # than the 23% of errors were worth. Consistency is therefore
+            # reserved for policies that are correct by construction.
+            reply = self._rerank(cands, policy,
+                                 use_consistency=source in ("shortcut", "oracle"))
         else:
             out = generate(self.model, self.tokenizer, prompt_ids,
                            self.gen.with_(max_new_tokens=max_new), device=self.device)

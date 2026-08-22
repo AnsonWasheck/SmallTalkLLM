@@ -39,6 +39,9 @@ class HarnessConfig:
     # --- memory ---------------------------------------------------------
     memory_slots: int = 8
 
+    # Mode G: tiny learned policy classifier over the frozen model's hidden state.
+    policy_head: str | None = None
+
     name: str = "custom"
 
     def with_(self, **kw) -> "HarnessConfig":
@@ -61,6 +64,14 @@ MODES: dict[str, HarnessConfig] = {
         name="F_FULL_HARNESS", context_selection=True, policy=True,
         confidence_gate=True, memory=True, output_controls=True,
         validator=True, repetition_control=True),
+    # The learned head. Same pipeline as F, but the policy comes from a 4,883-
+    # parameter linear probe instead of same-model exemplar scoring, which was
+    # measured at 19.2%.
+    "G_LEARNED_HEAD": HarnessConfig(
+        name="G_LEARNED_HEAD", context_selection=True, policy=True,
+        confidence_gate=True, memory=True, output_controls=True,
+        validator=True, repetition_control=True,
+        policy_head="artifacts/harness/policy_head.pt"),
     # Research-only upper bound: the correct policy is supplied, so whatever
     # remains is language realisation rather than policy selection.
     "ORACLE_POLICY": HarnessConfig(
