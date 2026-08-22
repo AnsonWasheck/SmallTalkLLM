@@ -6,64 +6,124 @@
 
 > The released student model is frozen at exactly **6,689,024 trainable parameters**.
 
-## Current line: v0.2-Core
+> **Status: `main` is unstable and moving.** This is an active research line, not
+> a released product. The checkpoint `main` points at is the best *demonstrated*
+> one, not the newest, and several benchmarks on this branch have been
+> deliberately retired and replaced as we learned they measured the wrong thing.
+> Scores from different benchmark checksums are not comparable. What `main`
+> represents is the direction the work is going, with the evidence for why.
 
-The project has shifted objective. Earlier rounds optimized for conversational
-*diversity*, which at 6.7M parameters spread probability mass across a dozen
-equally-plausible replies and made greedy decoding a coin flip. v0.2-Core
-optimizes for *reliability* instead:
+## Where the project is: v0.4, elaboration
 
-> Given an ordinary conversational input, choose an appropriate short response
-> almost every time.
+The objective has moved three times, each time because measurement contradicted
+a design assumption. That history is the useful part of this repository, so it is
+recorded rather than tidied away.
 
-The design rule is **broad input paraphrases, narrow output behaviour**. Each
-intent has one canonical target; a wider accept set is used only for scoring.
-Conditional entropy is driven down on purpose.
+| line | objective | why it ended |
+| --- | --- | --- |
+| v0.1 | conversational diversity | at 6.7M, spread probability mass and made greedy decoding a coin flip |
+| v0.2-Core | reliability: one canonical reply per intent | worked, then became the cause of the next problem |
+| v0.3-Core-State | short-horizon state persistence | achieved; exposed that reliability had made the model deterministic |
+| **v0.4** | **elaboration: reuse what the user actually said** | current |
 
-**Core-Bench** (`smalltalk/core/bench_core.py`) measures this: 342 scenarios
-built from held-out paraphrases the generator never emits, crossed with fixed
-surface transforms, scored at temperature 0. No RNG anywhere, so two runs of one
-checkpoint are byte-identical. Checksum `33a35a049b672226`.
+The v0.2 design rule was *broad input paraphrases, narrow output behaviour*. It
+bought reliability and it is exactly why the model later felt mechanical: with
+one canonical target per intent, the model says the same phrase every turn and
+every benchmark scores that as success.
 
-| round | overall | tier 1 | tier 2 | tier 3 |
-| --- | --- | --- | --- | --- |
-| baseline | 0.550 | 0.767 | 0.488 | 0.196 |
-| r001 | 0.594 | 0.760 | 0.506 | 0.451 |
-| r002 | 0.629 | 0.775 | 0.568 | 0.451 |
-| target | — | 0.99 | 0.95 | 0.90 |
+The current objective is narrower and harder to fake:
 
-**Core-Bench v0.2.2 (checksum `0ff8bbceb84834f4`) retires those numbers.** The
-earlier benchmark evaluated every scenario on a freshly reset engine, so it was
-100% single-turn and blind to whether a reflex survives a preceding exchange.
-615 scenarios now, 246 of them multi-turn. The current model re-measured:
+> When someone tells you something, say something back **about the thing they
+> said** -- and when you do not recognise it, react to the feeling and invent
+> nothing.
 
-| slice | score |
-| --- | --- |
-| bare | 0.583 |
-| with context | 0.516 |
-| **overall** | **0.556** |
+### Measured state
 
-The 6.7-point context penalty was previously unobservable; the old headline was
-reporting the easier half of the problem. A benchmark change invalidates every
-prior score, so these are not comparable to the table above.
+All checkpoints answer "i got a new dog", "i'm a nurse" and "we went to italy"
+with the same stock phrase. ElaborationBench scores every one of them at **0.0%
+elaboration**: no reply in any corpus this project has built has ever reused the
+user's own noun. False elaboration is also **0.0%** -- the restraint half of the
+target behaviour already works and is not at risk.
 
-The current primary checkpoint is recorded in
-[CURRENT_MODEL.json](CURRENT_MODEL.json), which is verified by tests against the
-frozen benchmark checksum and against the archive refs, so a stale number cannot
-silently look authoritative. Superseded models are archived, never deleted.
+A 1,500-step pilot on the frame curriculum produced the most informative result
+so far. It learned the syntax immediately and filled the slot wrong:
 
-r001 added an `out_of_scope` class after a measured failure: with 20 intents and
-no way to decline, *"what is the square root of nine"* and *"my hovercraft is
-full of eels"* both returned *"that sounds rough"*. That class went 0.00 → 0.556
-without costing tiers 1 or 2.
+```
+"i got a new dog"  ->  "what's the puppy called?"
+"i'm a nurse"      ->  "do you like being a teacher?"
+"we went to italy" ->  "how long were you in brighton?"
+```
 
-Training runs unattended via `scripts/core_loop.py`, which verifies the benchmark
-checksum every round and halts rather than report an incomparable number. It may
-change the curriculum but never the test, and never promotes a regression.
+The frame is correct every time -- right shape, right type, a slot expecting a
+noun -- and the noun is a *different member of the same bank*. That is slot
+memorisation, the v0.1 failure reappearing one level up: it learned "pet frames
+end in a pet word" rather than "copy the word they said". Elaboration on unseen
+subjects moved 0% -> 8.3%, so genuine copying has started.
+
+## The harness
+
+The second half of the project asks a separate question:
+
+> How much conversational quality can be extracted from the **unchanged** 6.7M
+> model by moving deterministic work outside it?
+
+The base model, tokenizer and weights are never modified. `A_RAW` is asserted by
+test to be byte-identical to unmodified inference, so any measured gain is
+attributable to a mechanism rather than to incidental changes in prompting.
+
+```
+user message
+  -> deterministic features -> conversation state -> bounded memory
+  -> context selection -> constrained policy -> confidence gate
+  -> generation (+ optional steering) -> validation -> reply
+```
+
+The dividing line: the neural model does fuzzy language and local judgement; the
+harness does exact bookkeeping, state, context selection, repetition control and
+validation. A 6.7M model should not spend capacity on operations ordinary
+software performs perfectly.
 
 ```bash
-python scripts/core_loop.py --status      # read the experiment ledger
+python scripts/chat_harness.py --checkpoint <ckpt> --mode F_FULL_HARNESS --trace
+python scripts/eval_harness.py --checkpoint <ckpt>     # full ablation ladder
+python scripts/report_harness_size.py                  # size against the budget
 ```
+
+**Size budget.** The harness may never exceed the base model's own FP32 weight
+size (26,756,096 bytes), or the comparison stops being interesting. It currently
+uses **123,153 bytes -- 0.46%** of that ceiling, including all learned assets.
+The ceiling is not a target.
+
+### What the harness experiments established
+
+| finding | evidence |
+| --- | --- |
+| Policy is **linearly encoded** in the hidden state | a 4,883-parameter linear probe reads it at 96.6% held-out, vs 19.2% for the model's own exemplar scoring |
+| The model **cannot select** among its own candidates | reranking its top-k by its own likelihood scores 0.09 against greedy's 0.675 |
+| Correct policy is worth a lot | hidden-state steering reaches **0.775** against a 0.675 baseline |
+| Token-level control **does not work** | forcing the opening token scores 0.208 *even with a correct policy* |
+| Repetition is the harness's job | within-conversation repeats 40% -> 0%, zero parameters |
+| Elaboration is **not** the harness's job | biasing toward the referent goes from ignoring it to "dog dog dog dog dog?" with no useful setting between |
+
+The last two together are the useful pair: the harness can decide *which* stock
+phrase and refuse to repeat one, and it cannot invent syntax the model never
+learned. That is what sent the elaboration work back to training.
+
+## Benchmarks, and why there are four
+
+Each was built because the previous one was measured to reward the wrong thing.
+
+| benchmark | asks | why it exists |
+| --- | --- | --- |
+| Core-Bench | is a single reply appropriate? | reflex reliability |
+| StateBench | does a state survive several turns? | Core-Bench was 100% single-turn and blind to continuity |
+| VarietyBench | does it repeat itself? | a model emitting one high-scoring phrase every turn wins Core-Bench and is unbearable |
+| ElaborationBench | does it reuse what the user said? | all of the above are satisfied by stock phrases |
+
+They are read together on purpose: a model can win VarietyBench by babbling and
+Core-Bench by repeating. Only one doing well on all four is holding a
+conversation. Every benchmark is frozen by checksum, and a changed checksum
+invalidates every earlier score rather than silently shifting the target.
 
 ## Project status
 
