@@ -164,7 +164,7 @@ class StateConfig:
     # "mm". In conversation it duly acknowledges instead of reacting. Mid-turns
     # now mostly carry the valence, which raises the learning signal without
     # changing the trajectory shape that makes the probe informative.
-    filler_frac: float = 0.35
+    filler_frac: float = 0.20
     min_probes: int = 1
     max_probes: int = 3
     emit_length_token: bool = True
@@ -179,26 +179,41 @@ def _target(valence: str, r: random.Random, length_token: bool) -> str:
     return f"<|len_short|> {t}" if length_token else t
 
 
+def _react(valence: str, r: random.Random, cfg: StateConfig) -> Turn:
+    """The assistant's reply to a SUBSTANTIVE user turn.
+
+    Acknowledgement is the low-information move and belongs after a
+    backchannel, not after someone tells you something. The previous version
+    hardcoded a neutral ack immediately after the opener -- the single most
+    substantive turn in the conversation -- and measured 61% filler after
+    substantive turns against 0% after backchannels, i.e. exactly inverted. The
+    model duly learned to agree with everything and react to nothing.
+    """
+    if r.random() < cfg.filler_frac:
+        return Turn("assistant", r.choice(NEUTRAL_ACKS))
+    return Turn("assistant", _target(valence, r, cfg.emit_length_token))
+
+
 def _build(shape: str, topic: str, valence: str, r: random.Random,
            cfg: StateConfig) -> tuple[list[Turn], str]:
     """Return (messages, final_valence). Deterministic given `r`."""
     msgs: list[Turn] = []
     opener = r.choice(OPENERS[topic][valence])
     msgs.append(Turn("user", opener))
-    msgs.append(Turn("assistant", r.choice(NEUTRAL_ACKS)))
+    msgs.append(_react(valence, r, cfg))
 
     current = valence
     n_mid = r.randint(1, 2)
     for _ in range(n_mid):
         msgs.append(Turn("user", r.choice(MIDDLES)))
-        msgs.append(Turn("assistant",
-                         r.choice(NEUTRAL_ACKS) if r.random() < cfg.filler_frac
-                         else _target(current, r, cfg.emit_length_token)))
+        msgs.append(_react(current, r, cfg))
 
     if shape == "corrected":
         msgs.append(Turn("user", r.choice(CORRECTIONS[current])))
-        msgs.append(Turn("assistant", r.choice(NEUTRAL_ACKS)))
         current = _FLIP[current]
+        # React to the CORRECTED valence: a correction is substantive and the
+        # whole point is that the state changed.
+        msgs.append(_react(current, r, cfg))
         msgs.append(Turn("user", r.choice(MIDDLES)))
         msgs.append(Turn("assistant", r.choice(NEUTRAL_ACKS)))
     elif shape == "drifted":
@@ -206,7 +221,7 @@ def _build(shape: str, topic: str, valence: str, r: random.Random,
         # a model keying on topic words rather than on state will fail here.
         other = r.choice([t for t in OPENERS if t != topic])
         msgs.append(Turn("user", r.choice(OPENERS[other][current])))
-        msgs.append(Turn("assistant", r.choice(NEUTRAL_ACKS)))
+        msgs.append(_react(current, r, cfg))
 
     # One or more probes. Each is a bare backchannel; each requires the state.
     for _ in range(r.randint(cfg.min_probes, cfg.max_probes)):
@@ -214,9 +229,7 @@ def _build(shape: str, topic: str, valence: str, r: random.Random,
         msgs.append(Turn("assistant", _target(current, r, cfg.emit_length_token)))
         if r.random() < 0.5:
             msgs.append(Turn("user", r.choice(MIDDLES)))
-            msgs.append(Turn("assistant",
-                             r.choice(NEUTRAL_ACKS) if r.random() < cfg.filler_frac
-                             else _target(current, r, cfg.emit_length_token)))
+            msgs.append(_react(current, r, cfg))
 
     return msgs, current
 
