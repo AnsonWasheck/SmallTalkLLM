@@ -68,6 +68,50 @@ def referent_tokens(text: str, tokenizer, max_words: int = 3) -> dict[int, float
     return bias
 
 
+def substitute_referent(reply: str, user_text: str, banks: dict[str, list[str]]
+                        ) -> tuple[str, bool]:
+    """Replace a hallucinated bank noun with the one the user actually said.
+
+    Measured on r009: the model produces the right FRAME almost every time and
+    then fills the slot with a different member of the same bank --
+    "i'm a nurse" -> "do you like being a bricklayer?",
+    "we went to italy" -> "how was iceland?".
+
+    It cannot do better on its own: elaboration succeeded on 11% of one-token
+    referents and 0 of 29 multi-token ones, and only 28 of 402 nouns in the banks
+    are single-token. Copying a multi-token span is beyond eight layers with one
+    KV head, and restricting the curriculum to copyable nouns would shrink the
+    bank back to a memorisable size.
+
+    So the model decides WHETHER to elaborate and in WHAT shape; the harness
+    supplies WHICH word, exactly. That is the division this project is built on,
+    and unlike the earlier biasing attempt there is now a slot to put the word
+    into.
+
+    Returns (reply, changed). Conservative by construction: it fires only when
+    the reply names a bank noun the user did not say AND the user's turn contains
+    a noun from that same bank, so it can substitute like for like.
+    """
+    r_words = _WORD_RE.findall(reply.lower())
+    u_words = _WORD_RE.findall(user_text.lower())
+    if not r_words or not u_words:
+        return reply, False
+
+    for slot, bank in banks.items():
+        bank_set = set(bank)
+        said = [w for w in u_words if w in bank_set]
+        if not said:
+            continue
+        wrong = [w for w in r_words if w in bank_set and w not in said]
+        if not wrong:
+            continue
+        # Preserve the reply's own casing and punctuation; swap the word only.
+        pattern = __import__("re").compile(rf"\b{__import__('re').escape(wrong[0])}\b",
+                                           __import__("re").IGNORECASE)
+        return pattern.sub(said[-1], reply, count=1), True
+    return reply, False
+
+
 @dataclass
 class PrefixMap:
     """Mined policy -> opening-token statistics. A static harness asset."""

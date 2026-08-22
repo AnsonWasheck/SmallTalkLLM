@@ -50,6 +50,10 @@ class HarnessConfig:
     referent_bias: float = 0.0
     referent_steps: int = 6
 
+    # Substitute the user's own referent into a well-formed frame the model
+    # filled with the wrong bank-mate. Exact string work; see steering.py.
+    fix_referent: bool = False
+
     avoid_repeats: bool = False
     repeat_window: int = 4
 
@@ -79,6 +83,10 @@ MODES: dict[str, HarnessConfig] = {
                                 output_controls=True, repetition_control=True),
     # Referent biasing alone, so its contribution is separable.
     "E_REFERENT": HarnessConfig(name="E_REFERENT", referent_bias=3.0),
+    "E_FIXREF": HarnessConfig(name="E_FIXREF", fix_referent=True),
+    "E_FIXREF_NOREPEAT": HarnessConfig(name="E_FIXREF_NOREPEAT", fix_referent=True,
+                                       avoid_repeats=True, output_controls=True,
+                                       repetition_control=True),
     "E_REFERENT_STRONG": HarnessConfig(name="E_REFERENT_STRONG", referent_bias=6.0),
     "E_FULL": HarnessConfig(name="E_FULL", referent_bias=3.0, avoid_repeats=True,
                             output_controls=True, repetition_control=True),

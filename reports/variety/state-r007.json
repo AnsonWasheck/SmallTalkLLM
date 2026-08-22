@@ -1,0 +1,84 @@
+{
+  "checksum": "0fc63d268b68386e",
+  "repeat_rate": 0.20833333333333334,
+  "distinct_ratio": 0.4375,
+  "top1_share": 0.20833333333333334,
+  "per_conversation": {
+    "good_day": 0.5,
+    "bad_day": 0.16666666666666666,
+    "neutral_news": 0.16666666666666666,
+    "tired": 0.16666666666666666,
+    "hobby": 0.0,
+    "social": 0.3333333333333333,
+    "bored": 0.3333333333333333,
+    "plans": 0.0
+  },
+  "tag": "state-r007",
+  "checkpoint": "/home/ans/MicroLLM/smalltalk-ai/artifacts/runs/state-r007/best",
+  "transcripts": {
+    "good_day": [
+      "that's great",
+      "that's the way",
+      "that's brilliant",
+      "that's great",
+      "that's great",
+      "that's great"
+    ],
+    "bad_day": [
+      "that's rubbish",
+      "that sounds rough",
+      "that's a pain",
+      "that's hard going",
+      "that's hard going",
+      "that sucks"
+    ],
+    "neutral_news": [
+      "oh nice, how's that going?",
+      "what kind of bike?",
+      "what kind of bike?",
+      "no idea honestly",
+      "ah lovely",
+      "that's great"
+    ],
+    "tired": [
+      "long day?",
+      "that's a pain",
+      "that's hard going",
+      "that's hard going",
+      "that's rubbish",
+      "that sounds rough"
+    ],
+    "hobby": [
+      "oh nice, how's that going?",
+      "that's good",
+      "really? i don't see it",
+      "that sounds rough",
+      "that's a pain",
+      "that's hard going"
+    ],
+    "social": [
+      "What kind of party is it?",
+      "oh nice, how's that going?",
+      "same, nothing going on here",
+      "that's great",
+      "that's great",
+      "that's great"
+    ],
+    "bored": [
+      "same, nothing going on here",
+      "same, nothing going on here",
+      "that sounds rough",
+      "long may it last",
+      "that's great",
+      "that's great"
+    ],
+    "plans": [
+      "go on",
+      "see you",
+      "what do you mean?",
+      "that sounds rough",
+      "that's a pain",
+      "that's hard going"
+    ]
+  }
+}

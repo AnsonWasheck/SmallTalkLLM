@@ -1,0 +1,84 @@
+{
+  "checksum": "0fc63d268b68386e",
+  "repeat_rate": 0.3333333333333333,
+  "distinct_ratio": 0.4375,
+  "top1_share": 0.3958333333333333,
+  "per_conversation": {
+    "good_day": 0.5,
+    "bad_day": 0.16666666666666666,
+    "neutral_news": 0.0,
+    "tired": 0.3333333333333333,
+    "hobby": 0.16666666666666666,
+    "social": 0.3333333333333333,
+    "bored": 0.6666666666666666,
+    "plans": 0.5
+  },
+  "tag": "state-r012",
+  "checkpoint": "/home/ans/MicroLLM/smalltalk-ai/artifacts/runs/state-r012/best",
+  "transcripts": {
+    "good_day": [
+      "that's great",
+      "that's the way",
+      "that's great",
+      "that's great",
+      "that's brilliant",
+      "that's great"
+    ],
+    "bad_day": [
+      "that's rubbish",
+      "that sounds rough",
+      "that's a pain",
+      "that's hard going",
+      "that's hard going",
+      "that sucks"
+    ],
+    "neutral_news": [
+      "what made you go for a bike?",
+      "what's the bike like?",
+      "what kind of bike?",
+      "that sounds rough",
+      "how's the bike?",
+      "that's great"
+    ],
+    "tired": [
+      "long day?",
+      "long day?",
+      "long day?",
+      "that's a pain",
+      "that's hard going",
+      "that sounds rough"
+    ],
+    "hobby": [
+      "oh nice, how's that going?",
+      "Oh, yes.",
+      "really? i don't see it",
+      "i see",
+      "that's great",
+      "that's great"
+    ],
+    "social": [
+      "Oh really? I bet that was a nice friend to have someone like that.",
+      "oh nice, how's that going?",
+      "really? i don't see it",
+      "that's great",
+      "that's great",
+      "that's great"
+    ],
+    "bored": [
+      "same, nothing going on here",
+      "that's great",
+      "that's great",
+      "that's great",
+      "that's great",
+      "that's great"
+    ],
+    "plans": [
+      "that's great",
+      "I'm sure you will find someone again.",
+      "yeah exactly",
+      "that's great",
+      "that's great",
+      "that's great"
+    ]
+  }
+}

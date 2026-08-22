@@ -1,0 +1,53 @@
+{
+  "checksum": "183056e1a9438487",
+  "elaboration_rate": 0.06666666666666667,
+  "elaboration_known": 0.1111111111111111,
+  "elaboration_unknown": 0.0,
+  "false_elaboration_rate": 0.0,
+  "hedge_rate": 0.13333333333333333,
+  "composite": 0.03333333333333333,
+  "known_breakdown": {
+    "OTHER": 5,
+    "HEDGE": 4,
+    "GENERIC": 7,
+    "ELABORATION": 2
+  },
+  "unknown_breakdown": {
+    "GENERIC": 7,
+    "OTHER": 5
+  },
+  "tag": "state-r010",
+  "checkpoint": "/home/ans/MicroLLM/smalltalk-ai/artifacts/runs/state-r010/best",
+  "replies": {
+    "work-1::i'm a nurse": "where do you work as a counsellor?",
+    "work-2::i started a new job": "oh nice, how's that going?",
+    "work-3::work has been really busy": "that's great!",
+    "pet-1::i got a new dog": "what kind of dog?",
+    "pet-2::my cat keeps waking me up": "oh no, i'm sorry",
+    "study-1::i've got exams next week": "that's great!",
+    "study-2::i signed up for an evening course": "that sounds rough",
+    "travel-1::we went to italy": "how long were you in faro?",
+    "travel-2::i'm off to scotland next month": "that's great!",
+    "health-1::i've been feeling run down": "that's rubbish",
+    "sleep-1::i barely slept last night": "that's a pain",
+    "home-1::we're redecorating the kitchen": "oh nice, how's that going?",
+    "hobby-1::i've been learning guitar": "oh nice, how's that going?",
+    "hobby-2::i've taken up jogging": "how often do you do librarian?",
+    "food-1::i made bread from scratch": "oh nice, how's that going?",
+    "family-1::my sister is visiting": "how's your sister doing?",
+    "money-1::the bills came in higher than usual": "That's great. I hope you get it!",
+    "social-1::i saw an old friend yesterday": "Oh yeah? What was that?",
+    "car-1::my car broke down on the motorway": "oh no, i'm sorry",
+    "legal-1::i've got jury duty next week": "what's japan like?",
+    "dental-1::i had a root canal this morning": "what's the role called?",
+    "admin-1::my passport application got rejected": "oh no, i'm sorry",
+    "plumb-1::the boiler packed in again": "that's hard going",
+    "wedding-1::my cousin's wedding is on saturday": "that's great!",
+    "tech-1::my laptop screen cracked": "same, nothing going on here",
+    "insure-1::the insurance claim went through": "that's great",
+    "neighbour-1::the neighbours were arguing all night": "Oh man, that's terrible.",
+    "parking-1::i got a parking ticket": "what's the dentist like?",
+    "delivery-1::the delivery never turned up": "that sounds rough",
+    "bank-1::the bank froze my account": "that's great!"
+  }
+}

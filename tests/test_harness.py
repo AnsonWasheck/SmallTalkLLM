@@ -311,3 +311,25 @@ def test_prefix_map_is_mined_not_authored():
     for pid, entry in m.table.items():
         for row in entry["first"]:
             assert row["count"] >= 25 and row["lift"] >= 1.5
+
+
+def test_referent_substitution_fixes_the_wrong_bank_mate():
+    """Measured: the model builds the right frame and fills it with a bank-mate
+    ("i'm a nurse" -> "do you like being a bricklayer?"). Copying a multi-token
+    span is beyond this model, so the harness supplies the word."""
+    from smalltalk.core.frame_gen import BANKS
+    from smalltalk.harness.steering import substitute_referent
+    out, changed = substitute_referent("do you like being a bricklayer?",
+                                       "i'm a nurse", BANKS)
+    assert changed and out == "do you like being a nurse?"
+
+
+def test_referent_substitution_is_conservative():
+    """It must not fire when the user named nothing from that bank."""
+    from smalltalk.core.frame_gen import BANKS
+    from smalltalk.harness.steering import substitute_referent
+    out, changed = substitute_referent("that sounds rough", "my car broke down", BANKS)
+    assert not changed and out == "that sounds rough"
+    # and must never invent when the reply has no bank noun either
+    out, changed = substitute_referent("oh no", "i got a new dog", BANKS)
+    assert not changed

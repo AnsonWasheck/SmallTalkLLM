@@ -53,6 +53,10 @@ def main() -> int:
     ap.add_argument("--cap-frac", type=float, default=0.020,
                     help="max share of assistant turns any single target may hold")
     ap.add_argument("--val-ratio", type=float, default=0.02)
+    ap.add_argument("--tokenizer", default="artifacts/state/tokenizer-4096")
+    ap.add_argument("--max-noun-tokens", type=int, default=99,
+                    help="1 starves the banks: only 28 of 402 nouns are "
+                         "single-token and no place name is. Kept for ablations.")
     ap.add_argument("--seed", type=int, default=1337)
     ap.add_argument("--out", default="data/state")
     args = ap.parse_args()
@@ -85,7 +89,19 @@ def main() -> int:
     core = list(core_generate(CoreConfig(n=args.core, seed=args.seed), real_convs=pool))
     print(f"[core] {len(core):,} reflex examples")
 
-    frames = list(frame_generate(FrameConfig(n=args.frames, seed=args.seed)))
+    # Restrict frame nouns to ones the model can actually copy (see FrameConfig).
+    from smalltalk.core.frame_gen import noun_split
+    from smalltalk.tokenizer import SmallTalkTokenizer
+    _tok = SmallTalkTokenizer.load(args.tokenizer)
+    _tr, _ = noun_split()
+    allowed = {slot: [w for w in ws if len(_tok.encode(" " + w)) <= args.max_noun_tokens]
+               for slot, ws in _tr.items()}
+    kept = sum(len(v) for v in allowed.values())
+    total = sum(len(v) for v in _tr.values())
+    print(f"[frames] {kept}/{total} training nouns are <= {args.max_noun_tokens} "
+          f"token(s) and therefore copyable")
+    frames = list(frame_generate(FrameConfig(n=args.frames, seed=args.seed,
+                                             allowed_nouns=allowed)))
     reuse = sum(1 for c in frames for m in c.messages
                 if m.role == "assistant" and c.meta["noun"] in m.content)
     n_asst = sum(1 for c in frames for m in c.messages if m.role == "assistant")

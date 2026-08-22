@@ -152,6 +152,7 @@ def one_round(state: dict) -> dict:
     if run([".venv-rocm/bin/python", "scripts/build_state_corpus.py",
             "--state", str(cfg["state"]), "--core", str(cfg["core"]),
             "--frames", str(cfg.get("frames", 24000)),
+            "--seed", str(state.get("corpus_seed", 1337)),
             "--out", "data/state"], rd / "corpus.log") != 0:
         entry["status"] = "corpus_failed"
         return entry
@@ -241,9 +242,15 @@ def one_round(state: dict) -> dict:
         state["rung"] += 1
         notes.append(f"advance to rung {LADDER[state['rung']]['name']}")
     elif state["flat_rounds"] >= 2:
+        # Restarting the ladder with the same seed re-ran identical experiments:
+        # rounds 10-12 reproduced 7-9's scores exactly (0.067/0.067/0.033) and
+        # burned three hours of GPU learning nothing. Advance the corpus seed so
+        # a repeat rung is at least a different sample.
         state["rung"] = 0
         state["flat_rounds"] = 0
-        notes.append("ladder exhausted with no gain; restarting from rung 0")
+        state["corpus_seed"] = state.get("corpus_seed", 1337) + 101
+        notes.append(f"ladder exhausted; restarting with corpus seed "
+                     f"{state['corpus_seed']}")
     entry["notes"] = notes
     entry["finished"] = now()
     return entry

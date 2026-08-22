@@ -39,7 +39,8 @@ from .policy import (BY_ID, CONSERVATIVE, CONSERVATIVE_CLOSING, LENGTH_TOKENS,
                      POLICIES, Policy, QuestionPolicy, consistency,
                      high_confidence_shortcut)
 from .state import ConversationState
-from .steering import PrefixMap, referent_tokens, steered_generate
+from .steering import (PrefixMap, referent_tokens, steered_generate,
+                       substitute_referent)
 from .trace import Trace
 from . import repetition
 from .validator import validate
@@ -406,6 +407,13 @@ class Harness:
                                             recent=recent,
                                             closing=self.state.conversation_closing
                                             ).as_dict()
+
+        if self.cfg.fix_referent:
+            from ..core.frame_gen import BANKS
+            fixed, changed = substitute_referent(reply, user_text, BANKS)
+            if changed:
+                tr.validator = {**tr.validator, "referent_substituted": True}
+                reply = fixed
 
         if not reply:
             reply = "..."

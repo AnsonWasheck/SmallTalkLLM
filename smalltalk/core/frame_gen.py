@@ -228,6 +228,13 @@ class FrameConfig:
     held_out: float = 0.25
     follow_turns: int = 2          # turns of ordinary chat after the elaboration
     use_held_out: bool = False     # True only for building a probe set
+    # Only nouns the model can actually copy. Measured on r009: elaboration
+    # succeeded on 11% of 1-token referents and 0 of 29 multi-token ones. Copying
+    # a single token is already hard for 8 layers with one KV head; copying a
+    # 2-4 token span is beyond it. Roughly 45% of the banks were multi-token, so
+    # nearly half the training signal demanded something impossible -- and a
+    # model asked to do the impossible learns to hedge instead.
+    allowed_nouns: dict | None = None
 
 
 ACKS = ("mm", "right", "i see", "yeah?", "oh nice", "fair enough")
@@ -238,6 +245,9 @@ def generate(cfg: FrameConfig | None = None) -> Iterator[Conversation]:
     cfg = cfg or FrameConfig()
     train, held = noun_split(cfg.seed, cfg.held_out)
     nouns = held if cfg.use_held_out else train
+    if cfg.allowed_nouns is not None:
+        nouns = {k: [w for w in v if w in cfg.allowed_nouns.get(k, ())] or v
+                 for k, v in nouns.items()}
     r = random.Random(cfg.seed)
 
     for i in range(cfg.n):

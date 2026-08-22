@@ -1,0 +1,53 @@
+{
+  "checksum": "183056e1a9438487",
+  "elaboration_rate": 0.03333333333333333,
+  "elaboration_known": 0.05555555555555555,
+  "elaboration_unknown": 0.0,
+  "false_elaboration_rate": 0.0,
+  "hedge_rate": 0.1,
+  "composite": 0.008333333333333331,
+  "known_breakdown": {
+    "OTHER": 6,
+    "HEDGE": 3,
+    "GENERIC": 8,
+    "ELABORATION": 1
+  },
+  "unknown_breakdown": {
+    "OTHER": 4,
+    "GENERIC": 8
+  },
+  "tag": "state-r008",
+  "checkpoint": "/home/ans/MicroLLM/smalltalk-ai/artifacts/runs/state-r008/best",
+  "replies": {
+    "work-1::i'm a nurse": "how long have you been a bricklayer?",
+    "work-2::i started a new job": "oh nice, how's that going?",
+    "work-3::work has been really busy": "that's great",
+    "pet-1::i got a new dog": "what made you go for a puppy?",
+    "pet-2::my cat keeps waking me up": "that sounds rough",
+    "study-1::i've got exams next week": "that's great!",
+    "study-2::i signed up for an evening course": "I'm sorry to have to make you go.",
+    "travel-1::we went to italy": "how long were you in evora?",
+    "travel-2::i'm off to scotland next month": "that sounds rough",
+    "health-1::i've been feeling run down": "that's rubbish",
+    "sleep-1::i barely slept last night": "that's great",
+    "home-1::we're redecorating the kitchen": "oh nice, how's that going?",
+    "hobby-1::i've been learning guitar": "oh nice, how's that going?",
+    "hobby-2::i've taken up jogging": "how long have you been farmer?",
+    "food-1::i made bread from scratch": "oh no, i'm sorry",
+    "family-1::my sister is visiting": "how long is your sister staying?",
+    "money-1::the bills came in higher than usual": "that's great",
+    "social-1::i saw an old friend yesterday": "Oh really? What was the party?",
+    "car-1::my car broke down on the motorway": "Oh no! Did you have to pay for it?",
+    "legal-1::i've got jury duty next week": "that sounds rough",
+    "dental-1::i had a root canal this morning": "I'm sorry to hear that.",
+    "admin-1::my passport application got rejected": "oh no, i'm sorry",
+    "plumb-1::the boiler packed in again": "that's rubbish",
+    "wedding-1::my cousin's wedding is on saturday": "how long is your classmate staying?",
+    "tech-1::my laptop screen cracked": "oh no, i'm sorry",
+    "insure-1::the insurance claim went through": "that's great!",
+    "neighbour-1::the neighbours were arguing all night": "that's rubbish",
+    "parking-1::i got a parking ticket": "that's great!",
+    "delivery-1::the delivery never turned up": "that sounds rough",
+    "bank-1::the bank froze my account": "I am not a very good person, but you should if you want to be good."
+  }
+}
