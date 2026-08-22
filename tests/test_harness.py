@@ -264,3 +264,50 @@ def test_feature_vector_is_bounded():
     v = feature_vector(extract("WHAT ARE YOU DOING!!! " * 20))
     assert v.shape == (len(FEATURE_KEYS),)
     assert float(v.max()) <= 1.0 and float(v.min()) >= 0.0
+
+
+# --- Phase 3 steering -------------------------------------------------
+def test_steering_off_reproduces_the_baseline(tiny):
+    """Every steering interface must be a no-op at zero strength.
+
+    If it is not, the ablation cannot separate the mechanism from incidental
+    changes to the decoding path.
+    """
+    from smalltalk.infer.generate import GenerationConfig, generate
+    from smalltalk.harness.steering import steered_generate
+
+    model, tok = tiny
+    gen = GenerationConfig(temperature=0.0, top_p=1.0, top_k=0, greedy=True,
+                           repetition_penalty=1.0, max_new_tokens=10, seed=0)
+    ids, _ = tok.encode_conversation([{"role": "user", "content": "hey there"}],
+                                     add_bos=True, add_generation_prompt=True)
+    assert steered_generate(model, tok, ids, gen) == generate(model, tok, ids, gen)
+
+
+def test_hidden_steering_removes_its_hook(tiny):
+    from smalltalk.harness.steering import steered_generate
+    from smalltalk.infer.generate import GenerationConfig
+    model, tok = tiny
+    gen = GenerationConfig(greedy=True, max_new_tokens=4, seed=0)
+    ids, _ = tok.encode_conversation([{"role": "user", "content": "hi"}],
+                                     add_bos=True, add_generation_prompt=True)
+    before = [p.clone() for p in model.parameters()]
+    steered_generate(model, tok, ids, gen,
+                     hidden_vec=torch.randn(model.cfg.hidden_size),
+                     hidden_steps=2, hidden_alpha=0.5)
+    assert not model.norm._forward_hooks
+    for a, b in zip(before, model.parameters()):
+        assert torch.equal(a, b)
+
+
+def test_prefix_map_is_mined_not_authored():
+    """Prefixes must carry statistical support, not be hand-written."""
+    from pathlib import Path
+    from smalltalk.harness.steering import PrefixMap
+    p = Path(__file__).resolve().parents[1] / "artifacts/harness/prefixes.json"
+    if not p.exists():
+        pytest.skip("prefix map not mined in this environment")
+    m = PrefixMap.load(p)
+    for pid, entry in m.table.items():
+        for row in entry["first"]:
+            assert row["count"] >= 25 and row["lift"] >= 1.5

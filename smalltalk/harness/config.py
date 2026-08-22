@@ -39,6 +39,13 @@ class HarnessConfig:
     # --- memory ---------------------------------------------------------
     memory_slots: int = 8
 
+    # --- Phase 3 steering interfaces (mutually comparable, one variable each) --
+    steer: str = "none"          # none | restrict | bias | hidden
+    steer_steps: int = 1         # how many opening tokens the interface touches
+    steer_scale: float = 1.0     # logit-bias multiplier
+    steer_alpha: float = 0.0     # hidden-state push, relative to hidden norm
+    prefix_map: str = "artifacts/harness/prefixes.json"
+
     # Mode G: tiny learned policy classifier over the frozen model's hidden state.
     policy_head: str | None = None
 
@@ -79,3 +86,45 @@ MODES: dict[str, HarnessConfig] = {
         confidence_gate=False, memory=True, output_controls=True,
         validator=True, repetition_control=True, oracle_policy=True),
 }
+
+# Phase 3. Each row changes exactly ONE thing versus G_LEARNED_HEAD (the steering
+# interface), and every mechanism has an oracle twin so classifier error can be
+# separated from steering error.
+def _steer(name, **kw):
+    return HarnessConfig(
+        name=name, context_selection=True, policy=True, confidence_gate=True,
+        memory=True, output_controls=True, validator=True,
+        repetition_control=True, **kw)
+
+
+for _n, _kw in {
+    "S2_RESTRICT":  dict(steer="restrict", policy_head="artifacts/harness/policy_head.pt"),
+    "S3_BIAS":      dict(steer="bias", steer_steps=2, steer_scale=2.0,
+                         policy_head="artifacts/harness/policy_head.pt"),
+    "S4_HIDDEN":    dict(steer="hidden", steer_steps=2, steer_alpha=0.25,
+                         policy_head="artifacts/harness/policy_head.pt"),
+    "S4_HIDDEN_a10": dict(steer="hidden", steer_steps=2, steer_alpha=0.10,
+                          policy_head="artifacts/harness/policy_head.pt"),
+    "S4_HIDDEN_a50": dict(steer="hidden", steer_steps=2, steer_alpha=0.50,
+                          policy_head="artifacts/harness/policy_head.pt"),
+    "S4_HIDDEN_a100": dict(steer="hidden", steer_steps=4, steer_alpha=1.00,
+                           policy_head="artifacts/harness/policy_head.pt"),
+}.items():
+    MODES[_n] = _steer(_n, **_kw)
+    MODES["ORACLE_" + _n] = _steer("ORACLE_" + _n, oracle_policy=True,
+                                   **{k: v for k, v in _kw.items()
+                                      if k != "policy_head"})
+
+# Inferred-policy versions at the strengths that worked under oracle.
+for _a in (0.60, 0.80, 1.30):
+    MODES[f"S4_INF_a{int(_a * 100):03d}"] = _steer(
+        f"S4_INF_a{int(_a * 100):03d}", steer="hidden", steer_steps=2,
+        steer_alpha=_a, policy_head="artifacts/harness/policy_head.pt")
+
+# Steering strength sweep under a correct policy, to separate "the interface is
+# weak" from "the strength was wrong".
+for _a, _st in ((0.10, 2), (0.25, 1), (0.25, 4), (0.40, 2), (0.60, 2),
+                (0.80, 2), (1.00, 2), (1.30, 2), (0.80, 4), (0.80, 1)):
+    MODES[f"ORACLE_S4_a{int(_a * 100):03d}_s{_st}"] = _steer(
+        f"ORACLE_S4_a{int(_a * 100):03d}_s{_st}", oracle_policy=True,
+        steer="hidden", steer_steps=_st, steer_alpha=_a)

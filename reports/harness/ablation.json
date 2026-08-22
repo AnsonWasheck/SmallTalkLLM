@@ -10,7 +10,7 @@
         "mean_tokens": 4.141666666666667,
         "distinct_reply_ratio": 0.19999999999999996,
         "mean_model_calls": 1,
-        "mean_latency_ms": 10.055693024999831,
+        "mean_latency_ms": 11.669173416695836,
         "per_intent": {
           "greeting": 0.75,
           "greeting_how_are_you": 0.625,
@@ -1028,38 +1028,38 @@
           "study-01::negative::yeah": "can't complain then"
         }
       },
-      "wall_s": 1.4473524730001373
+      "wall_s": 1.6653940269998202
     },
-    "G_LEARNED_HEAD": {
+    "S4_INF_a060": {
       "core": {
         "n": 120,
-        "pass_rate": 0.6666666666666666,
-        "question_rate": 0.35833333333333334,
-        "mean_tokens": 3.9583333333333335,
-        "distinct_reply_ratio": 0.20833333333333337,
-        "mean_model_calls": 5.541666666666667,
-        "mean_latency_ms": 38.0599183083253,
+        "pass_rate": 0.6583333333333333,
+        "question_rate": 0.36666666666666664,
+        "mean_tokens": 4,
+        "distinct_reply_ratio": 0.18333333333333335,
+        "mean_model_calls": 2,
+        "mean_latency_ms": 13.930838408320293,
         "per_intent": {
           "greeting": 0.75,
           "greeting_how_are_you": 0.625,
           "how_are_you": 1.0,
           "thanks": 0.8571428571428571,
-          "goodbye": 0.5714285714285714,
+          "goodbye": 0.7142857142857143,
           "apology": 0.8,
-          "good_news": 0.7142857142857143,
-          "bad_news": 0.5714285714285714,
+          "good_news": 0.5714285714285714,
+          "bad_news": 0.7142857142857143,
           "bored": 0.8,
           "tired": 0.4,
           "confused": 0.6,
           "agreement": 0.4,
-          "disagreement": 0.25,
+          "disagreement": 0.5,
           "user_vents": 0.5,
           "user_jokes": 0.25,
           "user_asks_opinion": 0.0,
           "greeting_plus_name": 1.0,
           "check_in": 0.6666666666666666,
-          "compliment": 0.6666666666666666,
-          "small_plan": 1.0,
+          "compliment": 0.0,
+          "small_plan": 0.6666666666666666,
           "topic_statement": 1.0,
           "out_of_scope": 0.6666666666666666
         },
@@ -1067,7 +1067,7 @@
           {
             "intent": "greeting",
             "prompt": "howdy",
-            "reply": "not bad, you?",
+            "reply": "see you",
             "correct": false,
             "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
             "policy_source": "shortcut"
@@ -1363,8 +1363,8 @@
           {
             "intent": "goodbye",
             "prompt": "take care",
-            "reply": "that sounds rough",
-            "correct": false,
+            "reply": "see you",
+            "correct": true,
             "policy": "P06:GOODBYE|CLOSE|NO_QUESTION|VERY_SHORT",
             "policy_source": "shortcut"
           },
@@ -1443,7 +1443,7 @@
           {
             "intent": "good_news",
             "prompt": "the results were good",
-            "reply": "fair enough",
+            "reply": "i see",
             "correct": false,
             "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
             "policy_source": "head"
@@ -1459,8 +1459,8 @@
           {
             "intent": "good_news",
             "prompt": "i graduated",
-            "reply": "that's great!",
-            "correct": true,
+            "reply": "long day?",
+            "correct": false,
             "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
             "policy_source": "head"
           },
@@ -1483,8 +1483,8 @@
           {
             "intent": "bad_news",
             "prompt": "i didn't get the job",
-            "reply": "that sounds rough",
-            "correct": false,
+            "reply": "oh no, i'm sorry",
+            "correct": true,
             "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
             "policy_source": "head"
           },
@@ -1499,7 +1499,7 @@
           {
             "intent": "bad_news",
             "prompt": "it fell through",
-            "reply": "go on",
+            "reply": "i see",
             "correct": false,
             "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
             "policy_source": "head"
@@ -1515,7 +1515,7 @@
           {
             "intent": "bad_news",
             "prompt": "the results were bad",
-            "reply": "fair enough",
+            "reply": "i see",
             "correct": false,
             "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
             "policy_source": "head"
@@ -1691,8 +1691,8 @@
           {
             "intent": "disagreement",
             "prompt": "disagree",
-            "reply": "yeah exactly",
-            "correct": false,
+            "reply": "really? i don't see it",
+            "correct": true,
             "policy": "P14:DISAGREEMENT|CLARIFY|QUESTION_ALLOWED|SHORT",
             "policy_source": "head"
           },
@@ -1715,7 +1715,7 @@
           {
             "intent": "user_vents",
             "prompt": "i'm at my limit",
-            "reply": "see you",
+            "reply": "long day?",
             "correct": false,
             "policy": "P11:VENTING|EMPATHIZE|NO_QUESTION|SHORT",
             "policy_source": "head"
@@ -1795,7 +1795,7 @@
           {
             "intent": "user_asks_opinion",
             "prompt": "do you think i should",
-            "reply": "congratulations!",
+            "reply": "yeah exactly",
             "correct": false,
             "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
             "policy_source": "head"
@@ -1859,8 +1859,8 @@
           {
             "intent": "compliment",
             "prompt": "you're lovely",
-            "reply": "ah thanks",
-            "correct": true,
+            "reply": "yeah exactly",
+            "correct": false,
             "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
             "policy_source": "head"
           },
@@ -1875,8 +1875,8 @@
           {
             "intent": "compliment",
             "prompt": "you're good at this",
-            "reply": "ah thanks",
-            "correct": true,
+            "reply": "yeah exactly",
+            "correct": false,
             "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
             "policy_source": "head"
           },
@@ -1899,8 +1899,8 @@
           {
             "intent": "small_plan",
             "prompt": "you around this weekend?",
-            "reply": "sounds good",
-            "correct": true,
+            "reply": "yeah still here",
+            "correct": false,
             "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
             "policy_source": "head"
           },
@@ -2011,7 +2011,7 @@
           {
             "intent": "out_of_scope",
             "prompt": "how do i install docker",
-            "reply": "what do you think?",
+            "reply": "not bad, you?",
             "correct": false,
             "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
             "policy_source": "head"
@@ -2027,7 +2027,7 @@
         ]
       },
       "state": {
-        "divergence": 0.75,
+        "divergence": 1.0,
         "directional": 0.6666666666666666,
         "replies": {
           "day-01::positive::yeah": "that's great",
@@ -2036,7 +2036,7 @@
           "day-02::negative::i guess": "that sounds rough",
           "work-01::positive::yeah": "that's great",
           "work-01::negative::yeah": "that sounds rough",
-          "work-02::positive::mm": "that's great",
+          "work-02::positive::mm": "nice one",
           "work-02::negative::mm": "that's great",
           "sleep-01::positive::yeah": "that's great",
           "sleep-01::negative::yeah": "that sounds rough",
@@ -2044,50 +2044,50 @@
           "health-01::negative::mm": "that sucks",
           "social-01::positive::yeah": "that's great",
           "social-01::negative::yeah": "that sounds rough",
-          "news-01::positive::yeah": "that's great",
+          "news-01::positive::yeah": "good stuff",
           "news-01::negative::yeah": "that's great",
           "news-02::positive::mm": "that's great",
           "news-02::negative::mm": "that sounds rough",
           "home-01::positive::yeah": "that's great",
           "home-01::negative::yeah": "that sounds rough",
-          "money-01::positive::i guess": "that's great",
+          "money-01::positive::i guess": "good stuff",
           "money-01::negative::i guess": "that's great",
           "study-01::positive::yeah": "that's great",
           "study-01::negative::yeah": "can't complain then"
         }
       },
-      "wall_s": 5.1573642060002385
+      "wall_s": 2.0042021010003737
     },
-    "ORACLE_POLICY": {
+    "S4_INF_a080": {
       "core": {
         "n": 120,
-        "pass_rate": 0.7333333333333333,
-        "question_rate": 0.30833333333333335,
-        "mean_tokens": 4.066666666666666,
-        "distinct_reply_ratio": 0.2416666666666667,
-        "mean_model_calls": 11.2,
-        "mean_latency_ms": 50.924158533371155,
+        "pass_rate": 0.65,
+        "question_rate": 0.35,
+        "mean_tokens": 3.9166666666666665,
+        "distinct_reply_ratio": 0.17500000000000004,
+        "mean_model_calls": 2,
+        "mean_latency_ms": 13.057693783328736,
         "per_intent": {
-          "greeting": 0.875,
-          "greeting_how_are_you": 0.75,
+          "greeting": 0.75,
+          "greeting_how_are_you": 0.5,
           "how_are_you": 1.0,
           "thanks": 0.8571428571428571,
           "goodbye": 0.7142857142857143,
           "apology": 0.8,
-          "good_news": 0.7142857142857143,
-          "bad_news": 0.42857142857142855,
-          "bored": 1.0,
+          "good_news": 0.5714285714285714,
+          "bad_news": 0.7142857142857143,
+          "bored": 0.8,
           "tired": 0.4,
-          "confused": 0.8,
-          "agreement": 0.8,
+          "confused": 0.6,
+          "agreement": 0.4,
           "disagreement": 0.5,
           "user_vents": 0.5,
-          "user_jokes": 0.5,
+          "user_jokes": 0.25,
           "user_asks_opinion": 0.0,
           "greeting_plus_name": 1.0,
           "check_in": 0.6666666666666666,
-          "compliment": 0.6666666666666666,
-          "small_plan": 1.0,
+          "compliment": 0.0,
+          "small_plan": 0.6666666666666666,
           "topic_statement": 1.0,
           "out_of_scope": 0.6666666666666666
         },
@@ -2095,7 +2095,2063 @@
           {
             "intent": "greeting",
             "prompt": "howdy",
+            "reply": "see you",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "hey hey",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "good evening",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "hullo",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "yo yo",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "hi there!",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "afternoon",
+            "reply": "yeah exactly",
+            "correct": false,
+            "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "greetings",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "howdy, how are you",
             "reply": "not bad, you?",
+            "correct": false,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "hey how's your day going",
+            "reply": "not bad, you?",
+            "correct": false,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "hi how have you been",
+            "reply": "i'm good, how about you?",
+            "correct": true,
+            "policy": "P02:GREETING_HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "hello, all good?",
+            "reply": "i'm good, how about you?",
+            "correct": true,
+            "policy": "P02:GREETING_HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "hey you doing ok",
+            "reply": "not bad, you?",
+            "correct": false,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "yo, how's things",
+            "reply": "hey",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "good morning how are you",
+            "reply": "i'm good, how about you?",
+            "correct": true,
+            "policy": "P02:GREETING_HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "hi there, you well?",
+            "reply": "i'm good, how about you?",
+            "correct": true,
+            "policy": "P02:GREETING_HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "how are things with you",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "how've you been",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "you doing ok?",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "how's your day been",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "what's new",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "all good?",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "how's everything",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "you well?",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "thank you kindly",
+            "reply": "no worries",
+            "correct": true,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "thanks a bunch",
+            "reply": "no worries",
+            "correct": true,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "big thanks",
+            "reply": "no worries",
+            "correct": true,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "ta",
+            "reply": "hey",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "appreciate that",
+            "reply": "no worries",
+            "correct": true,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "thanks so much",
+            "reply": "no worries",
+            "correct": true,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "cheers for that",
+            "reply": "no worries",
+            "correct": true,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "cya",
+            "reply": "hey",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "i'm heading out",
+            "reply": "long day?",
+            "correct": false,
+            "policy": "P09:TIRED|EMPATHIZE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "gotta run",
+            "reply": "see you",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "night night",
+            "reply": "see you",
+            "correct": true,
+            "policy": "P06:GOODBYE|CLOSE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "off to bed",
+            "reply": "see you",
+            "correct": true,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "i should go",
+            "reply": "see you",
+            "correct": true,
+            "policy": "P06:GOODBYE|CLOSE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "take care",
+            "reply": "see you",
+            "correct": true,
+            "policy": "P06:GOODBYE|CLOSE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "apology",
+            "prompt": "sorry for that",
+            "reply": "it's alright",
+            "correct": true,
+            "policy": "P05:APOLOGY|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "apology",
+            "prompt": "my apologies",
+            "reply": "it's alright",
+            "correct": true,
+            "policy": "P05:APOLOGY|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "apology",
+            "prompt": "that's on me",
+            "reply": "what do you mean?",
+            "correct": false,
+            "policy": "P12:CONFUSION|CLARIFY|QUESTION_PREFERRED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "apology",
+            "prompt": "sorry, my bad",
+            "reply": "it's alright",
+            "correct": true,
+            "policy": "P05:APOLOGY|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "apology",
+            "prompt": "i messed up sorry",
+            "reply": "it's alright",
+            "correct": true,
+            "policy": "P05:APOLOGY|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "i got accepted",
+            "reply": "that's great!",
+            "correct": true,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "i aced it",
+            "reply": "that's great!",
+            "correct": true,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "we got the house",
+            "reply": "that's great!",
+            "correct": true,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "i got the callback",
+            "reply": "that's great!",
+            "correct": true,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "the results were good",
+            "reply": "i see",
+            "correct": false,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "i hit my target",
+            "reply": "oh no, i'm sorry",
+            "correct": false,
+            "policy": "P11:VENTING|EMPATHIZE|NO_QUESTION|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "i graduated",
+            "reply": "long day?",
+            "correct": false,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "i lost my grandad",
+            "reply": "oh no, i'm sorry",
+            "correct": true,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "we split up",
+            "reply": "oh no, i'm sorry",
+            "correct": true,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "i didn't get the job",
+            "reply": "oh no, i'm sorry",
+            "correct": true,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "my cat passed",
+            "reply": "oh no, i'm sorry",
+            "correct": true,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "it fell through",
+            "reply": "i see",
+            "correct": false,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "i got some bad news",
+            "reply": "oh no, i'm sorry",
+            "correct": true,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "the results were bad",
+            "reply": "i see",
+            "correct": false,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bored",
+            "prompt": "bored as anything",
+            "reply": "same, nothing going on here",
+            "correct": true,
+            "policy": "P10:BORED|RECIPROCATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bored",
+            "prompt": "unbelievably bored",
+            "reply": "same, nothing going on here",
+            "correct": true,
+            "policy": "P10:BORED|RECIPROCATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bored",
+            "prompt": "i've got nothing to do",
+            "reply": "same, nothing going on here",
+            "correct": true,
+            "policy": "P10:BORED|RECIPROCATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bored",
+            "prompt": "boring day",
+            "reply": "hey",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "bored",
+            "prompt": "nothing going on",
+            "reply": "same, nothing going on here",
+            "correct": true,
+            "policy": "P10:BORED|RECIPROCATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "tired",
+            "prompt": "absolutely exhausted",
+            "reply": "long day?",
+            "correct": true,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "tired",
+            "prompt": "i'm beat",
+            "reply": "what do you mean?",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "tired",
+            "prompt": "barely slept",
+            "reply": "really? i don't see it",
+            "correct": false,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "tired",
+            "prompt": "worn out",
+            "reply": "what do you mean?",
+            "correct": false,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "tired",
+            "prompt": "i'm so tired today",
+            "reply": "long day?",
+            "correct": true,
+            "policy": "P09:TIRED|EMPATHIZE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "confused",
+            "prompt": "eh?",
+            "reply": "hey",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "confused",
+            "prompt": "i'm lost",
+            "reply": "what do you mean?",
+            "correct": true,
+            "policy": "P12:CONFUSION|CLARIFY|QUESTION_PREFERRED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "confused",
+            "prompt": "what do you mean",
+            "reply": "what do you think?",
+            "correct": false,
+            "policy": "P12:CONFUSION|CLARIFY|QUESTION_PREFERRED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "confused",
+            "prompt": "not following",
+            "reply": "what do you mean?",
+            "correct": true,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "confused",
+            "prompt": "you what",
+            "reply": "what do you mean?",
+            "correct": true,
+            "policy": "P12:CONFUSION|CLARIFY|QUESTION_PREFERRED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "agreement",
+            "prompt": "totally",
+            "reply": "hey",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "agreement",
+            "prompt": "agreed",
+            "reply": "long day?",
+            "correct": false,
+            "policy": "P09:TIRED|EMPATHIZE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "agreement",
+            "prompt": "true that",
+            "reply": "yeah exactly",
+            "correct": true,
+            "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "agreement",
+            "prompt": "spot on",
+            "reply": "see you",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "agreement",
+            "prompt": "yeah i think so too",
+            "reply": "yeah exactly",
+            "correct": true,
+            "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "disagreement",
+            "prompt": "i don't buy it",
+            "reply": "what do you think?",
+            "correct": false,
+            "policy": "P12:CONFUSION|CLARIFY|QUESTION_PREFERRED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "disagreement",
+            "prompt": "disagree",
+            "reply": "really? i don't see it",
+            "correct": true,
+            "policy": "P14:DISAGREEMENT|CLARIFY|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "disagreement",
+            "prompt": "not convinced",
+            "reply": "really? i don't see it",
+            "correct": true,
+            "policy": "P14:DISAGREEMENT|CLARIFY|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "disagreement",
+            "prompt": "i doubt it",
+            "reply": "what do you mean?",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "user_vents",
+            "prompt": "i'm at my limit",
+            "reply": "long day?",
+            "correct": false,
+            "policy": "P11:VENTING|EMPATHIZE|NO_QUESTION|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_vents",
+            "prompt": "this week has been brutal",
+            "reply": "that sounds rough",
+            "correct": true,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "user_vents",
+            "prompt": "everything keeps going wrong",
+            "reply": "that sounds rough",
+            "correct": true,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_vents",
+            "prompt": "i'm so fed up",
+            "reply": "oh no, i'm sorry",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "user_jokes",
+            "prompt": "lololol",
+            "reply": "haha",
+            "correct": true,
+            "policy": "P15:JOKE|PLAY_ALONG|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_jokes",
+            "prompt": "ha",
+            "reply": "hey",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_jokes",
+            "prompt": "that's hilarious",
+            "reply": "yeah exactly",
+            "correct": false,
+            "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_jokes",
+            "prompt": "i can't stop laughing",
+            "reply": "oh no, i'm sorry",
+            "correct": false,
+            "policy": "P11:VENTING|EMPATHIZE|NO_QUESTION|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_asks_opinion",
+            "prompt": "any thoughts",
+            "reply": "yeah exactly",
+            "correct": false,
+            "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_asks_opinion",
+            "prompt": "what's your take",
+            "reply": "not bad, you?",
+            "correct": false,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_asks_opinion",
+            "prompt": "do you think i should",
+            "reply": "yeah exactly",
+            "correct": false,
+            "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_asks_opinion",
+            "prompt": "reckon it's worth it",
+            "reply": "that's great!",
+            "correct": false,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_plus_name",
+            "prompt": "hey it's alex",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting_plus_name",
+            "prompt": "hello, me again",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting_plus_name",
+            "prompt": "hi it's me!",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "check_in",
+            "prompt": "still there?",
+            "reply": "yeah still here",
+            "correct": true,
+            "policy": "P18:ACKNOWLEDGEMENT|NEUTRAL_REACTION|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "check_in",
+            "prompt": "you around?",
+            "reply": "yeah still here",
+            "correct": true,
+            "policy": "P18:ACKNOWLEDGEMENT|NEUTRAL_REACTION|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "check_in",
+            "prompt": "hey you there",
+            "reply": "hey",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "compliment",
+            "prompt": "you're lovely",
+            "reply": "yeah exactly",
+            "correct": false,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "compliment",
+            "prompt": "i enjoy this",
+            "reply": "what do you mean?",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "compliment",
+            "prompt": "you're good at this",
+            "reply": "yeah exactly",
+            "correct": false,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "small_plan",
+            "prompt": "fancy a walk?",
+            "reply": "sounds good",
+            "correct": true,
+            "policy": "P18:ACKNOWLEDGEMENT|NEUTRAL_REACTION|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "small_plan",
+            "prompt": "up for lunch?",
+            "reply": "sounds good",
+            "correct": true,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "small_plan",
+            "prompt": "you around this weekend?",
+            "reply": "yeah still here",
+            "correct": false,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i took up pottery",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i'm learning to knit",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "we adopted a rabbit",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i've been gardening",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i joined a book club",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i'm painting the kitchen",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i started a podcast",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i've been walking more",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i got a keyboard",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "out_of_scope",
+            "prompt": "what is the population of brazil",
+            "reply": "no idea honestly",
+            "correct": true,
+            "policy": "P19:UNKNOWN|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "out_of_scope",
+            "prompt": "what's 23 plus 19",
+            "reply": "no idea honestly",
+            "correct": true,
+            "policy": "P19:UNKNOWN|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "out_of_scope",
+            "prompt": "who wrote hamlet",
+            "reply": "no idea honestly",
+            "correct": true,
+            "policy": "P19:UNKNOWN|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "out_of_scope",
+            "prompt": "write me an essay",
+            "reply": "no idea honestly",
+            "correct": true,
+            "policy": "P19:UNKNOWN|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "out_of_scope",
+            "prompt": "how do i install docker",
+            "reply": "not bad, you?",
+            "correct": false,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "out_of_scope",
+            "prompt": "what's the boiling point of water",
+            "reply": "that sounds rough",
+            "correct": false,
+            "policy": "P19:UNKNOWN|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          }
+        ]
+      },
+      "state": {
+        "divergence": 1.0,
+        "directional": 0.6666666666666666,
+        "replies": {
+          "day-01::positive::yeah": "that's great",
+          "day-01::negative::yeah": "that sucks",
+          "day-02::positive::i guess": "that's great",
+          "day-02::negative::i guess": "that sounds rough",
+          "work-01::positive::yeah": "that's great",
+          "work-01::negative::yeah": "that sounds rough",
+          "work-02::positive::mm": "good stuff",
+          "work-02::negative::mm": "that's great",
+          "sleep-01::positive::yeah": "that's great",
+          "sleep-01::negative::yeah": "that sounds rough",
+          "health-01::positive::mm": "that's great",
+          "health-01::negative::mm": "sorry to hear that",
+          "social-01::positive::yeah": "that's great",
+          "social-01::negative::yeah": "that sounds rough",
+          "news-01::positive::yeah": "good stuff",
+          "news-01::negative::yeah": "that's great",
+          "news-02::positive::mm": "that's great",
+          "news-02::negative::mm": "that sounds rough",
+          "home-01::positive::yeah": "that's great",
+          "home-01::negative::yeah": "that sounds rough",
+          "money-01::positive::i guess": "good stuff",
+          "money-01::negative::i guess": "that's great",
+          "study-01::positive::yeah": "that's great",
+          "study-01::negative::yeah": "can't complain then"
+        }
+      },
+      "wall_s": 1.9070624969999699
+    },
+    "S4_INF_a130": {
+      "core": {
+        "n": 120,
+        "pass_rate": 0.65,
+        "question_rate": 0.35,
+        "mean_tokens": 3.8916666666666666,
+        "distinct_reply_ratio": 0.17500000000000004,
+        "mean_model_calls": 2,
+        "mean_latency_ms": 13.40182668328301,
+        "per_intent": {
+          "greeting": 0.75,
+          "greeting_how_are_you": 0.5,
+          "how_are_you": 1.0,
+          "thanks": 0.8571428571428571,
+          "goodbye": 0.5714285714285714,
+          "apology": 0.8,
+          "good_news": 0.5714285714285714,
+          "bad_news": 0.7142857142857143,
+          "bored": 0.8,
+          "tired": 0.6,
+          "confused": 0.6,
+          "agreement": 0.4,
+          "disagreement": 0.5,
+          "user_vents": 0.5,
+          "user_jokes": 0.25,
+          "user_asks_opinion": 0.0,
+          "greeting_plus_name": 1.0,
+          "check_in": 0.6666666666666666,
+          "compliment": 0.0,
+          "small_plan": 0.6666666666666666,
+          "topic_statement": 1.0,
+          "out_of_scope": 0.6666666666666666
+        },
+        "replies": [
+          {
+            "intent": "greeting",
+            "prompt": "howdy",
+            "reply": "see you",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "hey hey",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "good evening",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "hullo",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "yo yo",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "hi there!",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "afternoon",
+            "reply": "yeah exactly",
+            "correct": false,
+            "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting",
+            "prompt": "greetings",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "howdy, how are you",
+            "reply": "not bad, you?",
+            "correct": false,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "hey how's your day going",
+            "reply": "not bad, you?",
+            "correct": false,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "hi how have you been",
+            "reply": "i'm good, how about you?",
+            "correct": true,
+            "policy": "P02:GREETING_HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "hello, all good?",
+            "reply": "i'm good, how about you?",
+            "correct": true,
+            "policy": "P02:GREETING_HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "hey you doing ok",
+            "reply": "not bad, you?",
+            "correct": false,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "yo, how's things",
+            "reply": "hey",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "good morning how are you",
+            "reply": "i'm good, how about you?",
+            "correct": true,
+            "policy": "P02:GREETING_HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_how_are_you",
+            "prompt": "hi there, you well?",
+            "reply": "i'm good, how about you?",
+            "correct": true,
+            "policy": "P02:GREETING_HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "how are things with you",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "how've you been",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "you doing ok?",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "how's your day been",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "what's new",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "all good?",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "how's everything",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "how_are_you",
+            "prompt": "you well?",
+            "reply": "not bad, you?",
+            "correct": true,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "thank you kindly",
+            "reply": "no worries",
+            "correct": true,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "thanks a bunch",
+            "reply": "no worries",
+            "correct": true,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "big thanks",
+            "reply": "no worries",
+            "correct": true,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "ta",
+            "reply": "hey",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "appreciate that",
+            "reply": "no worries",
+            "correct": true,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "thanks so much",
+            "reply": "no worries",
+            "correct": true,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "thanks",
+            "prompt": "cheers for that",
+            "reply": "no worries",
+            "correct": true,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "cya",
+            "reply": "hey",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "i'm heading out",
+            "reply": "long day?",
+            "correct": false,
+            "policy": "P09:TIRED|EMPATHIZE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "gotta run",
+            "reply": "see you",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "night night",
+            "reply": "see you",
+            "correct": true,
+            "policy": "P06:GOODBYE|CLOSE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "off to bed",
+            "reply": "see you",
+            "correct": true,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "i should go",
+            "reply": "see you",
+            "correct": true,
+            "policy": "P06:GOODBYE|CLOSE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "goodbye",
+            "prompt": "take care",
+            "reply": "hey",
+            "correct": false,
+            "policy": "P06:GOODBYE|CLOSE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "apology",
+            "prompt": "sorry for that",
+            "reply": "it's alright",
+            "correct": true,
+            "policy": "P05:APOLOGY|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "apology",
+            "prompt": "my apologies",
+            "reply": "it's alright",
+            "correct": true,
+            "policy": "P05:APOLOGY|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "apology",
+            "prompt": "that's on me",
+            "reply": "what do you mean?",
+            "correct": false,
+            "policy": "P12:CONFUSION|CLARIFY|QUESTION_PREFERRED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "apology",
+            "prompt": "sorry, my bad",
+            "reply": "it's alright",
+            "correct": true,
+            "policy": "P05:APOLOGY|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "apology",
+            "prompt": "i messed up sorry",
+            "reply": "it's alright",
+            "correct": true,
+            "policy": "P05:APOLOGY|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "i got accepted",
+            "reply": "that's great!",
+            "correct": true,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "i aced it",
+            "reply": "that's great!",
+            "correct": true,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "we got the house",
+            "reply": "that's great!",
+            "correct": true,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "i got the callback",
+            "reply": "that's great!",
+            "correct": true,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "the results were good",
+            "reply": "i see",
+            "correct": false,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "i hit my target",
+            "reply": "oh no, i'm sorry",
+            "correct": false,
+            "policy": "P11:VENTING|EMPATHIZE|NO_QUESTION|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "good_news",
+            "prompt": "i graduated",
+            "reply": "long day?",
+            "correct": false,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "i lost my grandad",
+            "reply": "oh no, i'm sorry",
+            "correct": true,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "we split up",
+            "reply": "oh no, i'm sorry",
+            "correct": true,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "i didn't get the job",
+            "reply": "oh no, i'm sorry",
+            "correct": true,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "my cat passed",
+            "reply": "oh no, i'm sorry",
+            "correct": true,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "it fell through",
+            "reply": "i see",
+            "correct": false,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "i got some bad news",
+            "reply": "oh no, i'm sorry",
+            "correct": true,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bad_news",
+            "prompt": "the results were bad",
+            "reply": "i see",
+            "correct": false,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bored",
+            "prompt": "bored as anything",
+            "reply": "same, nothing going on here",
+            "correct": true,
+            "policy": "P10:BORED|RECIPROCATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bored",
+            "prompt": "unbelievably bored",
+            "reply": "same, nothing going on here",
+            "correct": true,
+            "policy": "P10:BORED|RECIPROCATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bored",
+            "prompt": "i've got nothing to do",
+            "reply": "same, nothing going on here",
+            "correct": true,
+            "policy": "P10:BORED|RECIPROCATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "bored",
+            "prompt": "boring day",
+            "reply": "hey",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "bored",
+            "prompt": "nothing going on",
+            "reply": "same, nothing going on here",
+            "correct": true,
+            "policy": "P10:BORED|RECIPROCATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "tired",
+            "prompt": "absolutely exhausted",
+            "reply": "long day?",
+            "correct": true,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "tired",
+            "prompt": "i'm beat",
+            "reply": "what do you mean?",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "tired",
+            "prompt": "barely slept",
+            "reply": "really? i don't see it",
+            "correct": false,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "tired",
+            "prompt": "worn out",
+            "reply": "long day?",
+            "correct": true,
+            "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "tired",
+            "prompt": "i'm so tired today",
+            "reply": "long day?",
+            "correct": true,
+            "policy": "P09:TIRED|EMPATHIZE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "confused",
+            "prompt": "eh?",
+            "reply": "hey",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "confused",
+            "prompt": "i'm lost",
+            "reply": "what do you mean?",
+            "correct": true,
+            "policy": "P12:CONFUSION|CLARIFY|QUESTION_PREFERRED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "confused",
+            "prompt": "what do you mean",
+            "reply": "what do you think?",
+            "correct": false,
+            "policy": "P12:CONFUSION|CLARIFY|QUESTION_PREFERRED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "confused",
+            "prompt": "not following",
+            "reply": "what do you mean?",
+            "correct": true,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "confused",
+            "prompt": "you what",
+            "reply": "what do you mean?",
+            "correct": true,
+            "policy": "P12:CONFUSION|CLARIFY|QUESTION_PREFERRED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "agreement",
+            "prompt": "totally",
+            "reply": "hey",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "agreement",
+            "prompt": "agreed",
+            "reply": "long day?",
+            "correct": false,
+            "policy": "P09:TIRED|EMPATHIZE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "agreement",
+            "prompt": "true that",
+            "reply": "yeah exactly",
+            "correct": true,
+            "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "agreement",
+            "prompt": "spot on",
+            "reply": "see you",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "agreement",
+            "prompt": "yeah i think so too",
+            "reply": "yeah exactly",
+            "correct": true,
+            "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "disagreement",
+            "prompt": "i don't buy it",
+            "reply": "what do you think?",
+            "correct": false,
+            "policy": "P12:CONFUSION|CLARIFY|QUESTION_PREFERRED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "disagreement",
+            "prompt": "disagree",
+            "reply": "really? i don't see it",
+            "correct": true,
+            "policy": "P14:DISAGREEMENT|CLARIFY|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "disagreement",
+            "prompt": "not convinced",
+            "reply": "really? i don't see it",
+            "correct": true,
+            "policy": "P14:DISAGREEMENT|CLARIFY|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "disagreement",
+            "prompt": "i doubt it",
+            "reply": "what do you mean?",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "user_vents",
+            "prompt": "i'm at my limit",
+            "reply": "long day?",
+            "correct": false,
+            "policy": "P11:VENTING|EMPATHIZE|NO_QUESTION|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_vents",
+            "prompt": "this week has been brutal",
+            "reply": "that sounds rough",
+            "correct": true,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "user_vents",
+            "prompt": "everything keeps going wrong",
+            "reply": "that sounds rough",
+            "correct": true,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_vents",
+            "prompt": "i'm so fed up",
+            "reply": "oh no, i'm sorry",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "user_jokes",
+            "prompt": "lololol",
+            "reply": "haha",
+            "correct": true,
+            "policy": "P15:JOKE|PLAY_ALONG|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_jokes",
+            "prompt": "ha",
+            "reply": "hey",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_jokes",
+            "prompt": "that's hilarious",
+            "reply": "yeah exactly",
+            "correct": false,
+            "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_jokes",
+            "prompt": "i can't stop laughing",
+            "reply": "oh no, i'm sorry",
+            "correct": false,
+            "policy": "P11:VENTING|EMPATHIZE|NO_QUESTION|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_asks_opinion",
+            "prompt": "any thoughts",
+            "reply": "yeah exactly",
+            "correct": false,
+            "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_asks_opinion",
+            "prompt": "what's your take",
+            "reply": "not bad, you?",
+            "correct": false,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_asks_opinion",
+            "prompt": "do you think i should",
+            "reply": "yeah exactly",
+            "correct": false,
+            "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "user_asks_opinion",
+            "prompt": "reckon it's worth it",
+            "reply": "that sounds rough",
+            "correct": false,
+            "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "greeting_plus_name",
+            "prompt": "hey it's alex",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting_plus_name",
+            "prompt": "hello, me again",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "greeting_plus_name",
+            "prompt": "hi it's me!",
+            "reply": "hey",
+            "correct": true,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "check_in",
+            "prompt": "still there?",
+            "reply": "yeah still here",
+            "correct": true,
+            "policy": "P18:ACKNOWLEDGEMENT|NEUTRAL_REACTION|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "check_in",
+            "prompt": "you around?",
+            "reply": "yeah still here",
+            "correct": true,
+            "policy": "P18:ACKNOWLEDGEMENT|NEUTRAL_REACTION|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "check_in",
+            "prompt": "hey you there",
+            "reply": "hey",
+            "correct": false,
+            "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
+            "policy_source": "shortcut"
+          },
+          {
+            "intent": "compliment",
+            "prompt": "you're lovely",
+            "reply": "yeah exactly",
+            "correct": false,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "compliment",
+            "prompt": "i enjoy this",
+            "reply": "what do you mean?",
+            "correct": false,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "compliment",
+            "prompt": "you're good at this",
+            "reply": "yeah exactly",
+            "correct": false,
+            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "small_plan",
+            "prompt": "fancy a walk?",
+            "reply": "sounds good",
+            "correct": true,
+            "policy": "P18:ACKNOWLEDGEMENT|NEUTRAL_REACTION|NO_QUESTION|REACTION",
+            "policy_source": "head"
+          },
+          {
+            "intent": "small_plan",
+            "prompt": "up for lunch?",
+            "reply": "sounds good",
+            "correct": true,
+            "policy": null,
+            "policy_source": "abstain"
+          },
+          {
+            "intent": "small_plan",
+            "prompt": "you around this weekend?",
+            "reply": "yeah still here",
+            "correct": false,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i took up pottery",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i'm learning to knit",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "we adopted a rabbit",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i've been gardening",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i joined a book club",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i'm painting the kitchen",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i started a podcast",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i've been walking more",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "topic_statement",
+            "prompt": "i got a keyboard",
+            "reply": "oh nice, how's that going?",
+            "correct": true,
+            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "out_of_scope",
+            "prompt": "what is the population of brazil",
+            "reply": "no idea honestly",
+            "correct": true,
+            "policy": "P19:UNKNOWN|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "out_of_scope",
+            "prompt": "what's 23 plus 19",
+            "reply": "no idea honestly",
+            "correct": true,
+            "policy": "P19:UNKNOWN|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "out_of_scope",
+            "prompt": "who wrote hamlet",
+            "reply": "no idea honestly",
+            "correct": true,
+            "policy": "P19:UNKNOWN|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "out_of_scope",
+            "prompt": "write me an essay",
+            "reply": "no idea honestly",
+            "correct": true,
+            "policy": "P19:UNKNOWN|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "out_of_scope",
+            "prompt": "how do i install docker",
+            "reply": "not bad, you?",
+            "correct": false,
+            "policy": "P03:HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
+            "policy_source": "head"
+          },
+          {
+            "intent": "out_of_scope",
+            "prompt": "what's the boiling point of water",
+            "reply": "that sounds rough",
+            "correct": false,
+            "policy": "P19:UNKNOWN|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
+            "policy_source": "head"
+          }
+        ]
+      },
+      "state": {
+        "divergence": 1.0,
+        "directional": 0.6666666666666666,
+        "replies": {
+          "day-01::positive::yeah": "that's great",
+          "day-01::negative::yeah": "that sucks",
+          "day-02::positive::i guess": "that's great",
+          "day-02::negative::i guess": "that sounds rough",
+          "work-01::positive::yeah": "that's great",
+          "work-01::negative::yeah": "that sounds rough",
+          "work-02::positive::mm": "good stuff",
+          "work-02::negative::mm": "that's great",
+          "sleep-01::positive::yeah": "that's great",
+          "sleep-01::negative::yeah": "that sounds rough",
+          "health-01::positive::mm": "that's great",
+          "health-01::negative::mm": "sorry to hear that",
+          "social-01::positive::yeah": "that's great",
+          "social-01::negative::yeah": "that sounds rough",
+          "news-01::positive::yeah": "good stuff",
+          "news-01::negative::yeah": "that's great",
+          "news-02::positive::mm": "that's great",
+          "news-02::negative::mm": "that sounds rough",
+          "home-01::positive::yeah": "that's great",
+          "home-01::negative::yeah": "that sounds rough",
+          "money-01::positive::i guess": "good stuff",
+          "money-01::negative::i guess": "that's great",
+          "study-01::positive::yeah": "that's great",
+          "study-01::negative::yeah": "good stuff"
+        }
+      },
+      "wall_s": 1.9426817270004904
+    },
+    "ORACLE_S4_a130_s2": {
+      "core": {
+        "n": 120,
+        "pass_rate": 0.775,
+        "question_rate": 0.35833333333333334,
+        "mean_tokens": 4.016666666666667,
+        "distinct_reply_ratio": 0.19166666666666665,
+        "mean_model_calls": 7.233333333333333,
+        "mean_latency_ms": 24.22273470838263,
+        "per_intent": {
+          "greeting": 0.875,
+          "greeting_how_are_you": 0.875,
+          "how_are_you": 1.0,
+          "thanks": 0.8571428571428571,
+          "goodbye": 0.7142857142857143,
+          "apology": 0.8,
+          "good_news": 0.5714285714285714,
+          "bad_news": 0.7142857142857143,
+          "bored": 1.0,
+          "tired": 0.6,
+          "confused": 0.8,
+          "agreement": 1.0,
+          "disagreement": 0.5,
+          "user_vents": 0.5,
+          "user_jokes": 0.75,
+          "user_asks_opinion": 0.25,
+          "greeting_plus_name": 1.0,
+          "check_in": 0.6666666666666666,
+          "compliment": 0.6666666666666666,
+          "small_plan": 0.6666666666666666,
+          "topic_statement": 1.0,
+          "out_of_scope": 0.6666666666666666
+        },
+        "replies": [
+          {
+            "intent": "greeting",
+            "prompt": "howdy",
+            "reply": "see you",
             "correct": false,
             "policy": "P01:GREETING|RECIPROCATE|QUESTION_ALLOWED|VERY_SHORT",
             "policy_source": "oracle"
@@ -2159,16 +4215,16 @@
           {
             "intent": "greeting_how_are_you",
             "prompt": "howdy, how are you",
-            "reply": "i'm good, how about you?",
-            "correct": true,
+            "reply": "not bad, you?",
+            "correct": false,
             "policy": "P02:GREETING_HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
             "policy_source": "oracle"
           },
           {
             "intent": "greeting_how_are_you",
             "prompt": "hey how's your day going",
-            "reply": "not bad, you?",
-            "correct": false,
+            "reply": "i'm good, how about you?",
+            "correct": true,
             "policy": "P02:GREETING_HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
             "policy_source": "oracle"
           },
@@ -2191,8 +4247,8 @@
           {
             "intent": "greeting_how_are_you",
             "prompt": "hey you doing ok",
-            "reply": "mhm i'm good, how about you?",
-            "correct": false,
+            "reply": "i'm good, how about you?",
+            "correct": true,
             "policy": "P02:GREETING_HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
             "policy_source": "oracle"
           },
@@ -2311,7 +4367,7 @@
           {
             "intent": "thanks",
             "prompt": "ta",
-            "reply": "hey",
+            "reply": "yeah exactly",
             "correct": false,
             "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
             "policy_source": "oracle"
@@ -2391,7 +4447,7 @@
           {
             "intent": "goodbye",
             "prompt": "take care",
-            "reply": "that sounds rough",
+            "reply": "hey",
             "correct": false,
             "policy": "P06:GOODBYE|CLOSE|NO_QUESTION|VERY_SHORT",
             "policy_source": "oracle"
@@ -2415,7 +4471,7 @@
           {
             "intent": "apology",
             "prompt": "that's on me",
-            "reply": "yeah exactly",
+            "reply": "what do you mean?",
             "correct": false,
             "policy": "P05:APOLOGY|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
             "policy_source": "oracle"
@@ -2471,7 +4527,7 @@
           {
             "intent": "good_news",
             "prompt": "the results were good",
-            "reply": "fair enough",
+            "reply": "right",
             "correct": false,
             "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
             "policy_source": "oracle"
@@ -2487,8 +4543,8 @@
           {
             "intent": "good_news",
             "prompt": "i graduated",
-            "reply": "that's great!",
-            "correct": true,
+            "reply": "long day?",
+            "correct": false,
             "policy": "P07:GOOD_NEWS|CELEBRATE|QUESTION_ALLOWED|SHORT",
             "policy_source": "oracle"
           },
@@ -2511,23 +4567,23 @@
           {
             "intent": "bad_news",
             "prompt": "i didn't get the job",
-            "reply": "that sounds rough",
-            "correct": false,
+            "reply": "oh no, i'm sorry",
+            "correct": true,
             "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
             "policy_source": "oracle"
           },
           {
             "intent": "bad_news",
             "prompt": "my cat passed",
-            "reply": "I'm sorry to hear that.",
-            "correct": false,
+            "reply": "oh no, i'm sorry",
+            "correct": true,
             "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
             "policy_source": "oracle"
           },
           {
             "intent": "bad_news",
             "prompt": "it fell through",
-            "reply": "go on",
+            "reply": "i see",
             "correct": false,
             "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
             "policy_source": "oracle"
@@ -2543,7 +4599,7 @@
           {
             "intent": "bad_news",
             "prompt": "the results were bad",
-            "reply": "fair enough",
+            "reply": "i see",
             "correct": false,
             "policy": "P08:BAD_NEWS|EMPATHIZE|QUESTION_ALLOWED|SHORT",
             "policy_source": "oracle"
@@ -2615,8 +4671,8 @@
           {
             "intent": "tired",
             "prompt": "worn out",
-            "reply": "what do you mean?",
-            "correct": false,
+            "reply": "long day?",
+            "correct": true,
             "policy": "P09:TIRED|EMPATHIZE|QUESTION_ALLOWED|VERY_SHORT",
             "policy_source": "oracle"
           },
@@ -2679,8 +4735,8 @@
           {
             "intent": "agreement",
             "prompt": "agreed",
-            "reply": "see you",
-            "correct": false,
+            "reply": "yeah exactly",
+            "correct": true,
             "policy": "P13:AGREEMENT|ACKNOWLEDGE|NO_QUESTION|REACTION",
             "policy_source": "oracle"
           },
@@ -2711,7 +4767,7 @@
           {
             "intent": "disagreement",
             "prompt": "i don't buy it",
-            "reply": "see you",
+            "reply": "what do you think?",
             "correct": false,
             "policy": "P14:DISAGREEMENT|CLARIFY|QUESTION_ALLOWED|SHORT",
             "policy_source": "oracle"
@@ -2735,7 +4791,7 @@
           {
             "intent": "disagreement",
             "prompt": "i doubt it",
-            "reply": "I'm not sure what you mean.",
+            "reply": "what do you mean?",
             "correct": false,
             "policy": "P14:DISAGREEMENT|CLARIFY|QUESTION_ALLOWED|SHORT",
             "policy_source": "oracle"
@@ -2743,7 +4799,7 @@
           {
             "intent": "user_vents",
             "prompt": "i'm at my limit",
-            "reply": "see you",
+            "reply": "long day?",
             "correct": false,
             "policy": "P11:VENTING|EMPATHIZE|NO_QUESTION|SHORT",
             "policy_source": "oracle"
@@ -2799,8 +4855,8 @@
           {
             "intent": "user_jokes",
             "prompt": "i can't stop laughing",
-            "reply": "oh no, i'm sorry",
-            "correct": false,
+            "reply": "haha",
+            "correct": true,
             "policy": "P15:JOKE|PLAY_ALONG|NO_QUESTION|REACTION",
             "policy_source": "oracle"
           },
@@ -2809,8 +4865,8 @@
             "prompt": "any thoughts",
             "reply": "yeah exactly",
             "correct": false,
-            "policy": "P16:TOPIC_STATEMENT|CONTINUE|QUESTION_PREFERRED|SHORT",
-            "policy_source": "model"
+            "policy": null,
+            "policy_source": "abstain"
           },
           {
             "intent": "user_asks_opinion",
@@ -2823,15 +4879,15 @@
           {
             "intent": "user_asks_opinion",
             "prompt": "do you think i should",
-            "reply": "congratulations!",
-            "correct": false,
-            "policy": "P04:THANKS|ACKNOWLEDGE|NO_QUESTION|REACTION",
-            "policy_source": "model"
+            "reply": "what do you think?",
+            "correct": true,
+            "policy": null,
+            "policy_source": "abstain"
           },
           {
             "intent": "user_asks_opinion",
             "prompt": "reckon it's worth it",
-            "reply": "mhm!",
+            "reply": "ah thanks",
             "correct": false,
             "policy": "P18:ACKNOWLEDGEMENT|NEUTRAL_REACTION|NO_QUESTION|REACTION",
             "policy_source": "model"
@@ -2865,8 +4921,8 @@
             "prompt": "still there?",
             "reply": "yeah still here",
             "correct": true,
-            "policy": "P18:ACKNOWLEDGEMENT|NEUTRAL_REACTION|NO_QUESTION|REACTION",
-            "policy_source": "model"
+            "policy": null,
+            "policy_source": "abstain"
           },
           {
             "intent": "check_in",
@@ -2897,8 +4953,8 @@
             "prompt": "i enjoy this",
             "reply": "what do you mean?",
             "correct": false,
-            "policy": "P17:AMBIGUOUS|CLARIFY|QUESTION_PREFERRED|VERY_SHORT",
-            "policy_source": "model"
+            "policy": null,
+            "policy_source": "abstain"
           },
           {
             "intent": "compliment",
@@ -2913,8 +4969,8 @@
             "prompt": "fancy a walk?",
             "reply": "sounds good",
             "correct": true,
-            "policy": "P02:GREETING_HOW_ARE_YOU|RECIPROCATE|QUESTION_PREFERRED|SHORT",
-            "policy_source": "model"
+            "policy": null,
+            "policy_source": "abstain"
           },
           {
             "intent": "small_plan",
@@ -2927,8 +4983,8 @@
           {
             "intent": "small_plan",
             "prompt": "you around this weekend?",
-            "reply": "sounds good",
-            "correct": true,
+            "reply": "yeah still here",
+            "correct": false,
             "policy": "P18:ACKNOWLEDGEMENT|NEUTRAL_REACTION|NO_QUESTION|REACTION",
             "policy_source": "model"
           },
@@ -3039,7 +5095,7 @@
           {
             "intent": "out_of_scope",
             "prompt": "how do i install docker",
-            "reply": "You have to be a good friend.",
+            "reply": "not bad, you?",
             "correct": false,
             "policy": "P19:UNKNOWN|ACKNOWLEDGE|NO_QUESTION|VERY_SHORT",
             "policy_source": "oracle"
@@ -3055,36 +5111,36 @@
         ]
       },
       "state": {
-        "divergence": 0.75,
+        "divergence": 0.9166666666666666,
         "directional": 0.6666666666666666,
         "replies": {
-          "day-01::positive::yeah": "that's great",
+          "day-01::positive::yeah": "nice one",
           "day-01::negative::yeah": "that sucks",
-          "day-02::positive::i guess": "that's great",
-          "day-02::negative::i guess": "that sounds rough",
-          "work-01::positive::yeah": "that's great",
+          "day-02::positive::i guess": "good stuff",
+          "day-02::negative::i guess": "hopefully tomorrow's better",
+          "work-01::positive::yeah": "nice one",
           "work-01::negative::yeah": "that sounds rough",
-          "work-02::positive::mm": "that's great",
+          "work-02::positive::mm": "nice one",
           "work-02::negative::mm": "that's great",
-          "sleep-01::positive::yeah": "that's great",
+          "sleep-01::positive::yeah": "nice one",
           "sleep-01::negative::yeah": "that sounds rough",
-          "health-01::positive::mm": "that's great",
+          "health-01::positive::mm": "nice one",
           "health-01::negative::mm": "that sucks",
-          "social-01::positive::yeah": "that's great",
-          "social-01::negative::yeah": "that sounds rough",
-          "news-01::positive::yeah": "that's great",
-          "news-01::negative::yeah": "that's great",
-          "news-02::positive::mm": "that's great",
+          "social-01::positive::yeah": "good stuff",
+          "social-01::negative::yeah": "hopefully tomorrow's better",
+          "news-01::positive::yeah": "good stuff",
+          "news-01::negative::yeah": "good stuff",
+          "news-02::positive::mm": "nice one",
           "news-02::negative::mm": "that sounds rough",
-          "home-01::positive::yeah": "that's great",
+          "home-01::positive::yeah": "good stuff",
           "home-01::negative::yeah": "that sounds rough",
-          "money-01::positive::i guess": "that's great",
+          "money-01::positive::i guess": "nice one",
           "money-01::negative::i guess": "that's great",
           "study-01::positive::yeah": "that's great",
-          "study-01::negative::yeah": "can't complain then"
+          "study-01::negative::yeah": "good stuff"
         }
       },
-      "wall_s": 9.766721265000342
+      "wall_s": 6.064478633999897
     }
   }
 }

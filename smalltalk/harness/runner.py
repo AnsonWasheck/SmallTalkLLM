@@ -27,6 +27,8 @@ from dataclasses import dataclass, field
 
 import torch
 
+from pathlib import Path
+
 from ..infer.generate import GenerationConfig, generate
 from .config import HarnessConfig, MODES
 from .confidence import score as score_confidence
@@ -37,6 +39,7 @@ from .policy import (BY_ID, CONSERVATIVE, CONSERVATIVE_CLOSING, LENGTH_TOKENS,
                      POLICIES, Policy, QuestionPolicy, consistency,
                      high_confidence_shortcut)
 from .state import ConversationState
+from .steering import PrefixMap, steered_generate
 from .trace import Trace
 from . import repetition
 from .validator import validate
@@ -57,11 +60,17 @@ class Harness:
     _baselines: dict = field(default_factory=dict)
     _head: object = None
     _head_norm: object = None
+    _prefixes: object = None
+    _centroids: object = None
 
     def __post_init__(self) -> None:
+        if self.cfg.steer != "none":
+            self._prefixes = PrefixMap.load(self.cfg.prefix_map)
+            cpath = Path(self.cfg.prefix_map).with_name("centroids.pt")
+            if self.cfg.steer == "hidden" and cpath.exists():
+                self._centroids = torch.load(cpath, map_location="cpu",
+                                             weights_only=False)
         if self.cfg.policy_head:
-            from pathlib import Path
-
             import torch as _t
 
             from .head import PolicyHead
@@ -303,7 +312,31 @@ class Harness:
         if policy is not None and self.cfg.policy:
             max_new = min(max_new, LENGTH_TOKENS[policy.length] + 4)
 
-        if self.cfg.output_controls and policy is not None:
+        if self.cfg.steer != "none" and policy is not None:
+            # One steered greedy decode. The interface touches only the opening
+            # tokens; everything after is ordinary autoregressive generation.
+            kw = {}
+            if self.cfg.steer == "restrict":
+                toks = self._prefixes.tokens(policy.pid)
+                if toks:
+                    kw["allowed_first"] = toks
+            elif self.cfg.steer == "bias":
+                w = self._prefixes.weights(policy.pid)
+                if w:
+                    kw.update(bias=w, bias_steps=self.cfg.steer_steps,
+                              bias_scale=self.cfg.steer_scale)
+            elif self.cfg.steer == "hidden" and self._centroids is not None:
+                v = self._centroids.get(policy.pid)
+                if v is not None:
+                    kw.update(hidden_vec=v, hidden_steps=self.cfg.steer_steps,
+                              hidden_alpha=self.cfg.steer_alpha)
+            out = steered_generate(self.model, self.tokenizer, prompt_ids,
+                                   self.gen.with_(max_new_tokens=max_new),
+                                   device=self.device, **kw)
+            self._calls += 1
+            reply = self.tokenizer.decode(out).strip()
+            tr.candidates = [reply]
+        elif self.cfg.output_controls and policy is not None:
             cands = self._candidates(prompt_ids, max_new, self.cfg.n_candidates)
             tr.candidates = cands
             # Consistency-based selection is only applied when the policy is
