@@ -1,10 +1,8 @@
 cff-version: 1.2.0
-title: "smalltalk-ai"
-message: "If this repository helps your work, please cite the repository and the specific release tag."
+title: SmallTalkLLM
+message: "If you use this project, please cite it as below."
 type: software
 authors:
-  - name: "smalltalk-ai contributors"
-date-released: 2026-08-19
-version: 0.1.0
+  - family-names: Washeck
+    given-names: Anson
 repository-code: "https://github.com/AnsonWasheck/SmallTalkLLM"
-license: MIT
