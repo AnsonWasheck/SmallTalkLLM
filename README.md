@@ -1,6 +1,6 @@
 # smalltalk-ai
 
-**A research repository for finding the smallest language model that can sustain natural, casual one-on-one conversation.**
+**SmallTalkLLM is an experimental small-language-model research project created and maintained by Anson Washeck.**
 
 `smalltalk-ai` is an open, reproducible attempt to study social fluency at very small parameter counts. The project deliberately does not optimize for factual knowledge, mathematics, coding, tool use, long-form writing, or general assistant behavior. The target is ordinary conversation: acknowledgement, emotional reaction, nearby memory, follow-up questions, topic drift, repair, light humor, and natural goodbyes.
 
