@@ -333,3 +333,31 @@ def test_referent_substitution_is_conservative():
     # and must never invent when the reply has no bank noun either
     out, changed = substitute_referent("oh no", "i got a new dog", BANKS)
     assert not changed
+
+
+def test_noun_banks_are_well_formed():
+    """A string-edit once left '.split()sister' as a bank entry, which silently
+    removed 'sister' from referent lookup."""
+    from smalltalk.core.frame_gen import BANKS
+    for slot, bank in BANKS.items():
+        for w in bank:
+            assert w.isalpha(), f"{slot}: malformed entry {w!r}"
+
+
+def test_render_ref_prefers_the_subject_over_the_last_word():
+    from smalltalk.harness.steering import render_ref
+    out, ok = render_ref("how's your <|ref|> doing?", "my sister is visiting")
+    assert ok and out == "how's your sister doing?"
+
+
+def test_render_ref_fixes_the_article():
+    from smalltalk.harness.steering import render_ref
+    out, _ = render_ref("what kind of a <|ref|>?", "i got a new axolotl")
+    assert "an axolotl" in out
+
+
+def test_render_ref_declines_when_there_is_no_referent():
+    """A well-formed question about nothing is worse than a generic reaction."""
+    from smalltalk.harness.steering import render_ref
+    out, ok = render_ref("how was <|ref|>?", "yeah")
+    assert not ok and out == ""

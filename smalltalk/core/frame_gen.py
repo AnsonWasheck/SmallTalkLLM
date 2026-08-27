@@ -42,6 +42,7 @@ from dataclasses import dataclass, field
 from typing import Iterator
 
 from ..data.schema import Conversation, Turn
+from ..tokenizer import REF
 
 FRAME_GEN_VERSION = "frame-gen-v0.4.0"
 
@@ -120,7 +121,7 @@ birding stargazing metalwork modelling gaming coding
 dancing singing drumming piano guitar violin
 pilates spinning weightlifting stretching walking jogging""".split()
 
-RELATIONS = """.split()sister brother cousin nephew niece aunt uncle mum dad flatmate
+RELATIONS = """sister brother cousin nephew niece aunt uncle mum dad flatmate
 neighbour colleague friend partner grandad grandma godmother godfather
 stepsister stepbrother stepmum stepdad sisterinlaw brotherinlaw
 housemate roommate landlord tenant workmate teammate classmate
@@ -235,6 +236,9 @@ class FrameConfig:
     # nearly half the training signal demanded something impossible -- and a
     # model asked to do the impossible learns to hedge instead.
     allowed_nouns: dict | None = None
+    # Emit "<|ref|>" in replies instead of the literal noun. The model then only
+    # has to learn WHERE the referent goes, not how to copy it.
+    use_ref_token: bool = True
 
 
 ACKS = ("mm", "right", "i see", "yeah?", "oh nice", "fair enough")
@@ -255,14 +259,17 @@ def generate(cfg: FrameConfig | None = None) -> Iterator[Conversation]:
         pool = nouns[f.slot]
         n = r.choice(pool)
         msgs: list[Turn] = []
+        # The user turn always carries the real noun; only the REPLY is
+        # abstracted. The model must still recognise that a referent exists.
         msgs.append(Turn("user", r.choice(f.user).format(n=n)))
+        slot = REF if cfg.use_ref_token else n
         # The elaboration: the reply reuses the referent. Sampled without reuse
         # inside a conversation so the model does not learn one frozen follow-up.
         used: set[str] = set()
         options = [t for t in f.reply if t not in used]
         target = r.choice(options)
         used.add(target)
-        msgs.append(Turn("assistant", f"<|len_short|> {target.format(n=n)}"))
+        msgs.append(Turn("assistant", f"<|len_short|> {target.format(n=slot)}"))
 
         for _ in range(r.randint(1, cfg.follow_turns)):
             msgs.append(Turn("user", r.choice(
@@ -272,7 +279,7 @@ def generate(cfg: FrameConfig | None = None) -> Iterator[Conversation]:
             if opts and r.random() < 0.45:
                 t = r.choice(opts)
                 used.add(t)
-                msgs.append(Turn("assistant", f"<|len_short|> {t.format(n=n)}"))
+                msgs.append(Turn("assistant", f"<|len_short|> {t.format(n=slot)}"))
             else:
                 msgs.append(Turn("assistant", r.choice(ACKS + CLOSERS)))
 

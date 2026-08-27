@@ -39,8 +39,8 @@ from .policy import (BY_ID, CONSERVATIVE, CONSERVATIVE_CLOSING, LENGTH_TOKENS,
                      POLICIES, Policy, QuestionPolicy, consistency,
                      high_confidence_shortcut)
 from .state import ConversationState
-from .steering import (PrefixMap, referent_tokens, steered_generate,
-                       substitute_referent)
+from .steering import (PrefixMap, referent_tokens, render_ref,
+                       steered_generate, substitute_referent)
 from .trace import Trace
 from . import repetition
 from .validator import validate
@@ -103,6 +103,26 @@ class Harness:
     @property
     def device(self):
         return next(self.model.parameters()).device
+
+    def _decode(self, ids) -> str:
+        """Decode while PRESERVING <|ref|>.
+
+        The default decoder strips special tokens, which would delete the
+        placeholder before the harness ever sees it -- the model would mark the
+        slot correctly and the harness would render nothing. Length-policy
+        tokens are stripped here instead, since they are instructions to the
+        harness rather than output.
+        """
+        from ..tokenizer import REF, SPECIAL_TOKENS
+
+        text = self.tokenizer.decode(ids, skip_special=False)
+        # Preserve ONLY <|ref|>. Keeping every special leaked role headers like
+        # <|assistant|> into replies and broke A_RAW's byte-identity with the
+        # bare engine; length tokens are instructions to the harness, not output.
+        for t in SPECIAL_TOKENS:
+            if t != REF:
+                text = text.replace(t, "")
+        return text.strip()
 
     def _encode(self, messages: list[dict]) -> list[int]:
         ids, _ = self.tokenizer.encode_conversation(
@@ -183,7 +203,7 @@ class Harness:
                            self.gen.with_(max_new_tokens=max(1, max_new - 1)),
                            device=self.device)
             self._calls += 1
-            text = self.tokenizer.decode([tok] + sub).strip()
+            text = self._decode([tok] + sub)
             if text and text not in outs:
                 outs.append(text)
         return outs
@@ -321,7 +341,7 @@ class Harness:
                 bias=rb, bias_steps=self.cfg.referent_steps,
                 bias_scale=self.cfg.referent_bias)
             self._calls += 1
-            reply = self.tokenizer.decode(out).strip()
+            reply = self._decode(out)
             tr.candidates = [reply]
         elif self.cfg.avoid_repeats:
             # Ask the model for several openings and take its own top choice that
@@ -357,7 +377,7 @@ class Harness:
                                    self.gen.with_(max_new_tokens=max_new),
                                    device=self.device, **kw)
             self._calls += 1
-            reply = self.tokenizer.decode(out).strip()
+            reply = self._decode(out)
             tr.candidates = [reply]
         elif self.cfg.output_controls and policy is not None:
             cands = self._candidates(prompt_ids, max_new, self.cfg.n_candidates)
@@ -384,7 +404,7 @@ class Harness:
             out = generate(self.model, self.tokenizer, prompt_ids,
                            self.gen.with_(max_new_tokens=max_new), device=self.device)
             self._calls += 1
-            reply = self.tokenizer.decode(out).strip()
+            reply = self._decode(out)
         tr.generation = reply
 
         # --- validation ---------------------------------------------------
@@ -407,6 +427,12 @@ class Harness:
                                             recent=recent,
                                             closing=self.state.conversation_closing
                                             ).as_dict()
+
+        if self.cfg.render_ref:
+            rendered, did = render_ref(reply, user_text)
+            if did or rendered != reply:
+                tr.validator = {**tr.validator, "ref_rendered": did}
+                reply = rendered
 
         if self.cfg.fix_referent:
             from ..core.frame_gen import BANKS

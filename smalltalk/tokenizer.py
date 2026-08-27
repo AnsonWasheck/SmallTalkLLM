@@ -39,7 +39,24 @@ LEN_SHORT = "<|len_short|>"
 LEN_MEDIUM = "<|len_medium|>"
 LENGTH_TOKENS = [LEN_REACTION, LEN_VSHORT, LEN_SHORT, LEN_MEDIUM]
 
-SPECIAL_TOKENS = [PAD, BOS, EOS, SYSTEM, USER, ASSISTANT, ENDOFTURN, *LENGTH_TOKENS]
+# Referent placeholder. The model marks WHERE the user's word belongs; the
+# harness renders WHICH word it is.
+#
+# Measured justification: elaboration succeeded on 11% of one-token referents and
+# 0 of 29 multi-token ones -- copying a span like "bricklayer" is beyond eight
+# layers with one KV head. Restricting the curriculum to copyable nouns is not an
+# option either, since only 28 of 402 bank nouns are single-token and no place
+# name is. Emitting a single placeholder token is trivially learnable, and it
+# generalises to any noun including ones never seen, because the model never
+# needs to know the word at all.
+#
+# Declared as a special so the BPE trainer allocates it inside the 4096 budget:
+# vocabulary size is unchanged and the model stays at exactly 6,689,024
+# parameters. It costs one displaced merge.
+REF = "<|ref|>"
+
+SPECIAL_TOKENS = [PAD, BOS, EOS, SYSTEM, USER, ASSISTANT, ENDOFTURN,
+                  *LENGTH_TOKENS, REF]
 
 ROLE_TOKENS = {"system": SYSTEM, "user": USER, "assistant": ASSISTANT}
 

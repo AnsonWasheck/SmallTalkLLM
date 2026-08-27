@@ -218,13 +218,32 @@ def test_frame_nouns_are_split_and_bench_words_blocked():
         assert len(held[slot]) >= 1
 
 
-def test_frame_generator_reuses_the_noun_it_was_given():
+def test_frame_generator_marks_the_referent_slot():
+    """Replies carry <|ref|>, not the literal noun.
+
+    The model cannot copy a multi-token span (0 of 29 measured), so it learns
+    WHERE the referent goes and the harness supplies WHICH word. The user turn
+    still carries the real noun -- the model must recognise a referent exists.
+    """
     from smalltalk.core.frame_gen import FrameConfig, generate
+    from smalltalk.tokenizer import REF
     convs = list(generate(FrameConfig(n=400)))
-    reuse = sum(1 for c in convs for m in c.messages
-                if m.role == "assistant" and c.meta["noun"] in m.content)
+    marked = sum(1 for c in convs for m in c.messages
+                 if m.role == "assistant" and REF in m.content)
     total = sum(1 for c in convs for m in c.messages if m.role == "assistant")
-    assert reuse / total > 0.5, "most elaborations should name the referent"
+    assert marked / total > 0.5, "most elaborations should mark a referent slot"
+    # and the user side must still name the thing
+    assert all(c.meta["noun"] in " ".join(m.content for m in c.messages
+                                          if m.role == "user")
+               for c in convs[:50])
+
+
+def test_frame_generator_can_still_emit_literal_nouns():
+    """The literal mode is the control for measuring what <|ref|> bought."""
+    from smalltalk.core.frame_gen import FrameConfig, generate
+    from smalltalk.tokenizer import REF
+    convs = list(generate(FrameConfig(n=200, use_ref_token=False)))
+    assert not any(REF in m.content for c in convs for m in c.messages)
 
 
 def test_held_out_nouns_never_appear_in_training_output():

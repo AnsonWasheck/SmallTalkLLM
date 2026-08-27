@@ -42,6 +42,7 @@ _STOP = {
     "here", "again", "still", "too", "then", "now", "one", "new", "much",
 }
 _WORD_RE = __import__("re").compile(r"[a-z']+")
+REF_TOKEN = "<|ref|>"
 
 
 def referent_tokens(text: str, tokenizer, max_words: int = 3) -> dict[int, float]:
@@ -66,6 +67,41 @@ def referent_tokens(text: str, tokenizer, max_words: int = 3) -> dict[int, float
             for tid in tokenizer.encode(form):
                 bias[tid] = max(bias.get(tid, 0.0), weight)
     return bias
+
+
+def render_ref(reply: str, user_text: str, fallback: str = "") -> tuple[str, bool]:
+    """Replace the model's <|ref|> placeholder with the user's actual words.
+
+    The model has marked WHERE the referent belongs; extracting WHICH word that
+    is, is exact string work. This is the same division as everywhere else in the
+    harness, made explicit in the vocabulary instead of guessed at afterwards.
+
+    Unlike substitute_referent, this never has to decide WHETHER to fire: the
+    model asked for a referent. If the user's turn contains no usable content
+    word, the reply is discarded rather than rendered with a wrong noun, because
+    a well-formed question about nothing is worse than a generic reaction.
+    """
+    if REF_TOKEN not in reply:
+        return reply, False
+    ws = [w for w in _WORD_RE.findall(user_text.lower())
+          if w not in _STOP and len(w) > 2]
+    if not ws:
+        return fallback, False
+
+    # Prefer a known bank noun over positional guessing. Taking the last content
+    # word gave "my sister is visiting" -> "how's your visiting doing?": the
+    # referent is the subject, not the final word. Bank membership identifies it
+    # exactly when the subject is one we know; position is only the fallback.
+    from ..core.frame_gen import BANKS
+
+    known = {w for bank in BANKS.values() for w in bank}
+    picked = next((w for w in ws if w in known), ws[-1])
+
+    out = reply.replace(REF_TOKEN, picked)
+    # "a axolotl" -> "an axolotl". The model cannot know the article in advance
+    # because it does not know the word; the harness does.
+    out = __import__("re").sub(r"\ba (?=[aeiou])", "an ", out)
+    return out, True
 
 
 def substitute_referent(reply: str, user_text: str, banks: dict[str, list[str]]

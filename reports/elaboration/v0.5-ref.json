@@ -1,0 +1,53 @@
+{
+  "checksum": "183056e1a9438487",
+  "elaboration_rate": 0.0,
+  "elaboration_known": 0.0,
+  "elaboration_unknown": 0.0,
+  "false_elaboration_rate": 0.0,
+  "hedge_rate": 0.2,
+  "composite": -0.05,
+  "known_breakdown": {
+    "OTHER": 7,
+    "HEDGE": 4,
+    "GENERIC": 7
+  },
+  "unknown_breakdown": {
+    "OTHER": 5,
+    "HEDGE": 2,
+    "GENERIC": 5
+  },
+  "tag": "v0.5-ref",
+  "checkpoint": "artifacts/snapshots/v0.5-ref",
+  "replies": {
+    "work-1::i'm a nurse": "how long have you been a ?",
+    "work-2::i started a new job": "oh nice, how's that going?",
+    "work-3::work has been really busy": "oh no, i'm sorry",
+    "pet-1::i got a new dog": "what kind of ?",
+    "pet-2::my cat keeps waking me up": "oh no, i'm sorry",
+    "study-1::i've got exams next week": "that's great!",
+    "study-2::i signed up for an evening course": "that's great!",
+    "travel-1::we went to italy": "how long were you in ?",
+    "travel-2::i'm off to scotland next month": "oh nice, how's that going?",
+    "health-1::i've been feeling run down": "that's hard going",
+    "sleep-1::i barely slept last night": "that's hard going",
+    "home-1::we're redecorating the kitchen": "oh nice, how's that going?",
+    "hobby-1::i've been learning guitar": "oh nice, how's that going?",
+    "hobby-2::i've taken up jogging": "how long have you been ?",
+    "food-1::i made bread from scratch": "how long were you in ?",
+    "family-1::my sister is visiting": "how's your  doing?",
+    "money-1::the bills came in higher than usual": "that's hard going",
+    "social-1::i saw an old friend yesterday": "Oh that's cool. What was the reason?",
+    "car-1::my car broke down on the motorway": "Oh no! Did you have to do anything to it?",
+    "legal-1::i've got jury duty next week": "how long have you been a ?",
+    "dental-1::i had a root canal this morning": "oh nice, how's that going?",
+    "admin-1::my passport application got rejected": "oh no, i'm sorry",
+    "plumb-1::the boiler packed in again": "that's hard going",
+    "wedding-1::my cousin's wedding is on saturday": "oh nice, how's that going?",
+    "tech-1::my laptop screen cracked": "oh no, i'm sorry",
+    "insure-1::the insurance claim went through": "that's great",
+    "neighbour-1::the neighbours were arguing all night": "Oh no! I hope it wasn't too bad.",
+    "parking-1::i got a parking ticket": "what's the  like?",
+    "delivery-1::the delivery never turned up": "that's a pain",
+    "bank-1::the bank froze my account": "Oh no! That is terrible."
+  }
+}

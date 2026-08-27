@@ -90,16 +90,20 @@ def main() -> int:
     print(f"[core] {len(core):,} reflex examples")
 
     # Restrict frame nouns to ones the model can actually copy (see FrameConfig).
-    from smalltalk.core.frame_gen import noun_split
-    from smalltalk.tokenizer import SmallTalkTokenizer
-    _tok = SmallTalkTokenizer.load(args.tokenizer)
-    _tr, _ = noun_split()
-    allowed = {slot: [w for w in ws if len(_tok.encode(" " + w)) <= args.max_noun_tokens]
-               for slot, ws in _tr.items()}
-    kept = sum(len(v) for v in allowed.values())
-    total = sum(len(v) for v in _tr.values())
-    print(f"[frames] {kept}/{total} training nouns are <= {args.max_noun_tokens} "
-          f"token(s) and therefore copyable")
+    # The tokenizer is only needed for the (disabled by default) copyable-noun
+    # filter, and loading it unconditionally created a chicken-and-egg problem:
+    # the corpus is what the tokenizer is trained on.
+    allowed = None
+    if args.max_noun_tokens < 50:
+        from smalltalk.core.frame_gen import noun_split
+        from smalltalk.tokenizer import SmallTalkTokenizer
+        _tok = SmallTalkTokenizer.load(args.tokenizer)
+        _tr, _ = noun_split()
+        allowed = {slot: [w for w in ws if len(_tok.encode(" " + w)) <= args.max_noun_tokens]
+                   for slot, ws in _tr.items()}
+        print(f"[frames] {sum(len(v) for v in allowed.values())}/"
+              f"{sum(len(v) for v in _tr.values())} nouns are <= "
+              f"{args.max_noun_tokens} token(s)")
     frames = list(frame_generate(FrameConfig(n=args.frames, seed=args.seed,
                                              allowed_nouns=allowed)))
     reuse = sum(1 for c in frames for m in c.messages

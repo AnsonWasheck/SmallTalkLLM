@@ -25,6 +25,9 @@ def main() -> int:
     ap.add_argument("--out", default="reports/elaboration")
     ap.add_argument("--freeze", action="store_true")
     ap.add_argument("--show", action="store_true")
+    ap.add_argument("--mode", default=None,
+                    help="harness mode; required for <|ref|> models, since the "
+                         "bare engine strips the placeholder before scoring")
     args = ap.parse_args()
 
     if args.freeze:
@@ -34,7 +37,17 @@ def main() -> int:
 
     gen = GenerationConfig(temperature=0.0, top_p=1.0, top_k=0, greedy=True,
                            repetition_penalty=1.0, max_new_tokens=20, seed=0)
-    e = load_engine(args.checkpoint, args.tokenizer, device=args.device, gen=gen)
+
+    if args.mode:
+        from smalltalk.harness import Harness, MODES
+        from smalltalk.model import SmallTalkModel
+        from smalltalk.tokenizer import SmallTalkTokenizer
+        model = SmallTalkModel.from_pretrained(args.checkpoint,
+                                               device=args.device).eval()
+        tok = SmallTalkTokenizer.load(args.tokenizer)
+        e = Harness(model=model, tokenizer=tok, cfg=MODES[args.mode], gen=gen)
+    else:
+        e = load_engine(args.checkpoint, args.tokenizer, device=args.device, gen=gen)
 
     replies = {}
     for s in eb.SCENARIOS:

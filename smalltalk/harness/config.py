@@ -53,6 +53,11 @@ class HarnessConfig:
     # Substitute the user's own referent into a well-formed frame the model
     # filled with the wrong bank-mate. Exact string work; see steering.py.
     fix_referent: bool = False
+    # Render the model's <|ref|> placeholder from the user's own turn. OFF by
+    # default: defaulting it to True silently broke A_RAW's byte-identity with
+    # unmodified inference, and that invariant is what makes every ablation
+    # number attributable to a mechanism.
+    render_ref: bool = False
 
     avoid_repeats: bool = False
     repeat_window: int = 4
@@ -84,6 +89,10 @@ MODES: dict[str, HarnessConfig] = {
     # Referent biasing alone, so its contribution is separable.
     "E_REFERENT": HarnessConfig(name="E_REFERENT", referent_bias=3.0),
     "E_FIXREF": HarnessConfig(name="E_FIXREF", fix_referent=True),
+    "E_REF_TOKEN": HarnessConfig(name="E_REF_TOKEN", render_ref=True),
+    "E_REF_FULL": HarnessConfig(name="E_REF_FULL", render_ref=True,
+                                avoid_repeats=True,
+                                output_controls=True, repetition_control=True),
     "E_FIXREF_NOREPEAT": HarnessConfig(name="E_FIXREF_NOREPEAT", fix_referent=True,
                                        avoid_repeats=True, output_controls=True,
                                        repetition_control=True),
