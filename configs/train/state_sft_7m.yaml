@@ -3,7 +3,7 @@
 run_name: state-sft-7m
 stage: sft
 model_config: configs/model/smalltalk-7m.yaml
-tokenizer: artifacts/state/tokenizer-4096
+tokenizer: artifacts/ref/tokenizer-4096
 train_data: data/state/sft_train.jsonl
 val_data: data/state/sft_val.jsonl
 output_dir: artifacts/runs

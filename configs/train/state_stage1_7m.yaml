@@ -4,7 +4,7 @@
 run_name: state-stage1-7m
 stage: clm
 model_config: configs/model/smalltalk-7m.yaml
-tokenizer: artifacts/state/tokenizer-4096
+tokenizer: artifacts/ref/tokenizer-4096
 train_data: data/state/pretrain_train.jsonl
 val_data: data/state/pretrain_val.jsonl
 output_dir: artifacts/runs

@@ -47,11 +47,14 @@ HEARTBEAT = LOOP / "heartbeat"
 # The ladder now walks the ELABORATION axis: how much frame data, and how long,
 # does it take before the model copies the referent instead of hedging across the
 # noun bank. One variable per rung.
+# Rounds are capped at 4000 SFT steps: the 8000-step rungs (F3, F4) scored WORSE
+# than the 4000-step ones, so longer training bought nothing here and the time is
+# better spent on more, differently-shaped experiments.
 LADDER = [
-    {"name": "F1-frames-24k",  "state": 30000, "core": 16000, "frames": 24000, "sft_steps": 4000},
-    {"name": "F2-frames-40k",  "state": 24000, "core": 12000, "frames": 40000, "sft_steps": 4000},
-    {"name": "F3-frames-long", "state": 24000, "core": 12000, "frames": 40000, "sft_steps": 8000},
-    {"name": "F4-frames-heavy","state": 16000, "core": 12000, "frames": 60000, "sft_steps": 8000},
+    {"name": "R1-ref-40k",     "state": 30000, "core": 16000, "frames": 40000, "sft_steps": 4000},
+    {"name": "R2-ref-60k",     "state": 24000, "core": 12000, "frames": 60000, "sft_steps": 4000},
+    {"name": "R3-ref-balanced","state": 36000, "core": 20000, "frames": 40000, "sft_steps": 4000},
+    {"name": "R4-ref-heavy",   "state": 20000, "core": 12000, "frames": 80000, "sft_steps": 4000},
 ]
 
 DEFAULT_STATE = {
@@ -168,18 +171,21 @@ def one_round(state: dict) -> dict:
 
     ckpt = ROOT / "artifacts" / "runs" / tag / "best"
     if run(rocm("scripts/eval_state.py", "--checkpoint", str(ckpt),
-                "--tokenizer", "artifacts/state/tokenizer-4096",
+                "--tokenizer", "artifacts/ref/tokenizer-4096",
                 "--tag", tag, "--quiet"), rd / "state_eval.log") != 0:
         entry["status"] = "state_eval_failed"
         return entry
+    # --mode is REQUIRED: part of the elaboration behaviour now lives in the
+    # harness, and the bare engine strips <|ref|> before scoring.
     run(rocm("scripts/eval_elaboration.py", "--checkpoint", str(ckpt),
-             "--tokenizer", "artifacts/state/tokenizer-4096",
+             "--tokenizer", "artifacts/ref/tokenizer-4096",
+             "--mode", "E_REF_TOKEN",
              "--tag", tag), rd / "elab_eval.log")
     run(rocm("scripts/eval_variety.py", "--checkpoint", str(ckpt),
-             "--tokenizer", "artifacts/state/tokenizer-4096",
+             "--tokenizer", "artifacts/ref/tokenizer-4096",
              "--tag", tag), rd / "variety_eval.log")
     run(rocm("scripts/eval_core.py", "--checkpoint", str(ckpt),
-             "--tokenizer", "artifacts/state/tokenizer-4096",
+             "--tokenizer", "artifacts/ref/tokenizer-4096",
              "--tag", tag), rd / "core_eval.log")
 
     sb = json.loads((ROOT / "reports" / "state" / f"{tag}.json").read_text())
